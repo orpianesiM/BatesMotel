@@ -9,5 +9,8 @@
         <module name="BatesMotelLabIII" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="BatesMotelLabIII" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
