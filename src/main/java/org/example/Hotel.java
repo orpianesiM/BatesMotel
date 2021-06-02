@@ -27,6 +27,11 @@ public class Hotel
 
     }
 
+    public void setOpen(boolean open)
+    {
+        isOpen = open;
+    }
+
 
     public int roomAmount()
     {
@@ -118,7 +123,7 @@ public class Hotel
 
     }
 
-    public Passenger searchPassenger(String dniBuscado)
+    public Passenger getPassenger(String dniBuscado)
     {
         if (userList != null)
         {
@@ -129,12 +134,25 @@ public class Hotel
                     return (Passenger)variable;
                 }
             }
-
-            return null;
         }
-        else
             return null;
     }
+
+    public Room getRoom (int roomNumber)
+    {
+        if (roomList != null)
+        {
+            for (Room variable : roomList)
+            {
+                if (variable.getRoomNumber == roomNumber)
+                {
+                    return variable;
+                }
+            }
+        }
+            return null;
+    }
+
 
     public boolean checkDateAvailability(LocalDateTime lookedDate)
     {
@@ -157,15 +175,17 @@ public class Hotel
 
     }
 
-    public boolean changeRoomAvailability(Room roomChanged)
+    public void changeRoomAvailability(Room roomChanged)
     {
+        if ((roomChanged.getIsAvailable) == true)
+        {
+            roomChanged.setAvailable(false);
+        }
+        else
+            roomChanged.setAvailable(true);
 
     }
 
-    public void setOpen(boolean open)
-    {
-        isOpen = open;
-    }
 
     public boolean checkIn(Booking booking)
     {
@@ -176,8 +196,8 @@ public class Hotel
                 if (booking.getBookedRoom.equals(variable))
                 {
                     variable.setAvailable(false);
-                    variable.setGuest (booking.getPassenger);
-                    variable.setSpentMoney (0);
+
+                    booking.setState(ON_CURRENCY);
                 }
 
             }
@@ -189,26 +209,20 @@ public class Hotel
 
     }
 
-    public boolean checkOut (Room roomCheckedOut)
+    public boolean checkOut (Booking booking)
     {
         if (roomList != null)
         {
             for (Room variable : roomList)
             {
-                if (roomCheckedOut.equals(variable))
+                if (booking.getBookedRoom.equals(variable))
                 {
                     variable.setAvailable(true);
-                    variable.setGuest(null);
-                    variable.setSpentMoney(0);
 
-                    /*
-                    Habría que ver como incluir la impresión del ticket en el checkout
-                    * */
-
+                    booking.setState(FINISHED);
                 }
 
             }
-
 
         }
     }
