@@ -1,10 +1,33 @@
 package org.example;
 
-public class Passenger {
+public class Passenger extends User
+{
+    private String origin, originAdress;
 
-    private String origin;
-    private String originAddress;
+    public Passenger(String name, String lastName, String dni, String email, String user, String password, int phoneNumber, String origin, String originAdress)
+    {
+        super(name, lastName, dni, email, user, password, phoneNumber);
+        this.origin = origin;
+        this.originAdress = originAdress;
+    }
 
-    public Passenger() {
+    public Passenger(String origin, String originAdress)
+    {
+        this.origin = origin;
+        this.originAdress = originAdress;
+    }
+
+    public Passenger ()
+    {}
+
+
+    @Override
+    public String toString()
+    {
+        return "Passenger{" +
+                "origin='" + origin + '\'' +
+                ", originAdress='" + originAdress + '\'' +
+                "} " + super.toString();
+
     }
 }
