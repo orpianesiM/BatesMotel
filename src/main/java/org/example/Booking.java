@@ -1,33 +1,72 @@
 package org.example;
 
+import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
+
+
 
 public class Booking {
 
-    private UUID bookingId ;
+    private String bookingId ; // id unico de 12 caracteres
     private Passenger bookingPassenger;
-    private Room bookedRoom; // cambiar por roomNumber
+    private Room bookedRoom;
+    private BookingState bookingState;  // ir seteando de acuerdo a la fecha
     private LocalDateTime checkInDate;
     private LocalDateTime checkOutDate;
-    // booking number consultar
+    private int reservedDays;
+    private double spentMoney;
 
 
-    public Booking(Passenger bookingPassenger , Room bookedRoom, LocalDateTime checkInDate, LocalDateTime checkOutDate) {
+
+    public Booking(Passenger bookingPassenger , Room bookedRoom, String checkInDate, String checkOutDate, BookingState bookingState, int reservedDays) {
         this.bookingPassenger= bookingPassenger;
         this.bookedRoom = bookedRoom;
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
+        this.bookingState=bookingState;
+        this.checkInDate = stringToLocalDateTime(checkInDate);  // conversion de String a LocalDateTime
+        this.checkOutDate = stringToLocalDateTime(checkOutDate);
+        this.bookingId= shortUUID();
+        this.spentMoney= reservedDays * bookedRoom.getRoomType().getValue();   //inicia con el valor por noche de la habitacion multiplicado por la cantidad de dias que se hospeda
+
     }
 
     public Booking() {
     }
 
-    public UUID getBookingId() {
+    // hacer metodo para generar ticket en el checkout
+
+
+    public static String shortUUID() {
+        UUID uuid = UUID.randomUUID();
+        long l = ByteBuffer.wrap(uuid.toString().getBytes()).getLong();
+        return Long.toString(l, Character.MAX_RADIX);
+    }
+
+    public static LocalDateTime stringToLocalDateTime (String date){
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        LocalDateTime formatDateTime = LocalDateTime.parse(date, formatter);
+
+        return formatDateTime;  // agregar .format(formatter) en el toString
+
+    }
+
+
+    public BookingState getBookingState() {
+        return bookingState;
+    }
+
+    public void setBookingState(BookingState bookingState) {
+        this.bookingState = bookingState;
+    }
+
+    public String getBookingId() {
         return bookingId;
     }
 
-    public void setBookingId(UUID bookingId) {
+    public void setBookingId(String bookingId) {
         this.bookingId = bookingId;
     }
 

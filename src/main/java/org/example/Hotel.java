@@ -30,20 +30,20 @@ public class Hotel {
     }
 
 
-    public Booking makeBooking ( LocalDateTime checkIn, LocalDateTime checkOut,  RoomType roomType, Passenger bookingPassenger ){
+    public Booking makeBooking ( String checkIn, String checkOut,  RoomType roomType, Passenger bookingPassenger ){
 
 
-        Room newRoom = verifyBooking(checkIn, checkOut, roomType);
+        Room newRoom = verifyBooking(Booking.stringToLocalDateTime(checkIn), Booking.stringToLocalDateTime(checkOut), roomType);
         if (newRoom != null){
             Booking newBooking = new Booking();
-            newBooking.setCheckInDate(checkIn);
-            newBooking.setCheckOutDate(checkOut);
+            newBooking.setCheckInDate(Booking.stringToLocalDateTime(checkIn));
+            newBooking.setCheckOutDate(Booking.stringToLocalDateTime(checkOut));
             newBooking.setBookedRoom(newRoom);
             newBooking.setBookingPassenger(bookingPassenger);
 
             insertBooking(newBooking);
 
-            return newBooking; // pensar si es boolean
+            return newBooking;
         }
 
         return null; // avisar en main si el retorno es null para saber que no se hizo la reserva
@@ -56,13 +56,13 @@ public class Hotel {
     }
 
 
-    public Booking searchBooking (String passengerDni){
+   /* public Booking searchBooking (String passengerDni){
 
         for (Booking booking : bookingList ) {
 
            // if ()   // comparo dni
         }
-    }
+    }*/
 
 
 }
