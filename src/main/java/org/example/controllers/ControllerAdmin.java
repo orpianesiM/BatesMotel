@@ -1,5 +1,7 @@
 package org.example.controllers;
 
+import org.example.*;
+
 import java.util.Scanner;
 
 public class ControllerAdmin {
@@ -277,8 +279,8 @@ public class ControllerAdmin {
     private static void controllerPassengersAdd(Hotel hotel){
         Passenger passengerNew;
         boolean add = false;
-        String controller = null, controllerAdd, name, lastName, email;
-        Integer dni, phone;
+        String controller = null, controllerAdd, name, lastName, email, dni;
+        Integer phone;
         System.out.println("*-*-*-*-*-*-*-***Crear Pasajero****-*-*-*-*-*-*\n");
         do{
             System.out.println("INGRESE LOS DATOS");
@@ -287,12 +289,11 @@ public class ControllerAdmin {
             System.out.println("Apellido: ");
             lastName = sc.nextLine();
             System.out.println("DNI: ");
-            dni = sc.nextInt();
+            dni = sc.nextLine();
             System.out.println("Telefono: ");
             phone = sc.nextInt();
             System.out.println("Email: ");
             email = sc.nextLine();
-            ///User and password ??
             passengerNew = new Passenger(name, lastName, dni, phone, email);
             System.out.println(passengerNew);
 

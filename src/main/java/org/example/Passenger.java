@@ -11,14 +11,17 @@ public class Passenger extends User
         this.originAdress = originAdress;
     }
 
+
+
     public Passenger(String origin, String originAdress)
     {
         this.origin = origin;
         this.originAdress = originAdress;
     }
 
-    public Passenger ()
-    {}
+    public Passenger(String name, String lastName, String dni, Integer phoneNumber, String email){
+        super(name, lastName, dni, phoneNumber, email);
+    }
 
 
     @Override

@@ -2,31 +2,36 @@ package org.example;
 
 public enum Product {
 
-    CHAMPAGNE ("Champagne", 30),
-    SODA ("Soda", 10),
-    PIZZA ("Pizza", 12),
-    MASSAGE ("Massage", 49);
+    CHAMPAGNE (1, "Champagne", 30),
+    SODA (2, "Soda", 10),
+    PIZZA (3, "Pizza", 12),
+    MASSAGE (4, "Massage", 49);
 
-
-    private final String key;
+    private final Integer key;
+    private final String name;
     private final Integer value;
 
-    Product (String key, Integer value){
+    Product (Integer key, String name, Integer value){
         this.key=key;
+        this.name=name;
         this.value=value;
 
     }
 
-    public String getKey() {
+    public Integer getKey() {
         return key;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Integer getValue() {
         return value;
     }
 
-
-    public static void getProducts (){
+    /**No es necesario esto, enum cuenta con metodo values que devuelve todos los productos**/
+    /*public static void getProducts (){
 
         for ( Product product : Product.values()) {
             System.out.println(product.toString());     //ver como solucionar esta linea
@@ -40,5 +45,5 @@ public enum Product {
                 "name= " + key  +
                 " , price= " + value +
                 " $";
-    }
+    }*/
 }
