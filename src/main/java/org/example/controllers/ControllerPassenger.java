@@ -110,16 +110,22 @@ public class ControllerPassenger {
          }
      }
 
-     private static void optionTwoRoomService(Hotel hotel){
-         Product.values();
-         System.out.println("0. Salir");
-         System.out.println("Ingrese el numero de lo que desea pedir: ");
-         int product = sc.nextInt();
-         if(product == 1) setProductToRoomService(product); //ToDo
-             if(product==2) setProductToRoomService(product);
-                 if(product==3) setProductToRoomService(product);
-                     if(product==4) setProductToRoomService(product);
-                         else controllerMenuPrincipal(hotel);
+     private static void optionTwoRoomService(Hotel hotel) {
+         String flag;
+         do {
+             Product.getProducts();
+             System.out.println("0. Salir");
+             System.out.println("Ingrese el numero de lo que desea pedir: ");
+             int product = sc.nextInt();
+             if (product == 1) setProductToRoomService(product); //ToDo
+             if (product == 2) setProductToRoomService(product);
+             if (product == 3) setProductToRoomService(product);
+             if (product == 4) setProductToRoomService(product);
+             else controllerMenuPrincipal(hotel);
+
+             System.out.println("Desea pedir algo mas? S/N");
+             flag = sc.nextLine().toUpperCase();
+         }while(flag.equals("S"));
      }
 
      private static void optionRooms(Hotel hotel){
