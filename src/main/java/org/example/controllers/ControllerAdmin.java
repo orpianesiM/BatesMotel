@@ -1,9 +1,6 @@
 package org.example.controllers;
 
-import org.example.Booking;
-import org.example.Hotel;
-import org.example.Passenger;
-import org.example.Room;
+import org.example.*;
 
 import java.util.Scanner;
 
@@ -282,8 +279,8 @@ public class ControllerAdmin {
     private static void controllerPassengersAdd(Hotel hotel){
         Passenger passengerNew;
         boolean add = false;
-        String controller = null, controllerAdd, name, lastName, email;
-        Integer dni, phone;
+        String controller = null, controllerAdd, name, lastName, email, dni;
+        Integer phone;
         System.out.println("*-*-*-*-*-*-*-***Crear Pasajero****-*-*-*-*-*-*\n");
         do{
             System.out.println("INGRESE LOS DATOS");
@@ -292,12 +289,11 @@ public class ControllerAdmin {
             System.out.println("Apellido: ");
             lastName = sc.nextLine();
             System.out.println("DNI: ");
-            dni = sc.nextInt();
+            dni = sc.nextLine();
             System.out.println("Telefono: ");
             phone = sc.nextInt();
             System.out.println("Email: ");
             email = sc.nextLine();
-            ///User and password ??
             passengerNew = new Passenger(name, lastName, dni, phone, email);
             System.out.println(passengerNew);
 
@@ -369,23 +365,23 @@ public class ControllerAdmin {
                     switch (option){
                         case "1":
                             System.out.println("Ingrese nuevo nombre");
-                            passengerFound.setName(sc.nextLine());
+                            hotel.getPassenger(passengerFound).setName(sc.nextLine());
                             break;
                         case "2":
                             System.out.println("Ingrese nuevo apellido");
-                            passengerFound.setLastName(sc.nextLine());
+                            hotel.getPassenger(passengerFound).setLastName(sc.nextLine());
                             break;
                         case "3":
                             System.out.println("Ingrese nuevo teléfono");
-                            passengerFound.setPhoneNumber(sc.nextInt());
+                            hotel.getPassenger(passengerFound).setPhone(sc.nextInt());
                             break;
                         case "4":
                             System.out.println("Ingrese nuevo email");
-                            passengerFound.setEmail(sc.nextLine());
+                            hotel.getPassenger(passengerFound).setEmail(sc.nextLine());
                             break;
                         case "5":
                             System.out.println("Ingrese nuevo dni");
-                            passengerFound.setDni(sc.nextLine());
+                            hotel.getPassenger(passengerFound).setDni(sc.nextInt());
                             break;
                     }
                 }else flag=messageError();
@@ -397,9 +393,9 @@ public class ControllerAdmin {
         Passenger passengerFound = searchPassenger(hotel);
         if(passengerFound != null){
             if(!(passengerFound.getHistory().isEmpty())){   //ToDo getHistory() in passenger
-                passengerFound.getHistory().forEach(System.out:: println );
+                passengerFound.getHistory().forEach(System.out::println);
             }else{
-                System.out.println("El pasajero" +passengerFound.getName() +" "+ passengerFound.getLastName() +
+                System.out.println("El pasajero" +passengerFound.getName +" "+ passengerFound.getLastName +
                         " no tiene historial en el hotel");
             }
         }
