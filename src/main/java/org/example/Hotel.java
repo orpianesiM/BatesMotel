@@ -8,8 +8,9 @@ import java.util.List;
 public class Hotel {
 
     private boolean isOpen;
-    private List<Room> listOfRooms;
+    private List<Room> roomList;
     private HashSet<Booking> bookingList;
+    private List<User> userList;
 
 
     public Hotel(boolean isOpen, List userList, List roomList, List bookingList)
@@ -29,11 +30,9 @@ public class Hotel {
     }
 
 
-
-
     public Room verifyBooking(LocalDateTime checkIn, LocalDateTime checkOut,  RoomType roomType ){
 
-        if (listOfRooms !=null){
+        if (roomList !=null){
 
             for (Booking bookedRoom : bookingList) {
                 if (bookedRoom.getBookedRoom().getRoomType() == roomType && checkIn.isAfter(bookedRoom.getCheckInDate() )&& checkOut.isBefore(bookedRoom.getCheckOutDate() ) ){
@@ -84,9 +83,12 @@ public class Hotel {
 
 
 
+    public boolean addPassenger(Passenger newPassenger)
+    {
+        return userList.add(newPassenger);
+    }
 
-
-    public int roomAmount()
+    public int getHotelSize()
     {
         if (roomList != null)
         {
@@ -144,7 +146,7 @@ public class Hotel {
         {
             for (Room variable : roomList)
             {
-                if (variable.getIsAvailable)
+                if (variable.isAvailable())
                 {
                     System.out.println(variable.toString); //Consultar como evitar este print
                 }
@@ -163,7 +165,7 @@ public class Hotel {
         {
             for (Room variable : roomList)
             {
-                if (!(variable.getIsAvailable))
+                if (!(variable.isAvailable()))
                 {
                     System.out.println(variable.toString);//Consultar como evitar este print
                 }
@@ -176,11 +178,11 @@ public class Hotel {
 
     }
 
-    public Passenger searchPassenger(String dniBuscado)
+    public Passenger getPassenger(String dniBuscado)
     {
         if (userList != null)
         {
-            for (Object variable : userList)
+            for (User variable : userList)
             {
                 if (variable instanceof Passenger && dniBuscado.equals(((Passenger) variable).getDni()))
                 {
@@ -188,10 +190,28 @@ public class Hotel {
                 }
             }
 
-            return null;
         }
-        else
+
             return null;
+    }
+
+    public Room getRoom (int roomNumber)
+    {
+        if (roomList != null)
+        {
+            for (Room variable : roomList)
+            {
+                if (variable.getRoomNumber() == roomNumber)
+                {
+                    return variable;
+                }
+
+            }
+
+        }
+
+        return null;
+
     }
 
     public boolean checkDateAvailability(LocalDateTime lookedDate)
@@ -204,7 +224,7 @@ public class Hotel {
        {
            for (Booking variable : bookingList)
            {
-               if (booking.getCheckInDate() == lookedDate)
+               if (variable.getCheckInDate() == lookedDate)
                {
                    return false;
                }
@@ -215,9 +235,14 @@ public class Hotel {
 
     }
 
-    public boolean changeRoomAvailability(Room roomChanged)
+    public void changeRoomAvailability(Room roomChanged)
     {
-
+        if (roomChanged.isAvailable())
+        {
+            roomChanged.setAvailable(false);
+        }
+        else
+            roomChanged.setAvailable(true);
     }
 
     public void setOpen(boolean open)
@@ -231,44 +256,46 @@ public class Hotel {
         {
             for (Room variable : roomList)
             {
-                if (booking.getBookedRoom.equals(variable))
+                if (booking.getBookedRoom().equals(variable))
                 {
-                    variable.setAvailable(false);
-                    variable.setGuest (booking.getPassenger);
-                    variable.setSpentMoney (0);
-                }
+                    changeRoomAvailability(variable);
 
+                    booking.setBookingState(INITIATED);
+
+                    return true;
+                }
             }
 
-            return true;
         }
-        else
-            return false;
+
+
+        return false;
 
     }
 
-    public boolean checkOut (Room roomCheckedOut)
+    public boolean checkOut (Booking booking)
     {
         if (roomList != null)
         {
             for (Room variable : roomList)
             {
-                if (roomCheckedOut.equals(variable))
+                if (booking.getBookedRoom().equals(variable))
                 {
-                    variable.setAvailable(true);
-                    variable.setGuest(null);
-                    variable.setSpentMoney(0);
+                    changeRoomAvailability(variable);
 
-                    /*
-                    Habría que ver como incluir la impresión del ticket en el checkout
-                    * */
+                    booking.setBookingState(FINALIZED);
+
+                    /*Falta ver la parte del ticket y como se incorpora
+                    * dentro del checkOut*/
+
+
+                    return true;
 
                 }
-
             }
-
-
         }
+
+        return false;
     }
 
 }

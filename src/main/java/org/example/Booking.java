@@ -21,13 +21,13 @@ public class Booking {
 
 
     public Booking(Passenger bookingPassenger , Room bookedRoom, String checkInDate, String checkOutDate, BookingState bookingState, int reservedDays) {
-        this.bookingPassenger= bookingPassenger;
+        this.bookingPassenger = bookingPassenger;
         this.bookedRoom = bookedRoom;
-        this.bookingState=bookingState;
+        this.bookingState = bookingState;
         this.checkInDate = stringToLocalDateTime(checkInDate);  // conversion de String a LocalDateTime
         this.checkOutDate = stringToLocalDateTime(checkOutDate);
-        this.bookingId= shortUUID();
-        this.spentMoney= reservedDays * bookedRoom.getRoomType().getValue();   //inicia con el valor por noche de la habitacion multiplicado por la cantidad de dias que se hospeda
+        this.bookingId = shortUUID();
+        this.spentMoney = reservedDays * bookedRoom.getRoomType().getValue();   //inicia con el valor por noche de la habitacion multiplicado por la cantidad de dias que se hospeda
 
     }
 

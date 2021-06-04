@@ -13,7 +13,6 @@ public class App
     public static void main( String[] args )
     {
 
-
         System.out.println("ad");
         Hotel hotel = new Hotel("probando", "123");
 

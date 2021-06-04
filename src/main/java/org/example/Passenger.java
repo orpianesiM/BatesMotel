@@ -30,4 +30,36 @@ public class Passenger extends User
                 "} " + super.toString();
 
     }
+
+    public String getOrigin()
+    {
+        return origin;
+    }
+
+    public void setOrigin(String origin)
+    {
+        this.origin = origin;
+    }
+
+    public String getOriginAdress()
+    {
+        return originAdress;
+    }
+
+    public void setOriginAdress(String originAdress)
+    {
+        this.originAdress = originAdress;
+    }
+
+    @Override
+    public String getName()
+    {
+        return super.getName();
+    }
+
+    @Override
+    public String getLastName()
+    {
+        return super.getLastName();
+    }
 }
