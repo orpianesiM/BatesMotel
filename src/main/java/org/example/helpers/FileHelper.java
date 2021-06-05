@@ -3,8 +3,14 @@ package org.example.helpers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import org.example.Booking;
+import org.example.Hotel;
+import org.example.Room;
+import org.example.User;
 
 import java.io.*;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 public class FileHelper {

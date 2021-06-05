@@ -1,5 +1,10 @@
 package org.example.controllers;
 
+import org.example.Booking;
+import org.example.Hotel;
+import org.example.Passenger;
+import org.example.Room;
+
 import java.util.Scanner;
 
 public class ControllerAdmin {
