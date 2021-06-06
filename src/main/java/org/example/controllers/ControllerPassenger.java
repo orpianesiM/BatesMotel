@@ -1,12 +1,10 @@
 package org.example.controllers;
 
 import org.example.*;
+import org.example.helpers.IControllerHelper;
 
-import java.util.Scanner;
 
-public class ControllerPassenger {
-
-    private static final Scanner sc = new Scanner(System.in);
+public class ControllerPassenger implements IControllerHelper{
 
     public static void viewMenuPrincipal() {
         System.out.println("*-*-*-*-*-*-*-***Bates Motel****-*-*-*-*-*-*\n");
@@ -22,7 +20,7 @@ public class ControllerPassenger {
         viewMenuPrincipal();
         do {
             String option = sc.nextLine();
-            if (isInteger(option)) {
+            if (IControllerHelper.isInteger(option)) {
                 switch (option) {
                     case "1":
                         optionNewBooking(hotel);
@@ -36,8 +34,10 @@ public class ControllerPassenger {
                     case "0":
                         //deslogeo ?
                         break;
+                    default:
+                        System.out.println("Ingreso incorrectamente.");
                 }
-            } else flag = messageError();
+            } else flag = IControllerHelper.messageError();
         } while (flag);
     }
 
@@ -48,7 +48,7 @@ public class ControllerPassenger {
          Booking addNewBooking;
          RoomType type = null;
          String checkInDate, checkOutDate;
-        Passenger passengerFound = searchPassenger(hotel);
+        Passenger passengerFound = IControllerHelper.searchPassenger(hotel);
         if(passengerFound!=null){
             System.out.println("Ingrese el tipo de habitación que quiere reservar: ");
             viewRoomType();
@@ -69,10 +69,12 @@ public class ControllerPassenger {
                 case 5:
                     type = RoomType.QUAD;
                     break;
+                default:
+                    System.out.println("Ingreso incorrectamente.");
             }
             System.out.println("Ingrese el dia de checkIn: ");
             checkInDate = sc.nextLine();
-            System.out.println("Ingrese el dia de checkOut: ");
+            System.out.println("Ingrese el dia de checkOut: "); //podria ingresar cuantos dias se queda y hacer un plusDays en makeBookig
             checkOutDate = sc.nextLine();
 
             addNewBooking = hotel.makeBooking(checkInDate, checkOutDate, type, passengerFound);
@@ -84,28 +86,30 @@ public class ControllerPassenger {
 
      private static void controllerOptionTwo(Hotel hotel) {
          boolean flag = false;
-         Passenger passengerFound = searchPassenger(hotel);
+         Passenger passengerFound = IControllerHelper.searchPassenger(hotel);
          if (passengerFound != null) {
              viewOptionTwo();
              System.out.println("Ingrese una opción para continuar");
              do {
                  String option = sc.nextLine();
-                 if (isInteger(option)) {
+                 if (IControllerHelper.isInteger(option)) {
                      switch (option) {
                          case "1":
-                             hotel.getBookingByDni(passengerFound); //ToDo
+                             hotel.getBookingByDni(passengerFound.getDni());
                              break;
                          case "2":
                              optionTwoRoomService(hotel);
                              break;
                          case "3":
-                             //ToDo ticket
+                             //ToDo ticket segun id de booking
                              break;
                          case "0":
                              controllerMenuPrincipal(hotel);
                              break;
+                         default:
+                             System.out.println("Ingreso incorrectamente.");
                      }
-                 } else flag = messageError();
+                 } else flag = IControllerHelper.messageError();
              } while (flag);
          }
      }
@@ -117,7 +121,7 @@ public class ControllerPassenger {
              System.out.println("0. Salir");
              System.out.println("Ingrese el numero de lo que desea pedir: ");
              int product = sc.nextInt();
-             if (product == 1) setProductToRoomService(product); //ToDo
+             if (product == 1) setProductToRoomService(product);
              if (product == 2) setProductToRoomService(product);
              if (product == 3) setProductToRoomService(product);
              if (product == 4) setProductToRoomService(product);
@@ -154,40 +158,4 @@ public class ControllerPassenger {
         System.out.println("0. Salir");
     }
 
-    /*******************************************HELPERS*******************************************/
-    private static boolean messageError() {
-        String answ;
-        System.out.println("Ingreso incorrectamente. Desea volver a intentarlo? S/N");
-        answ = sc.nextLine().toUpperCase();
-        if (answ.equals("S")) return true;
-        return false;
-    }
-
-    private static boolean isInteger(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private static Passenger searchPassenger (Hotel hotel){
-        String flag = null;
-        Passenger passengerFound;
-        do {
-            System.out.println("Ingrese su DNI para continuar: ");
-            String dni = sc.nextLine();
-            passengerFound = hotel.getPassenger(dni);
-            if (passengerFound != null) {
-                System.out.println("Búsqueda exitosa");
-                return passengerFound;
-            } else {
-                System.out.println("El dni que ingreso es INEXISTENTE");
-                System.out.println("Quiere volver a intentarlo ? S/N");
-                flag = sc.nextLine();
-            }
-        } while (flag.equals("N"));
-        return null;
-    }
 }

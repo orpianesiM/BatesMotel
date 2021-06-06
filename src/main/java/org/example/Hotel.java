@@ -1,5 +1,9 @@
 package org.example;
 
+
+import org.example.helpers.FileHelper;
+
+import java.io.File;
 import java.time.LocalDateTime;
 //import java.util.*;
 import java.util.ArrayList;
@@ -16,10 +20,15 @@ public class Hotel {
     private ArrayList<Room> roomList;
     private HashSet<Booking> bookingList;
     private TreeSet<User> userList;
-
-
+    
     /* [Constructores] */
-
+    public Hotel(){
+        this.bookingList.addAll(FileHelper.getBookingsFromJson());
+        this.listOfRooms.addAll(FileHelper.getRoomsFromJson());
+        this.userList.addAll(FileHelper.getUsersFromJson());
+    }
+    
+/*
 
     public Hotel(boolean isOpen, TreeSet userList, ArrayList roomList, HashSet bookingList)
     {
@@ -36,7 +45,7 @@ public class Hotel {
         this.bookingList = new HashSet<>();
 
     }
-
+*/
     /* [Métodos] */
 
 
@@ -363,6 +372,7 @@ public class Hotel {
 
            return true;
        }
+
     }
 
     public void changeRoomAvailability(Room roomChanged)
@@ -374,7 +384,6 @@ public class Hotel {
         else
             roomChanged.setAvailable(true);
     }
-
 
     public boolean checkIn(Booking booking)
     {
@@ -431,12 +440,33 @@ public class Hotel {
     {
         isOpen = open;
     }
+    /*************************NUEVO***************************************/
+   /* public double checkOut(Room roomCheckedOut){
+        Booking bookingFound = searchBookingByRoom(roomCheckedOut);
+        double totalToPay=bookingFound.getSpentMoney();
+        roomCheckedOut.getGuest().setHistory("\nPasajero :" + bookingFound.getBookingPassenger() +
+                                            "\nHabitación: "+roomCheckedOut +
+                                            "\nDesde: "+bookingFound.getCheckInDate() +
+                                            "\nHasta: "+ bookingFound.getCheckOutDate() +
+                                            "\nTotal a pagar" + bookingFound.getSpentMoney());
+        roomCheckedOut.setAvailable(true);
+        roomCheckedOut.setGuest(null);
+        return totalToPay;
+    }
+  /***Ver donde agregar historial del pasajero***/
+
+    public void saveHotel(){
+        FileHelper.setBookingsToJson(bookingList);
+        FileHelper.setRoomsToJson(listOfRooms);
+        FileHelper.setUsersToJson(userList);
+    }
 
     public ArrayList<Room> getRoomList()
     {
         return roomList;
     }
 
+    
     public void setRoomList(ArrayList<Room> roomList)
     {
         this.roomList = roomList;
