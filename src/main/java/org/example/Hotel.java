@@ -1,6 +1,9 @@
 package org.example;
 
 
+import org.example.helpers.FileHelper;
+
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -72,18 +75,6 @@ public class Hotel {
         bookingList.add(booking);
 
     }
-
-
-   /* public Booking searchBooking (String passengerDni){
-
-        for (Booking booking : bookingList ) {
-
-           // if ()   // comparo dni
-        }
-    }*/
-
-
-
 
 
     public int roomAmount()
@@ -227,7 +218,7 @@ public class Hotel {
 
     public boolean checkIn(Booking booking)
     {
-        if (roomList != null)
+        if (roomList != null)    //la lista de room nunca va a estar vacia, habria que checkear que no este ocupada la habitacion
         {
             for (Room variable : roomList)
             {
@@ -262,13 +253,34 @@ public class Hotel {
                     /*
                     Habría que ver como incluir la impresión del ticket en el checkout
                     * */
-
                 }
-
             }
-
-
         }
     }
+    /*************************NUEVO***************************************/
+   /* public double checkOut(Room roomCheckedOut){
+        Booking bookingFound = searchBookingByRoom(roomCheckedOut);
+        double totalToPay=bookingFound.getSpentMoney();
+        roomCheckedOut.getGuest().setHistory("\nPasajero :" + bookingFound.getBookingPassenger() +
+                                            "\nHabitación: "+roomCheckedOut +
+                                            "\nDesde: "+bookingFound.getCheckInDate() +
+                                            "\nHasta: "+ bookingFound.getCheckOutDate() +
+                                            "\nTotal a pagar" + bookingFound.getSpentMoney());
+        roomCheckedOut.setAvailable(true);
+        roomCheckedOut.setGuest(null);
+        return totalToPay;
+    }
+  /***Ver donde agregar historial del pasajero***/
 
+    public void saveHotel(){
+        FileHelper.setBookingsToJson(bookingList);
+        FileHelper.setRoomsToJson(listOfRooms);
+        FileHelper.setUsersToJson(userList);
+    }
+
+    public Hotel(){
+        this.bookingList.addAll(FileHelper.getBookingsFromJson());
+        this.listOfRooms.addAll(FileHelper.getRoomsFromJson());
+        this.userList.addAll(FileHelper.getUsersFromJson());
+    }
 }

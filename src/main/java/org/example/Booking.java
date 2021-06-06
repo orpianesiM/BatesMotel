@@ -101,4 +101,13 @@ public class Booking {
     public void setCheckOutDate(LocalDateTime checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
+
+    /*************************NUEVO***************************************/
+    public double getSpentMoney() {
+        return spentMoney;
+    }
+    public void addSpentMoney(double value) {
+        this.spentMoney += value;
+    }
+    /****************************************************************/
 }
