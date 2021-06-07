@@ -187,27 +187,7 @@ public class Hotel {
     }
 
 
-    // seleccionar el producto de acuerdo a la opcion (int) ingresada
     public void setProductToRoomService (int productChoice, Booking booking){
-
-        if (productChoice==1){
-            booking.setSpentMoney(booking.getSpentMoney()+ Product.CHAMPAGNE.getValue()); // tentativo medio pelo
-        }
-        else if (productChoice==2){
-            booking.setSpentMoney(booking.getSpentMoney()+ Product.SODA.getValue());
-        }
-        else if (productChoice==3){
-            booking.setSpentMoney(booking.getSpentMoney()+ Product.PIZZA.getValue());
-        }
-        else if (productChoice==4){
-            booking.setSpentMoney(booking.getSpentMoney()+ Product.MASSAGE.getValue());
-        }
-
-
-    }
-
-
-    public void setProductToRoomService2 (int productChoice, Booking booking){
 
         for ( Product product: Product.values() ) {
 
@@ -216,8 +196,8 @@ public class Hotel {
                 booking.setSpentMoney(booking.getSpentMoney()+ product.getValue());
             }
         }
-
     }
+
 
 
     public int roomAmount()
@@ -261,7 +241,7 @@ public class Hotel {
         {
             for (Room variable : roomList)
             {
-                System.out.println(variable.toString); //Consultar como evitar este print
+                System.out.println(variable.toString()); //Consultar como evitar este print
             }
 
             return true;
@@ -278,9 +258,9 @@ public class Hotel {
         {
             for (Room variable : roomList)
             {
-                if (variable.getIsAvailable)
+                if (variable.isAvailable())
                 {
-                    System.out.println(variable.toString); //Consultar como evitar este print
+                    System.out.println(variable.toString()); //Consultar como evitar este print
                 }
             }
 
