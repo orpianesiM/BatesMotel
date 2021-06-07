@@ -26,19 +26,24 @@ public enum Product {
     }
 
 
+
     public static void getProducts (){
+        for ( Product product : Product.values()) {
+            System.out.println( "Opcion: "+ product.ordinal() + " - "+  product +  ". " );
+        }
+    }
+
+   /* public static void getProductsV2 (){
 
         for ( Product product : Product.values()) {
-            System.out.println(product.toString());     //ver como solucionar esta linea
+            System.out.println(product.toString());
         }
 
-    }
+    }*/
 
     @Override
     public String toString() {
-        return "Product " +
-                "name= " + key  +
-                " , price= " + value +
-                " $";
+        return
+                key  + " , price= " + value + " $";
     }
 }

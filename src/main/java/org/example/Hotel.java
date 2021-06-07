@@ -1,7 +1,11 @@
 package org.example;
 
 import java.time.LocalDateTime;
-import java.util.*;
+//import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.TreeSet;
 
 
 public class Hotel {
@@ -16,7 +20,8 @@ public class Hotel {
 
     /* [Constructores] */
 
-    public Hotel(boolean isOpen, TreeSet<User> userList, ArrayList<Room> roomList, HashSet<Booking> bookingList)
+
+    public Hotel(boolean isOpen, TreeSet userList, ArrayList roomList, HashSet bookingList)
     {
         this.isOpen = isOpen;
         this.userList = userList;
@@ -29,6 +34,7 @@ public class Hotel {
         this.userList = new TreeSet<>();
         this.roomList = new ArrayList<>();
         this.bookingList = new HashSet<>();
+
     }
 
     /* [Métodos] */
@@ -68,7 +74,7 @@ public class Hotel {
             return newBooking;
         }
 
-        return null; // avisar en main si el retorno es null para saber que no se hizo la reserva
+        return null;
     }
 
     public void insertBooking ( Booking booking){
@@ -77,11 +83,136 @@ public class Hotel {
 
     }
 
+    public double getTicket (String bookingId){
 
+        if (this.bookingList !=null){
+
+<<<<<<< HEAD
     public boolean addPassenger(Passenger newPassenger)
     {
         return userList.add(newPassenger);
     }
+=======
+            for (Booking booking : bookingList ) {
+
+                if (booking.getBookingId().equals(bookingId)){
+
+                    return booking.getSpentMoney(); // retorna valor de lo gastado hasta el momento en que se hace la consulta
+                }
+            }
+
+        }
+        return -1;
+    }
+
+
+
+    //getBookingByRoom(Room)
+    public List getBookingByRoom (Room room){
+
+        if (bookingList!=null){
+            int flag=0;
+            List<Booking> bookings = new ArrayList<>();
+
+            for (Booking booking  : bookingList ) {
+
+                if (booking.getBookedRoom().equals(room)){  // consultar si hace falta sobreescribir el método equals y hashcode
+
+                    flag=1;
+                    bookings.add(booking);
+                }
+            }
+
+            if (flag!=0){
+                return bookings;
+            }
+            else
+                return null;
+        }
+        return null;
+    }
+
+    //getBookingByDni - retorna List porque puede haber mas de un Booking realizado por una misma persona
+
+    public List getBookingByDni (String dni){
+
+        if (bookingList!=null){
+            int flag=0;
+            List<Booking> bookings = new ArrayList<>();
+
+            for (Booking booking  : bookingList ) {
+
+                if (booking.getBookingPassenger().getDni()==dni){
+
+                    flag=1;
+                    bookings.add(booking);
+                }
+            }
+
+            if (flag!=0){
+                return bookings;
+            }
+            else
+                return null;
+        }
+        return null;
+    }
+
+
+    //getAllBooking
+
+    public HashSet getAllBooking (){    // consultar si es necesario o se puede recorrer directamente bookingList
+
+        if (bookingList !=null){
+            HashSet<Booking> allBokings = this.bookingList;
+            return allBokings;
+        }
+        return null;
+
+    }
+
+    //getAllRooms
+
+    public List getAllRooms(){
+
+        if (roomList!=null){
+            List<Room> allRooms = this.roomList;
+            return allRooms;
+        }
+        return null;
+    }
+
+
+    //getpassengerbyDni por dni
+
+    public Passenger getpassengerbyDni(String dni){
+
+        if (userList!=null){
+
+            for (User user : userList) {
+                if (user instanceof Passenger && user.getDni().equals(dni)){
+
+                    return (Passenger) user;
+                }
+            }
+        }
+        return null;
+
+    }
+
+
+    public void setProductToRoomService (int productChoice, Booking booking){
+
+        for ( Product product: Product.values() ) {
+
+            if (product.ordinal()== productChoice){
+
+                booking.setSpentMoney(booking.getSpentMoney()+ product.getValue());
+            }
+        }
+    }
+
+
 
     public int getHotelSize()
     {
@@ -273,9 +404,7 @@ public class Hotel {
                 if (booking.getBookedRoom().equals(variable))
                 {
                     changeRoomAvailability(variable);
-
                     booking.setBookingState(BookingState.INITIATED);
-
                     return true;
                 }
             }
@@ -293,13 +422,12 @@ public class Hotel {
             {
                 if (booking.getBookedRoom().equals(variable))
                 {
-                    changeRoomAvailability(variable);
 
+                    changeRoomAvailability(variable);
                     booking.setBookingState(BookingState.FINALIZED);
 
                     /*Falta ver la parte del ticket y como se incorpora
                     * dentro del checkOut*/
-
 
                     return true;
 
