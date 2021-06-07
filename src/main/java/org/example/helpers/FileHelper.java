@@ -3,8 +3,14 @@ package org.example.helpers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import org.example.Booking;
+import org.example.Hotel;
+import org.example.Room;
 
 import java.io.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.TreeSet;
 
 
 public class FileHelper {
@@ -56,8 +62,8 @@ public class FileHelper {
      * Get Users from JsonFile
      * @return
      */
-   public static Set<Hotel> getUsersFromJson(){
-        Set<Hotel> users = new TreeSet<>();
+   public static TreeSet<Hotel> getUsersFromJson(){
+       TreeSet<Hotel> users = new TreeSet<>();
         File file = new File(usersFile);
         try (BufferedReader buffer = new BufferedReader(new FileReader(file))){
             Gson gson = new Gson();
@@ -121,12 +127,12 @@ public class FileHelper {
      * Get Rooms from JsonFile
      * @return
      */
-    public static List<Room> getUsersFromJson(){
-        List<Room> rooms = new ArrayList<>();
+    public static ArrayList<Room> getUsersFromJson(){
+        ArrayList<Room> rooms = new ArrayList<>();
         File file = new File(roomFile);
         try (BufferedReader buffer = new BufferedReader(new FileReader(file))){
             Gson gson = new Gson();
-            rooms = gson.fromJson(buffer, new TypeToken<List<Room>>(){}.getType());
+            rooms = gson.fromJson(buffer, new TypeToken<ArrayList<Room>>(){}.getType());
         } catch (IOException e) {
             e.printStackTrace();
         }

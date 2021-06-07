@@ -1,19 +1,22 @@
 package org.example;
 
-
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
+
 
 public class Hotel {
 
+    /* [Atributos] */
+
     private boolean isOpen;
-    private List<Room> roomList;
+    private ArrayList<Room> roomList;
     private HashSet<Booking> bookingList;
-    private List<User> userList;
+    private TreeSet<User> userList;
 
 
-    public Hotel(boolean isOpen, List userList, List roomList, List bookingList)
+    /* [Constructores] */
+
+    public Hotel(boolean isOpen, TreeSet<User> userList, ArrayList<Room> roomList, HashSet<Booking> bookingList)
     {
         this.isOpen = isOpen;
         this.userList = userList;
@@ -23,11 +26,13 @@ public class Hotel {
 
     public Hotel()
     {
-        this.userList = new List();
-        this.roomList = new List();
-        this.bookingList = new List();
-
+        this.userList = new TreeSet<>();
+        this.roomList = new ArrayList<>();
+        this.bookingList = new HashSet<>();
     }
+
+    /* [Métodos] */
+
 
 
     public Room verifyBooking(LocalDateTime checkIn, LocalDateTime checkOut,  RoomType roomType ){
@@ -49,8 +54,8 @@ public class Hotel {
 
     public Booking makeBooking ( String checkIn, String checkOut,  RoomType roomType, Passenger bookingPassenger ){
 
-
         Room newRoom = verifyBooking(Booking.stringToLocalDateTime(checkIn), Booking.stringToLocalDateTime(checkOut), roomType);
+
         if (newRoom != null){
             Booking newBooking = new Booking();
             newBooking.setCheckInDate(Booking.stringToLocalDateTime(checkIn));
@@ -71,16 +76,6 @@ public class Hotel {
         bookingList.add(booking);
 
     }
-
-
-   /* public Booking searchBooking (String passengerDni){
-
-        for (Booking booking : bookingList ) {
-
-           // if ()   // comparo dni
-        }
-    }*/
-
 
 
     public boolean addPassenger(Passenger newPassenger)
@@ -129,7 +124,7 @@ public class Hotel {
         {
             for (Room variable : roomList)
             {
-                System.out.println(variable.toString); //Consultar como evitar este print
+                System.out.println(variable.toString()); //Consultar como evitar este print
             }
 
             return true;
@@ -148,7 +143,7 @@ public class Hotel {
             {
                 if (variable.isAvailable())
                 {
-                    System.out.println(variable.toString); //Consultar como evitar este print
+                    System.out.println(variable.toString()); //Consultar como evitar este print
                 }
             }
 
@@ -167,7 +162,7 @@ public class Hotel {
             {
                 if (!(variable.isAvailable()))
                 {
-                    System.out.println(variable.toString);//Consultar como evitar este print
+                    System.out.println(variable.toString());//Consultar como evitar este print
                 }
             }
 
@@ -192,7 +187,32 @@ public class Hotel {
 
         }
 
-            return null;
+        return null;
+    }
+
+    public ArrayList<Passenger> getAllPassengers()
+    {
+        if (userList != null)
+        {
+           ArrayList<Passenger> auxList = new ArrayList<Passenger>();
+
+            for (User variable : userList)
+            {
+                if (variable instanceof Passenger)
+                {
+                    auxList.add((Passenger)variable);
+                }
+            }
+
+            if (!(auxList.isEmpty())) //Considero que no se haya encontrado ningun pasajero.
+            {
+                return auxList;
+            }
+        }
+
+
+        return null;
+
     }
 
     public Room getRoom (int roomNumber)
@@ -211,7 +231,6 @@ public class Hotel {
         }
 
         return null;
-
     }
 
     public boolean checkDateAvailability(LocalDateTime lookedDate)
@@ -232,7 +251,6 @@ public class Hotel {
 
            return true;
        }
-
     }
 
     public void changeRoomAvailability(Room roomChanged)
@@ -245,10 +263,6 @@ public class Hotel {
             roomChanged.setAvailable(true);
     }
 
-    public void setOpen(boolean open)
-    {
-        isOpen = open;
-    }
 
     public boolean checkIn(Booking booking)
     {
@@ -260,7 +274,7 @@ public class Hotel {
                 {
                     changeRoomAvailability(variable);
 
-                    booking.setBookingState(INITIATED);
+                    booking.setBookingState(BookingState.INITIATED);
 
                     return true;
                 }
@@ -268,9 +282,7 @@ public class Hotel {
 
         }
 
-
         return false;
-
     }
 
     public boolean checkOut (Booking booking)
@@ -283,7 +295,7 @@ public class Hotel {
                 {
                     changeRoomAvailability(variable);
 
-                    booking.setBookingState(FINALIZED);
+                    booking.setBookingState(BookingState.FINALIZED);
 
                     /*Falta ver la parte del ticket y como se incorpora
                     * dentro del checkOut*/
@@ -298,4 +310,46 @@ public class Hotel {
         return false;
     }
 
+
+    /*Getters & Setters */
+
+    public boolean isOpen()
+    {
+        return isOpen;
+    }
+
+    public void setOpen(boolean open)
+    {
+        isOpen = open;
+    }
+
+    public ArrayList<Room> getRoomList()
+    {
+        return roomList;
+    }
+
+    public void setRoomList(ArrayList<Room> roomList)
+    {
+        this.roomList = roomList;
+    }
+
+    public HashSet<Booking> getBookingList()
+    {
+        return bookingList;
+    }
+
+    public void setBookingList(HashSet<Booking> bookingList)
+    {
+        this.bookingList = bookingList;
+    }
+
+    public TreeSet<User> getUserList()
+    {
+        return userList;
+    }
+
+    public void setUserList(TreeSet<User> userList)
+    {
+        this.userList = userList;
+    }
 }

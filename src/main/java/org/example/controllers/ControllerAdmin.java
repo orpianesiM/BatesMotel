@@ -1,5 +1,10 @@
 package org.example.controllers;
 
+import org.example.Booking;
+import org.example.Hotel;
+import org.example.Passenger;
+import org.example.Room;
+
 import java.util.Scanner;
 
 public class ControllerAdmin {
@@ -364,23 +369,23 @@ public class ControllerAdmin {
                     switch (option){
                         case "1":
                             System.out.println("Ingrese nuevo nombre");
-                            hotel.getPassenger(passengerFound).setName(sc.nextLine());
+                            passengerFound.setName(sc.nextLine());
                             break;
                         case "2":
                             System.out.println("Ingrese nuevo apellido");
-                            hotel.getPassenger(passengerFound).setLastName(sc.nextLine());
+                            passengerFound.setLastName(sc.nextLine());
                             break;
                         case "3":
                             System.out.println("Ingrese nuevo teléfono");
-                            hotel.getPassenger(passengerFound).setPhone(sc.nextInt());
+                            passengerFound.setPhoneNumber(sc.nextInt());
                             break;
                         case "4":
                             System.out.println("Ingrese nuevo email");
-                            hotel.getPassenger(passengerFound).setEmail(sc.nextLine());
+                            passengerFound.setEmail(sc.nextLine());
                             break;
                         case "5":
                             System.out.println("Ingrese nuevo dni");
-                            hotel.getPassenger(passengerFound).setDni(sc.nextInt());
+                            passengerFound.setDni(sc.nextLine());
                             break;
                     }
                 }else flag=messageError();
@@ -392,9 +397,9 @@ public class ControllerAdmin {
         Passenger passengerFound = searchPassenger(hotel);
         if(passengerFound != null){
             if(!(passengerFound.getHistory().isEmpty())){   //ToDo getHistory() in passenger
-                passengerFound.getHistory().forEach(System.out::println);
+                passengerFound.getHistory().forEach(System.out:: println );
             }else{
-                System.out.println("El pasajero" +passengerFound.getName +" "+ passengerFound.getLastName +
+                System.out.println("El pasajero" +passengerFound.getName() +" "+ passengerFound.getLastName() +
                         " no tiene historial en el hotel");
             }
         }
