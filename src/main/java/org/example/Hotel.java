@@ -87,12 +87,6 @@ public class Hotel {
 
         if (this.bookingList !=null){
 
-<<<<<<< HEAD
-    public boolean addPassenger(Passenger newPassenger)
-    {
-        return userList.add(newPassenger);
-    }
-=======
             for (Booking booking : bookingList ) {
 
                 if (booking.getBookingId().equals(bookingId)){
@@ -100,12 +94,15 @@ public class Hotel {
                     return booking.getSpentMoney(); // retorna valor de lo gastado hasta el momento en que se hace la consulta
                 }
             }
-
         }
         return -1;
     }
 
 
+    public boolean addPassenger(Passenger newPassenger)
+    {
+        return userList.add(newPassenger);
+    }
 
     //getBookingByRoom(Room)
     public List getBookingByRoom (Room room){
@@ -304,22 +301,7 @@ public class Hotel {
 
     }
 
-    public Passenger getPassenger(String dniBuscado)
-    {
-        if (userList != null)
-        {
-            for (User variable : userList)
-            {
-                if (variable instanceof Passenger && dniBuscado.equals(((Passenger) variable).getDni()))
-                {
-                    return (Passenger)variable;
-                }
-            }
 
-        }
-
-        return null;
-    }
 
     public ArrayList<Passenger> getAllPassengers()
     {
@@ -340,7 +322,6 @@ public class Hotel {
                 return auxList;
             }
         }
-
 
         return null;
 

@@ -23,7 +23,7 @@ public class Booking {
 
     public Booking(Passenger bookingPassenger , Room bookedRoom, String checkInDate, String checkOutDate, BookingState bookingState) {
 
-        }
+
         this.bookingPassenger= bookingPassenger;
         this.bookedRoom = bookedRoom;
         this.bookingState = bookingState;
@@ -37,10 +37,6 @@ public class Booking {
     public Booking() {
     }
 
-    // hacer metodo para generar ticket en el checkout
-
-
-
 
 
     // calcular los dias entre checkin y check out
@@ -49,7 +45,6 @@ public class Booking {
         long daysBetween= DAYS.between(checkOutDate,checkInDate);
         return daysBetween;
     }
-
 
 
     public static String shortUUID() {
