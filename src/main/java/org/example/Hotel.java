@@ -10,29 +10,15 @@ import java.util.List;
 
 public class Hotel {
 
-    private boolean isOpen;
+    /*private boolean isOpen;
     private List<Room> listOfRooms;
-    private HashSet<Booking> bookingList;
+    private HashSet<Booking> bookingList;*/
 
-
-    public Hotel(boolean isOpen, List userList, List roomList, List bookingList)
-    {
-        this.isOpen = isOpen;
-        this.userList = userList;
-        this.roomList = roomList;
-        this.bookingList = bookingList;
+    public Hotel(){
+        this.bookingList.addAll(FileHelper.getBookingsFromJson());
+        this.listRoom.addAll(FileHelper.getRoomsFromJson());
+        this.userList.addAll(FileHelper.getUsersFromJson());
     }
-
-    public Hotel()
-    {
-        this.userList = new List();
-        this.roomList = new List();
-        this.bookingList = new List();
-
-    }
-
-
-
 
     public Room verifyBooking(LocalDateTime checkIn, LocalDateTime checkOut,  RoomType roomType ){
 
@@ -272,10 +258,9 @@ public class Hotel {
     }
   /***Ver donde agregar historial del pasajero***/
 
-
-    public Hotel(){
-        this.bookingList.addAll(FileHelper.getBookingsFromJson());
-        this.listOfRooms.addAll(FileHelper.getRoomsFromJson());
-        this.userList.addAll(FileHelper.getUsersFromJson());
+    public void save(){
+        FileHelper.setUsersToJson(this.userList);
+        FileHelper.setRoomsToJson(this.roomList);
+        FileHelper.setBookingsToJson(this.bookingList);
     }
 }

@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.controllers.ControllerLogin;
+import org.example.controllers.ControllerPassenger;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +14,7 @@ public class Passenger extends User{
     public Passenger() {
     }
 
-    public Passenger(String name, String lastName, String dni, String email, String user, String password, int phoneNumber, String origin, String originAddress, List<String> history) {
+    public Passenger(String name, String lastName, String dni, String email, String user, String password, int phoneNumber, String origin, String originAddress) {
         super(name, lastName, dni, email, user, password, phoneNumber);
         this.origin = origin;
         this.originAddress = originAddress;
@@ -25,9 +28,7 @@ public class Passenger extends User{
     }
 
     @Override
-    public String getName() {
-        return super.getName();
-    }
+    public String getName() { return super.getName(); }
 
     @Override
     public void setName(String name) {
@@ -104,8 +105,9 @@ public class Passenger extends User{
 
 
     @Override
-    public boolean signIn() {
-        //ToDo
+    public boolean signIn(User userHandle, Hotel hotel) {
+        if(userHandle instanceof Passenger) ControllerPassenger.controllerMenuPrincipal(hotel);
+        return false;
     }
 
     @Override

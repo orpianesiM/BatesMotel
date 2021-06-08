@@ -23,7 +23,7 @@ public class ControllerEmployee implements IControllerHelper {
         System.out.println("0. Salir");
     }
 
-    private static void controllerMenuEmployee(Hotel hotel){
+    public static void controllerMenuEmployee(Hotel hotel){
         boolean flag = false;
         viewMenuEmployee();
         do {

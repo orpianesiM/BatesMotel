@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.controllers.ControllerLogin;
 import org.example.helpers.FileHelper;
 import java.io.File;
 import java.util.Set;
@@ -12,10 +13,9 @@ public class App
 {
     public static void main( String[] args )
     {
-
-        System.out.println("ad");
-        Hotel hotel = new Hotel("probando", "123");
-
+        Hotel hotel = new Hotel();
+        ControllerLogin.login(hotel);
+        hotel.save();
     }
 
 }

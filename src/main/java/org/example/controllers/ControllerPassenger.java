@@ -10,12 +10,12 @@ public class ControllerPassenger implements IControllerHelper{
         System.out.println("*-*-*-*-*-*-*-***Bates Motel****-*-*-*-*-*-*\n");
         System.out.println("*-*-*-*-*-*-*-***BIENVENIDO****-*-*-*-*-*-*\n");
         System.out.println("1. Quiero hospedarme");    //newBooking
-        System.out.println("2. Ya soy huésped");      //bookingDetails, roomService, myTicket
-        System.out.println("3. Conocé Bates Motel"); //rooms
+        System.out.println("2. Ya soy huésped");       //bookingDetails, roomService, myTicket
+        System.out.println("3. Conocé Bates Motel");   //rooms
         System.out.println("0. Salir");
     }
 
-    private static void controllerMenuPrincipal(Hotel hotel) {
+    public static void controllerMenuPrincipal(Hotel hotel) {
         boolean flag = false;
         viewMenuPrincipal();
         do {
