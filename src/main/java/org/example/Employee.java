@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.controllers.ControllerEmployee;
+
 public class Employee extends User
 {
 
@@ -12,6 +14,16 @@ public class Employee extends User
     {
     }
 
+    @Override
+    public boolean signIn(User userHandle, Hotel hotel) {
+        if(userHandle instanceof Employee) ControllerEmployee.controllerMenuEmployee(hotel);
+        return false;
+    }
+
+    @Override
+    public boolean signOut() {
+        return false;
+    }
 
     @Override
     public String toString()

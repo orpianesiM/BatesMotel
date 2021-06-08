@@ -1,20 +1,23 @@
 package org.example;
 
-
 import org.example.helpers.FileHelper;
 
 import java.io.File;
 import java.time.LocalDateTime;
-//import java.util.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.TreeSet;
 
 
+
 public class Hotel {
 
     /* [Atributos] */
+    
+      /*private boolean isOpen;
+    private List<Room> listOfRooms;
+    private HashSet<Booking> bookingList;*/
 
     private boolean isOpen;
     private ArrayList<Room> roomList;
@@ -24,9 +27,11 @@ public class Hotel {
     /* [Constructores] */
     public Hotel(){
         this.bookingList.addAll(FileHelper.getBookingsFromJson());
-        this.listOfRooms.addAll(FileHelper.getRoomsFromJson());
+        this.roomList.addAll(FileHelper.getRoomsFromJson());
         this.userList.addAll(FileHelper.getUsersFromJson());
     }
+    
+
     
 /*
 
@@ -37,7 +42,15 @@ public class Hotel {
         this.roomList = roomList;
         this.bookingList = bookingList;
     }
-
+  
+    
+    
+    
+    
+    
+    
+    
+    
     public Hotel()
     {
         this.userList = new TreeSet<>();
@@ -455,13 +468,17 @@ public class Hotel {
     }
   /***Ver donde agregar historial del pasajero***/
 
+    public void save(){
+        FileHelper.setUsersToJson(this.userList);
+        FileHelper.setRoomsToJson(this.roomList);
+        FileHelper.setBookingsToJson(this.bookingList);
 
     public ArrayList<Room> getRoomList()
     {
         return roomList;
     }
 
-    
+
     public void setRoomList(ArrayList<Room> roomList)
     {
         this.roomList = roomList;
