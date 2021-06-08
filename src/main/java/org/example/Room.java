@@ -42,6 +42,7 @@ public class Room {
         this.roomType = roomType;
     }
 
+
     @Override
     public String toString() {
         return "Room{" +
