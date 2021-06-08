@@ -39,12 +39,12 @@ public class FileHelper {
      * Get Users from JsonFile
      * @return
      */
-   public static Set<Hotel> getUsersFromJson(){
-        Set<Hotel> users = new TreeSet<>();
+   public static Set<User> getUsersFromJson(){
+        Set<User> users = new TreeSet<>();
         File file = new File(usersFile);
         try (BufferedReader buffer = new BufferedReader(new FileReader(file))){
             Gson gson = new Gson();
-            users = gson.fromJson(buffer, new TypeToken<Set<Hotel>>(){}.getType());
+            users = gson.fromJson(buffer, new TypeToken<Set<User>>(){}.getType());
         } catch (IOException e) {
             e.printStackTrace();
         }
