@@ -455,11 +455,6 @@ public class Hotel {
     }
   /***Ver donde agregar historial del pasajero***/
 
-    public void saveHotel(){
-        FileHelper.setBookingsToJson(bookingList);
-        FileHelper.setRoomsToJson(listOfRooms);
-        FileHelper.setUsersToJson(userList);
-    }
 
     public ArrayList<Room> getRoomList()
     {

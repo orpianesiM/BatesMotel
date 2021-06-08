@@ -46,13 +46,12 @@ public class FileHelper {
      * Get Users from JsonFile
      * @return
      */
-   public static Set<Hotel> getUsersFromJson(){ //El retorno de la función debería ser TreeSet<Users>
-                                                //porque retorna un arbol de usuarios.
-        Set<Hotel> users = new TreeSet<>();
+   public static TreeSet<User> getUsersFromJson(){
+        TreeSet<User> users = new TreeSet<>();
         File file = new File(usersFile);
         try (BufferedReader buffer = new BufferedReader(new FileReader(file))){
             Gson gson = new Gson();
-            users = gson.fromJson(buffer, new TypeToken<Set<Hotel>>(){}.getType());
+            users = gson.fromJson(buffer, new TypeToken<Set<User>>(){}.getType());
         } catch (IOException e) {
             e.printStackTrace();
         }
