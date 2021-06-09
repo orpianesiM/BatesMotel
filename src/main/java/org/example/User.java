@@ -1,9 +1,24 @@
 package org.example;
 
+import org.example.helpers.FileHelper;
+
+import java.util.Set;
+
 public abstract class User
 {
     private String name, lastName, dni, email, user, password;
     private int phoneNumber;
+
+    public User() {
+    }
+
+    public User(String name, String lastName, String dni, String email, int phoneNumber) {
+        this.name = name;
+        this.lastName = lastName;
+        this.dni = dni;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
 
     public User(String name, String lastName, String dni, String email, String user, String password, int phoneNumber)
     {
@@ -15,11 +30,6 @@ public abstract class User
         this.password = password;
         this.phoneNumber = phoneNumber;
     }
-
-    public User()
-    {
-    }
-
 
     public String getName()
     {
@@ -86,6 +96,20 @@ public abstract class User
         this.phoneNumber = phoneNumber;
     }
 
+    public String getDni()
+    {
+        return dni;
+    }
+
+
+    public boolean signIn(User userHandle, Hotel hotel){
+        return false;
+    }
+
+    public boolean signOut(){
+        return false;
+    }
+
     @Override
     public String toString()
     {
@@ -98,11 +122,6 @@ public abstract class User
                 ", password='" + password + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 "} \n";
-    }
-
-    public String getDni()
-    {
-        return dni;
     }
 
 
