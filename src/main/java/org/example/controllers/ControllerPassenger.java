@@ -121,10 +121,10 @@ public class ControllerPassenger implements IControllerHelper{
              System.out.println("0. Salir");
              System.out.println("Ingrese el numero de lo que desea pedir: ");
              int product = sc.nextInt();
-             if (product == 1) setProductToRoomService(product);
-             if (product == 2) setProductToRoomService(product);
-             if (product == 3) setProductToRoomService(product);
-             if (product == 4) setProductToRoomService(product);
+             if (product == 1) hotel.setProductToRoomService(product, /*instancia de booking*/); //Se precisa también la instancia de booking por parametro.
+             if (product == 2) hotel.setProductToRoomService(product);
+             if (product == 3) hotel.setProductToRoomService(product);
+             if (product == 4) hotel.setProductToRoomService(product);
              else controllerMenuPrincipal(hotel);
 
              System.out.println("Desea pedir algo mas? S/N");

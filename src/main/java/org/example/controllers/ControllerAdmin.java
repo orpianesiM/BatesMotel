@@ -3,6 +3,8 @@ package org.example.controllers;
 import org.example.*;
 import org.example.helpers.IControllerHelper;
 
+import java.util.ArrayList;
+
 public class ControllerAdmin implements IControllerHelper{
 
     public static void viewMenuHotel(){
@@ -104,7 +106,7 @@ public class ControllerAdmin implements IControllerHelper{
         Booking bookingFound = IControllerHelper.searchBooking(hotel);
         if(bookingFound != null){
             System.out.println("Ingrese el consumo de la habitación <format:$xx.xx>: $");
-            bookingFound.addSpentMoney(sc.nextDouble());
+            bookingFound.setSpentMoney(sc.nextDouble());
             }else System.out.println("La habitación no tiene huéspedes");
         }
 
@@ -118,16 +120,30 @@ public class ControllerAdmin implements IControllerHelper{
                 switch (num) {
                     case "1":
                         for (i = 0; i < hotel.getHotelSize(); i++) {
-                            if (!(hotel.getAllRoom(i).isAvailable())) System.out.println(hotel.getAllRoom(i));
+                            if (!(hotel.getAllRooms(i).isAvailable())) System.out.println(hotel.getAllRooms(i));
+
+                            //Se podría optimizar usando un for each y nos ahorramos la funcion getAllRooms
+
+                            /* for (Room variable : hotel.getRoomList())
+
+
+                        {
+                            if (variable.isAvailable())
+                            {
+                                System.out.println(variable.toString());
+                            }
+
+                        }*/
+
                         }
                         break;
                     case "2":
                         for (i = 0; i < hotel.getHotelSize(); i++) {
-                            if (hotel.getAllRoom(i).isAvailable()) System.out.println(hotel.getAllRoom(i));
+                            if (hotel.getAllRooms(i).isAvailable()) System.out.println(hotel.getAllRooms(i));
                             }
                         break;
                     case "3":
-                        for (i = 0; i < hotel.getHotelSize(); i++) System.out.println(hotel.getAllRoom(i));
+                        for (i = 0; i < hotel.getHotelSize(); i++) System.out.println(hotel.getAllRooms(i));
                         break;
                     default:
                         System.out.println("Ingreso incorrectamente.");
@@ -468,7 +484,7 @@ public class ControllerAdmin implements IControllerHelper{
                 System.out.println("\nDesea eliminar la reserva? S/N");
                 answer = sc.nextLine().toUpperCase();
                 if (answer.equals("S")) {
-                    booking.remove(); ///?????????? remuevo segun que
+                    booking.remove(); ///?????????? remuevo segun que // Hay que hacer el metodo removeBooking aparte en clase Hotel
                     System.out.println("Reserva cancelada!");
                 }else{
                     System.out.println("Quiere volver a intentarlo? S/N");
