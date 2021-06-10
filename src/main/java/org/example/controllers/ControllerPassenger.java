@@ -101,7 +101,7 @@ public class ControllerPassenger implements IControllerHelper{
                              optionTwoRoomService(hotel);
                              break;
                          case "3":
-                             //ToDo ticket segun id de booking
+                             //getTicket
                              break;
                          case "0":
                              controllerMenuPrincipal(hotel);
@@ -144,6 +144,7 @@ public class ControllerPassenger implements IControllerHelper{
      
 
     /*******************************************VIEW*******************************************/
+
     public static void viewRoomType(){
         System.out.println("1. Single");
         System.out.println("2. Twin");

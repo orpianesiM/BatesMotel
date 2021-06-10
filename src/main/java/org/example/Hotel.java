@@ -54,6 +54,23 @@ public class Hotel
     /* [Métodos] */
 
 
+    public boolean removeBooking (Booking bookingDeleted)
+    {
+        if (bookingList != null)
+        {
+            for (Booking variable : bookingList)
+            {
+                if (bookingDeleted == variable)
+                {
+                    bookingList.remove(variable);
+
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public Room verifyBooking(LocalDateTime checkIn, LocalDateTime checkOut, RoomType roomType)
     {
 

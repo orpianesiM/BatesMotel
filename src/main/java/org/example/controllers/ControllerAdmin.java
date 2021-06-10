@@ -484,8 +484,8 @@ public class ControllerAdmin implements IControllerHelper{
                 System.out.println("\nDesea eliminar la reserva? S/N");
                 answer = sc.nextLine().toUpperCase();
                 if (answer.equals("S")) {
-                    booking.remove(); ///?????????? remuevo segun que // Hay que hacer el metodo removeBooking aparte en clase Hotel
-                    System.out.println("Reserva cancelada!");
+                    if(hotel.removeBooking(booking))
+                    {System.out.println("Reserva cancelada!");}
                 }else{
                     System.out.println("Quiere volver a intentarlo? S/N");
                     answerController = sc.nextLine().toUpperCase();

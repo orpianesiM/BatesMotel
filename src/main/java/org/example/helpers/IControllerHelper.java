@@ -34,7 +34,7 @@ public interface IControllerHelper {
         do {
             System.out.println("Ingrese el DNI: ");
             String dni = sc.nextLine();
-            passengerFound = hotel.getPassenger(dni);
+            passengerFound = hotel.getpassengerbyDni(dni);
             if (passengerFound != null) {
                 System.out.println("Busqueda éxitosa");
                 return passengerFound;
