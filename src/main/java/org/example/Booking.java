@@ -10,6 +10,8 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Booking {
 
+    /*[Atributos]*/
+
     private String bookingId ; // id unico de 12 caracteres
     private Passenger bookingPassenger;
     private Room bookedRoom;
@@ -19,7 +21,7 @@ public class Booking {
     private double spentMoney;
 
 
-
+    /*[Constructores]*/
 
     public Booking(Passenger bookingPassenger , Room bookedRoom, String checkInDate, String checkOutDate, BookingState bookingState) {
 
@@ -37,7 +39,7 @@ public class Booking {
     public Booking() {
     }
 
-
+    /*[Métodos]*/
 
     // calcular los dias entre checkin y check out
     public static long reservedDays (LocalDateTime checkInDate, LocalDateTime checkOutDate){
@@ -64,6 +66,8 @@ public class Booking {
     }
 
 
+    /*[Getters & Setters]*/
+
     public BookingState getBookingState() {
         return bookingState;
     }
@@ -74,10 +78,6 @@ public class Booking {
 
     public String getBookingId() {
         return bookingId;
-    }
-
-    public void setBookingId(String bookingId) {
-        this.bookingId = bookingId;
     }
 
     public Passenger getBookingPassenger() {

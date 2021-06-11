@@ -25,14 +25,13 @@ public class Hotel
     private TreeSet<User> userList;
 
     /* [Constructores] */
+
     public Hotel()
     {
         this.bookingList.addAll(FileHelper.getBookingsFromJson());
         this.roomList.addAll(FileHelper.getRoomsFromJson());
         this.userList.addAll(FileHelper.getUsersFromJson());
     }
-
-/*
 
     public Hotel(boolean isOpen, TreeSet userList, ArrayList roomList, HashSet bookingList)
     {
@@ -42,7 +41,7 @@ public class Hotel
         this.bookingList = bookingList;
     }
   
-
+/*
     public Hotel()
     {
         this.userList = new TreeSet<>();
@@ -51,17 +50,17 @@ public class Hotel
 
     }
 */
+
+
+
     /* [Métodos] */
 
 
-    public boolean removeBooking (Booking bookingDeleted)
+    public boolean removeBooking(Booking bookingDeleted)
     {
-        if (bookingList != null)
-        {
-            for (Booking variable : bookingList)
-            {
-                if (bookingDeleted == variable)
-                {
+        if (bookingList != null) {
+            for (Booking variable : bookingList) {
+                if (bookingDeleted == variable) {
                     bookingList.remove(variable);
 
                     return true;
@@ -109,36 +108,6 @@ public class Hotel
         return null;
     }
 
-    public void insertBooking(Booking booking)
-    {
-
-        bookingList.add(booking);
-
-    }
-
-    public double getTicket(String bookingId)
-    {
-
-        if (this.bookingList != null) {
-
-            for (Booking booking : bookingList) {
-
-                if (booking.getBookingId().equals(bookingId)) {
-
-                    return booking.getSpentMoney(); // retorna valor de lo gastado hasta el momento en que se hace la consulta
-                }
-            }
-        }
-        return -1;
-    }
-
-
-    public boolean addPassenger(Passenger newPassenger)
-    {
-        return userList.add(newPassenger);
-    }
-
-    //getBookingByRoom(Room)
     public List getBookingByRoom(Room room)
     {
 
@@ -164,8 +133,42 @@ public class Hotel
         return null;
     }
 
-    //getBookingByDni - retorna List porque puede haber mas de un Booking realizado por una misma persona
+    public void insertBooking(Booking booking)
+    {
 
+        bookingList.add(booking);
+
+    }
+
+    public ArrayList<Passenger> getAllPassengers()
+    {
+        if (userList != null) {
+            ArrayList<Passenger> auxList = new ArrayList<Passenger>();
+
+            for (User variable : userList) {
+                if (variable instanceof Passenger) {
+                    auxList.add((Passenger) variable);
+                }
+            }
+
+            if (!(auxList.isEmpty())) //Considero que no se haya encontrado ningun pasajero.
+            {
+                return auxList;
+            }
+        }
+
+        return null;
+
+    }
+
+    public boolean addPassenger(Passenger newPassenger)
+    {
+        return userList.add(newPassenger);
+    }
+
+
+    //getBookingByDni - retorna List porque puede haber mas de un Booking realizado por una misma persona
+/*
     public List getBookingByDni(String dni)
     {
 
@@ -190,33 +193,7 @@ public class Hotel
         }
         return null;
     }
-
-
-    //getAllBooking
-
-    public HashSet getAllBooking()
-    {    // consultar si es necesario o se puede recorrer directamente bookingList
-
-        if (bookingList != null) {
-            HashSet<Booking> allBokings = this.bookingList;
-            return allBokings;
-        }
-        return null;
-
-    }
-
-    //getAllRooms
-
-    public List getAllRooms()
-    {
-
-        if (roomList != null) {
-            List<Room> allRooms = this.roomList;
-            return allRooms;
-        }
-        return null;
-    }
-
+*/
 
     //getpassengerbyDni por dni
 
@@ -265,6 +242,7 @@ public class Hotel
             return 0;
     }
 
+
     public boolean seeWorkers()
     {
         if (userList != null) {
@@ -280,74 +258,6 @@ public class Hotel
             return false;
     }
 
-    public boolean seeRooms()
-    {
-        if (roomList != null) {
-            for (Room variable : roomList) {
-                System.out.println(variable.toString()); //Consultar como evitar este print
-            }
-
-            return true;
-
-        }
-        else
-            return false;
-
-    }
-
-    public boolean availableRooms()
-    {
-        if (roomList != null) {
-            for (Room variable : roomList) {
-                if (variable.isAvailable()) {
-                    System.out.println(variable.toString()); //Consultar como evitar este print
-                }
-            }
-
-            return true;
-        }
-        else
-            return false;
-
-    }
-
-    public boolean unavailableRooms()
-    {
-        if (roomList != null) {
-            for (Room variable : roomList) {
-                if (!(variable.isAvailable())) {
-                    System.out.println(variable.toString());//Consultar como evitar este print
-                }
-            }
-
-            return true;
-        }
-        else
-            return false;
-
-    }
-
-
-    public ArrayList<Passenger> getAllPassengers()
-    {
-        if (userList != null) {
-            ArrayList<Passenger> auxList = new ArrayList<Passenger>();
-
-            for (User variable : userList) {
-                if (variable instanceof Passenger) {
-                    auxList.add((Passenger) variable);
-                }
-            }
-
-            if (!(auxList.isEmpty())) //Considero que no se haya encontrado ningun pasajero.
-            {
-                return auxList;
-            }
-        }
-
-        return null;
-
-    }
 
     public Room getRoom(int roomNumber)
     {
@@ -362,6 +272,17 @@ public class Hotel
         }
 
         return null;
+    }
+
+    public void seeRooms ()
+    {
+        if (roomList != null)
+        {
+            for (Room variable : roomList)
+            {
+                variable.toString();
+            }
+        }
     }
 
     public boolean checkDateAvailability(LocalDateTime lookedDate)
@@ -379,15 +300,6 @@ public class Hotel
             return true;
         }
 
-    }
-
-    public void changeRoomAvailability(Room roomChanged)
-    {
-        if (roomChanged.isAvailable()) {
-            roomChanged.setAvailable(false);
-        }
-        else
-            roomChanged.setAvailable(true);
     }
 
     public boolean checkIn(Booking booking)
@@ -414,9 +326,7 @@ public class Hotel
 
                     changeRoomAvailability(variable);
                     booking.setBookingState(BookingState.FINALIZED);
-
-                    /*Falta ver la parte del ticket y como se incorpora
-                     * dentro del checkOut*/
+                    booking.getBookingPassenger().setHistory(getTicket(booking.getBookingId()));
 
                     return true;
 
@@ -427,21 +337,33 @@ public class Hotel
         return false;
     }
 
-
-    /*************************NUEVO***************************************/
-   /* public double checkOut(Room roomCheckedOut){
-        Booking bookingFound = searchBookingByRoom(roomCheckedOut);
-        double totalToPay=bookingFound.getSpentMoney();
-        roomCheckedOut.getGuest().setHistory("\nPasajero :" + bookingFound.getBookingPassenger() +
-                                            "\nHabitación: "+roomCheckedOut +
-                                            "\nDesde: "+bookingFound.getCheckInDate() +
-                                            "\nHasta: "+ bookingFound.getCheckOutDate() +
-                                            "\nTotal a pagar" + bookingFound.getSpentMoney());
-        roomCheckedOut.setAvailable(true);
-        roomCheckedOut.setGuest(null);
-        return totalToPay;
+    public void changeRoomAvailability(Room roomChanged)
+    {
+        if (roomChanged.isAvailable()) {
+            roomChanged.setAvailable(false);
+        }
+        else
+            roomChanged.setAvailable(true);
     }
-  /***Ver donde agregar historial del pasajero***/
+
+    public Ticket getTicket(String bookingId)
+    {
+        if (this.bookingList != null) {
+
+            for (Booking booking : bookingList) {
+
+                if (booking.getBookingId().equals(bookingId)) {
+
+                    Ticket newTicket = new Ticket(booking.getCheckInDate(), booking.getCheckOutDate(), booking.getBookedRoom(), booking.getSpentMoney());
+
+                    return newTicket;
+                }
+            }
+        }
+        return null;
+    }
+
+
     public void save()
     {
         FileHelper.setUsersToJson(this.userList);
@@ -450,47 +372,47 @@ public class Hotel
 
     }
 
-        /*Getters & Setters */
+    /*Getters & Setters */
 
 
-        public boolean isOpen ()
-        {
-            return isOpen;
-        }
+    public boolean isOpen()
+    {
+        return isOpen;
+    }
 
-        public void setOpen ( boolean open)
-        {
-            isOpen = open;
-        }
-        public ArrayList<Room> getRoomList()
-        {
-            return roomList;
-        }
+    public void setOpen(boolean open)
+    {
+        isOpen = open;
+    }
 
+    public ArrayList<Room> getRoomList()
+    {
+        return roomList;
+    }
 
-        public void setRoomList (ArrayList < Room > roomList)
-        {
-            this.roomList = roomList;
-        }
+    public void setRoomList(ArrayList<Room> roomList)
+    {
+        this.roomList = roomList;
+    }
 
-        public HashSet<Booking> getBookingList ()
-        {
-            return bookingList;
-        }
+    public HashSet<Booking> getBookingList()
+    {
+        return bookingList;
+    }
 
-        public void setBookingList (HashSet < Booking > bookingList)
-        {
-            this.bookingList = bookingList;
-        }
+    public void setBookingList(HashSet<Booking> bookingList)
+    {
+        this.bookingList = bookingList;
+    }
 
-        public TreeSet<User> getUserList ()
-        {
-            return userList;
-        }
+    public TreeSet<User> getUserList()
+    {
+        return userList;
+    }
 
-        public void setUserList (TreeSet < User > userList)
-        {
-            this.userList = userList;
-        }
+    public void setUserList(TreeSet<User> userList)
+    {
+        this.userList = userList;
+    }
 
 }

@@ -5,9 +5,11 @@ import org.example.helpers.IControllerHelper;
 
 import java.util.ArrayList;
 
-public class ControllerAdmin implements IControllerHelper{
+public class ControllerAdmin implements IControllerHelper
+{
 
-    public static void viewMenuHotel(){
+    public static void viewMenuHotel()
+    {
         System.out.println("*-*-*-*-*-*-*-***Bates Motel****-*-*-*-*-*-*\n");
         System.out.println("*-*-*-*-*-*-*-***Menu Principal****-*-*-*-*-*-*\n");
         System.out.println("1. Habitaciones");
@@ -17,7 +19,8 @@ public class ControllerAdmin implements IControllerHelper{
         System.out.println("Ingrese una opción: ");
     }
 
-    public static void controllerMenuHotel(Hotel hotel){
+    public static void controllerMenuHotel(Hotel hotel)
+    {
         boolean flag = false;
         viewMenuHotel();
         do {
@@ -39,14 +42,16 @@ public class ControllerAdmin implements IControllerHelper{
                     default:
                         System.out.println("Ingreso incorrectamente.");
                 }
-            } else flag = IControllerHelper.messageError();
-        }while(flag);
+            }
+            else flag = IControllerHelper.messageError();
+        } while (flag);
     }
 
     /**-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*ROOM*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**/
     /*******************************************CONTROLLERS*******************************************/
-    private static void controllerRooms(Hotel hotel) {
-        boolean flag=false;
+    private static void controllerRooms(Hotel hotel)
+    {
+        boolean flag = false;
         viewMenuRooms();
         do {
             String option = sc.nextLine();
@@ -57,8 +62,8 @@ public class ControllerAdmin implements IControllerHelper{
                         controllerRooms(hotel);
                         break;
                     case "2":
-                       controllerRoomSearch(hotel);
-                       controllerRooms(hotel);
+                        controllerRoomSearch(hotel);
+                        controllerRooms(hotel);
                         break;
                     case "3":
                         controllerRoomStatus(hotel);
@@ -70,11 +75,13 @@ public class ControllerAdmin implements IControllerHelper{
                     default:
                         System.out.println("Ingreso incorrectamente.");
                 }
-            } else flag = IControllerHelper.messageError();
+            }
+            else flag = IControllerHelper.messageError();
         } while (flag);
     }
 
-    private static void controllerRoomSearch(Hotel hotel) {
+    private static void controllerRoomSearch(Hotel hotel)
+    {
         boolean flag = false;
         do {
             if (IControllerHelper.searchRoom(hotel) != null) {
@@ -97,20 +104,24 @@ public class ControllerAdmin implements IControllerHelper{
                         default:
                             System.out.println("Ingreso incorrectamente.");
                     }
-                } else flag = IControllerHelper.messageError();
+                }
+                else flag = IControllerHelper.messageError();
             }
-        }while (flag) ;
+        } while (flag);
     }
 
-    private static void controllerRoomService(Hotel hotel){
+    private static void controllerRoomService(Hotel hotel)
+    {
         Booking bookingFound = IControllerHelper.searchBooking(hotel);
-        if(bookingFound != null){
+        if (bookingFound != null) {
             System.out.println("Ingrese el consumo de la habitación <format:$xx.xx>: $");
             bookingFound.setSpentMoney(sc.nextDouble());
-            }else System.out.println("La habitación no tiene huéspedes");
         }
+        else System.out.println("La habitación no tiene huéspedes");
+    }
 
-    private static void controllerRoomList(Hotel hotel) {
+    private static void controllerRoomList(Hotel hotel)
+    {
         int i = 0;
         boolean flag = false;
         do {
@@ -119,43 +130,47 @@ public class ControllerAdmin implements IControllerHelper{
             if (IControllerHelper.isInteger(num)) {
                 switch (num) {
                     case "1":
-                        for (i = 0; i < hotel.getHotelSize(); i++) {
-                            if (!(hotel.getAllRooms(i).isAvailable())) System.out.println(hotel.getAllRooms(i));
-
-                            //Se podría optimizar usando un for each y nos ahorramos la funcion getAllRooms
-
-                            /* for (Room variable : hotel.getRoomList())
-
-
-                        {
-                            if (variable.isAvailable())
-                            {
+                        for (Room variable : hotel.getRoomList()) {
+                            if (!(variable.isAvailable())) {
                                 System.out.println(variable.toString());
                             }
 
-                        }*/
-
                         }
+                        /*
+                        for (i = 0; i < hotel.getHotelSize(); i++) {
+                            if (!(hotel.getAllRooms(i).isAvailable())) System.out.println(hotel.getAllRooms(i));*/
                         break;
                     case "2":
+                        for (Room variable : hotel.getRoomList()) {
+                            if (variable.isAvailable()) {
+                                System.out.println(variable.toString());
+                            }
+
+                        }
+                        /*
                         for (i = 0; i < hotel.getHotelSize(); i++) {
                             if (hotel.getAllRooms(i).isAvailable()) System.out.println(hotel.getAllRooms(i));
-                            }
+                            }*/
                         break;
                     case "3":
-                        for (i = 0; i < hotel.getHotelSize(); i++) System.out.println(hotel.getAllRooms(i));
+                        for (Room variable : hotel.getRoomList()){
+                            System.out.println(variable.toString());
+                        }
+                       /* for (i = 0; i < hotel.getHotelSize(); i++) System.out.println(hotel.getAllRooms(i));*/
                         break;
                     default:
                         System.out.println("Ingreso incorrectamente.");
                 }
-            } else flag = IControllerHelper.messageError();
+            }
+            else flag = IControllerHelper.messageError();
         } while (flag);
     }
 
-    private static void controllerRoomAdjust(Hotel hotel) {
+    private static void controllerRoomAdjust(Hotel hotel)
+    {
         String option, answer;
         boolean flag = false;
-        do{
+        do {
             Room room = IControllerHelper.searchRoom(hotel);
             if (room != null) {
                 System.out.println("*-*-*-*-*-*-*-***Modificar Habitación****-*-*-*-*-*-*\n");
@@ -170,7 +185,7 @@ public class ControllerAdmin implements IControllerHelper{
                         case "1":
                             System.out.println("Ingrese nuevo numero de habitación");
                             room.setRoomNumber(sc.nextInt());
-                            System.out.println("Datos cambiados con exito! \n" +room);
+                            System.out.println("Datos cambiados con exito! \n" + room);
                             break;
                         case "2":
                             boolean status = room.isAvailable();
@@ -215,36 +230,46 @@ public class ControllerAdmin implements IControllerHelper{
                         default:
                             System.out.println("Ingreso incorrectamente.");
                     }
-                } else flag = IControllerHelper.messageError();
+                }
+                else flag = IControllerHelper.messageError();
             }
         } while (flag);
     }
 
 
-    private static void controllerRoomAdjustStatus(Hotel hotel){
+    private static void controllerRoomAdjustStatus(Hotel hotel)
+    {
         Room roomFound = IControllerHelper.searchRoom(hotel);
         if (roomFound != null) {
             System.out.println(roomFound.toString());
         }
     }
 
-    private static void controllerRoomStatus(Hotel hotel) {
+    private static void controllerRoomStatus(Hotel hotel)
+    {
         int rooms = hotel.getHotelSize();
         int ocupated = 0;
         System.out.println("*-*-*-*-*-*-*-***Estado General****-*-*-*-*-*-*\n");
         System.out.println("Habitaciones: " + rooms);
+        for (Room variable : hotel.getRoomList()) {
+            if (variable.isAvailable()) {
+                ocupated++;
+            }
+        }
+        /*
         for (int i = 0; i < rooms; i++) {
             if (!(hotel.getAllRoom.isAvailable())){
                 ocupated++;
             }
-        }
-            System.out.println("Habitaciones ocupadas: " + ocupated);
-            System.out.println("Habitaciones desocupadas: " + (rooms - ocupated));
+        }*/
+        System.out.println("Habitaciones ocupadas: " + ocupated);
+        System.out.println("Habitaciones desocupadas: " + (rooms - ocupated));
     }
 
     /**-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*ROOM*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**/
     /*******************************************VIEW*******************************************/
-    public static void viewMenuRooms(){
+    public static void viewMenuRooms()
+    {
         System.out.println("*-*-*-*-*-*-*-***Menu Habitaciones****-*-*-*-*-*-*\n");
         System.out.println("1. Listar habitaciones");
         System.out.println("2. Buscar habitación");
@@ -252,14 +277,16 @@ public class ControllerAdmin implements IControllerHelper{
         System.out.println("0. Salir");
     }
 
-    public static void viewMenuRoomsList(){
+    public static void viewMenuRoomsList()
+    {
         System.out.println("*-*-*-*-*-*-*-***Menu Listar Habitaciones****-*-*-*-*-*-*\n");
-        System.out.println("2. Habitaciones ocupadas");
-        System.out.println("1. Habitaciones desocupadas");
+        System.out.println("1. Habitaciones ocupadas");
+        System.out.println("2. Habitaciones desocupadas");
         System.out.println("3. Todas las habitaciones");
     }
 
-    public static void viewMenuRoomsSearch(){
+    public static void viewMenuRoomsSearch()
+    {
         System.out.println("*-*-*-*-*-*-*-***Acciones sobre la habitación****-*-*-*-*-*-*\n");
         System.out.println("1. Modificar habitación");
         System.out.println("2. Estado de la habitación");
@@ -268,15 +295,16 @@ public class ControllerAdmin implements IControllerHelper{
 
     /**-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*PASSENGER*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**/
     /*******************************************CONTROLLERS*******************************************/
-    private static void controllerPassengers(Hotel hotel){
-        boolean flag=false;
+    private static void controllerPassengers(Hotel hotel)
+    {
+        boolean flag = false;
         viewMenuPassengers();
         do {
             String option = sc.nextLine();
             if (IControllerHelper.isInteger(option)) {
                 switch (option) {
                     case "1":
-                        hotel.getAllPassenger().forEach(System.out::println);
+                        hotel.getAllPassengers().forEach(System.out::println);
                         controllerPassengers(hotel);
                         break;
                     case "2":
@@ -293,17 +321,18 @@ public class ControllerAdmin implements IControllerHelper{
                     default:
                         System.out.println("Ingreso incorrectamente.");
                 }
-            } else flag = IControllerHelper.messageError();
+            }
+            else flag = IControllerHelper.messageError();
         } while (flag);
     }
 
-    private static void controllerPassengersAdd(Hotel hotel){
+    private static void controllerPassengersAdd(Hotel hotel)
+    {
         Passenger passengerNew;
-        boolean add = false;
         String controller = null, controllerAdd, name, lastName, email, dni, origin, originAddress;
         int phone;
         System.out.println("*-*-*-*-*-*-*-***Crear Pasajero****-*-*-*-*-*-*\n");
-        do{
+        do {
             System.out.println("INGRESE LOS DATOS");
             System.out.println("Nombre: ");
             name = sc.nextLine();
@@ -324,18 +353,24 @@ public class ControllerAdmin implements IControllerHelper{
 
             System.out.println("Desea agregar al nuevo pasajero ? S/N");
             controllerAdd = sc.nextLine().toUpperCase();
-            if(controllerAdd.equals("S")){
-                add = hotel.addPassenger(passengerNew);
-                if(add) System.out.println("Pasajero creado con exito");
-                if(!add) System.out.println("Error al cargar nuevo pasajero");
-            }else{
+            if (controllerAdd.equals("S")) {
+                if (hotel.addPassenger(passengerNew))
+                {
+                    System.out.println("Pasajero creado con exito");
+                }
+                else
+                    System.out.println("Error al cargar nuevo pasajero");
+
+            }
+            else {
                 System.out.println("Desea cargar nuevamente? S/N");
                 controller = sc.nextLine().toUpperCase();
             }
-        }while(controller.equals("N"));
+        } while (controller.equals("N"));
     }
 
-    private static void controllerPassengersSearch(Hotel hotel) {
+    private static void controllerPassengersSearch(Hotel hotel)
+    {
         boolean flag = false;
         do {
             Passenger passengerFound = IControllerHelper.searchPassenger(hotel);
@@ -354,7 +389,7 @@ public class ControllerAdmin implements IControllerHelper{
                             break;
                         case "3":
                             Booking bookingFound = IControllerHelper.searchBooking(hotel);
-                            if(bookingFound!=null) System.out.println(bookingFound.toString());
+                            if (bookingFound != null) System.out.println(bookingFound.toString());
                             controllerPassengers(hotel);
                             break;
                         case "4":
@@ -367,12 +402,14 @@ public class ControllerAdmin implements IControllerHelper{
                         default:
                             System.out.println("Ingreso incorrectamente.");
                     }
-                } else flag = IControllerHelper.messageError();
+                }
+                else flag = IControllerHelper.messageError();
             }
-        }while(flag);
+        } while (flag);
     }
 
-    private static void controllerPassengerSearchAdjust(Hotel hotel) {
+    private static void controllerPassengerSearchAdjust(Hotel hotel)
+    {
         boolean flag = false;
         String option;
         do {
@@ -385,8 +422,8 @@ public class ControllerAdmin implements IControllerHelper{
                 System.out.println("4. Email");
                 System.out.println("5. DNI");
                 option = sc.nextLine();
-                if(IControllerHelper.isInteger(option)){
-                    switch (option){
+                if (IControllerHelper.isInteger(option)) {
+                    switch (option) {
                         case "1":
                             System.out.println("Ingrese nuevo nombre");
                             passengerFound.setName(sc.nextLine());
@@ -408,25 +445,29 @@ public class ControllerAdmin implements IControllerHelper{
                             passengerFound.setDni(sc.nextLine());
                             break;
                     }
-                }else flag=IControllerHelper.messageError();
+                }
+                else flag = IControllerHelper.messageError();
             }
-        }while(flag);
+        } while (flag);
     }
 
-    private static void controllerPassengerSearchHistory(Hotel hotel){
+    private static void controllerPassengerSearchHistory(Hotel hotel)
+    {
         Passenger passengerFound = IControllerHelper.searchPassenger(hotel);
-        if(passengerFound != null){
-            if(!(passengerFound.getHistory().isEmpty())){
+        if (passengerFound != null) {
+            if (!(passengerFound.getHistory().isEmpty())) {
                 passengerFound.getHistory().forEach(System.out::println);
-            }else{
-                System.out.println("El pasajero" +passengerFound.getName() +" "+ passengerFound.getLastName() +
+            }
+            else {
+                System.out.println("El pasajero" + passengerFound.getName() + " " + passengerFound.getLastName() +
                         " no tiene historial en el hotel");
             }
         }
     }
     /**-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*PASSENGER*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**/
     /*******************************************VIEW*******************************************/
-    public static void viewMenuPassengers(){
+    public static void viewMenuPassengers()
+    {
         System.out.println("*-*-*-*-*-*-*-***Menu Pasajeros****-*-*-*-*-*-*\n");
         System.out.println("1. Listar Pasajeros");
         System.out.println("2. Buscar Pasajero");
@@ -434,7 +475,8 @@ public class ControllerAdmin implements IControllerHelper{
         System.out.println("0. Salir");
     }
 
-    public static void viewMenuPassengerSearch(){
+    public static void viewMenuPassengerSearch()
+    {
         System.out.println("*-*-*-*-*-*-*-***Acciones sobre el pasajero****-*-*-*-*-*-*\n");
         System.out.println("1. Modificar Pasajero");
         System.out.println("2. Ver Pasajero");
@@ -444,7 +486,8 @@ public class ControllerAdmin implements IControllerHelper{
 
     /**-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*BOOKING*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**/
     /*******************************************CONTROLLERS*******************************************/
-    private static void controllerBooking(Hotel hotel) {
+    private static void controllerBooking(Hotel hotel)
+    {
         boolean flag = false;
         viewMenuBooking();
         do {
@@ -456,12 +499,12 @@ public class ControllerAdmin implements IControllerHelper{
                         controllerBooking(hotel);
                         break;
                     case "2":
-                        hotel.getAllBooking().forEach(System.out::println);
+                        hotel.getBookingList().forEach(System.out::println);
                         controllerBooking(hotel);
                         break;
                     case "3":
                         Booking booking = IControllerHelper.searchBooking(hotel);
-                        if(booking != null) System.out.println("DATOS: " + booking.toString());
+                        if (booking != null) System.out.println("DATOS: " + booking.toString());
                         controllerMenuHotel(hotel);
                         break;
                     case "0":
@@ -470,33 +513,38 @@ public class ControllerAdmin implements IControllerHelper{
                     default:
                         System.out.println("Ingreso incorrectamente.");
                 }
-            } else flag = IControllerHelper.messageError();
+            }
+            else flag = IControllerHelper.messageError();
         } while (flag);
     }
 
 
-    private static void controllerBookingDelete(Hotel hotel){
-        String answer=null, answerController=null;
+    private static void controllerBookingDelete(Hotel hotel)
+    {
+        String answer = null, answerController = null;
         do {
             Booking booking = IControllerHelper.searchBooking(hotel);
-            if (booking!=null) {
+            if (booking != null) {
                 System.out.println("Datos: " + booking.toString());
                 System.out.println("\nDesea eliminar la reserva? S/N");
                 answer = sc.nextLine().toUpperCase();
                 if (answer.equals("S")) {
-                    if(hotel.removeBooking(booking))
-                    {System.out.println("Reserva cancelada!");}
-                }else{
+                    if (hotel.removeBooking(booking)) {
+                        System.out.println("Reserva cancelada!");
+                    }
+                }
+                else {
                     System.out.println("Quiere volver a intentarlo? S/N");
                     answerController = sc.nextLine().toUpperCase();
                 }
             }
-        }while(answerController.equals("S"));
+        } while (answerController.equals("S"));
     }
 
     /**-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*BOOKING*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**/
     /*******************************************VIEW*******************************************/
-    public static void viewMenuBooking () {
+    public static void viewMenuBooking()
+    {
         System.out.println("*-*-*-*-*-*-*-***Menu Reservas****-*-*-*-*-*-*\n");
         System.out.println("1. Eliminar Reserva");
         System.out.println("2. Ver todas las reservas");

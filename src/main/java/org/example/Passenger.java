@@ -9,7 +9,8 @@ import java.util.List;
 public class Passenger extends User{
 
     private String origin, originAddress;
-    private List<String> history;
+    //private List<String> history;
+    private ArrayList<Ticket> history;
 
     public Passenger() {
     }
@@ -95,12 +96,12 @@ public class Passenger extends User{
         return super.getDni();
     }
 
-    public List<String> getHistory() {
+    public ArrayList<Ticket> getHistory() {
         return history;
     }
 
-    public void setHistory(String text) {
-        this.history.add(text);
+    public void setHistory(Ticket ticket) {
+        this.history.add(ticket);
     }
 
 
@@ -117,11 +118,11 @@ public class Passenger extends User{
 
     @Override
     public String toString() {
-        return "Passenger{" + super() +
+        return "" + super.toString() +
                 "origin='" + origin + '\'' +
                 ", originAddress='" + originAddress + '\'' +
                 ", history=" + history +
-                '}';
+                "} \n";
     }
 
     public String getOrigin()
@@ -136,23 +137,12 @@ public class Passenger extends User{
 
     public String getOriginAdress()
     {
-        return originAdress;
+        return originAddress;
     }
 
     public void setOriginAdress(String originAdress)
     {
-        this.originAdress = originAdress;
+        this.originAddress = originAdress;
     }
 
-    @Override
-    public String getName()
-    {
-        return super.getName();
-    }
-
-    @Override
-    public String getLastName()
-    {
-        return super.getLastName();
-    }
 }

@@ -69,11 +69,15 @@ public class ControllerEmployee implements IControllerHelper {
     /*******************************************CHECK OUT*******************************************/
     private static void controllerCheckOut(Hotel hotel){
         boolean flag;
-        Room roomToCheckOut = IControllerHelper.searchRoom(hotel);
-        if(roomToCheckOut!=null) {
-            boolean available = roomToCheckOut.isAvailable();
+        //Room roomToCheckOut = IControllerHelper.searchRoom(hotel); //Habría que cambiar para que busque un booking, así se pasa por parametro al checkOut
+        Booking bookingToCheckOut = IControllerHelper.searchBooking(hotel);
+        //if(roomToCheckOut!=null) {
+        if(bookingToCheckOut!=null) {
+            //boolean available = roomToCheckOut.isAvailable();
+            boolean available = bookingToCheckOut.getBookedRoom().isAvailable();
             if (!available) {
-                flag = hotel.checkOut(roomToCheckOut);
+                //flag = hotel.checkOut(roomToCheckOut);
+                flag = hotel.checkOut(bookingToCheckOut);
                 if (flag) System.out.println("La habitación fue liberada");
                 else System.out.println("ERROR. La habitación no esta ocupada");
             }
@@ -89,8 +93,8 @@ public class ControllerEmployee implements IControllerHelper {
             if (IControllerHelper.isInteger(option)) {
                 switch (option) {
                     case "1":
-                        Passenger passengerFounded = IControllerHelper.searchPassenger(hotel);
-                        if(passengerFounded != null) System.out.println(passengerFounded.toString());
+                        Passenger passengerFound = IControllerHelper.searchPassenger(hotel);
+                        if(passengerFound != null) System.out.println(passengerFound.toString());
                         break;
                     case "2":
                         hotel.getAllPassengers().forEach(System.out::println);
@@ -115,17 +119,29 @@ public class ControllerEmployee implements IControllerHelper {
             if (IControllerHelper.isInteger(option)) {
                 switch (option) {
                     case "1":
-                        for (i = 0; i < hotel.getHotelSize(); i++) {
-                            if (!(hotel.getAllRoom(i).isAvailable())) System.out.println(hotel.getAllRoom(i));
+                        for (Room variable : hotel.getRoomList())
+                        {
+                            if (!(variable.isAvailable())){
+                                System.out.println(variable.toString());}
                         }
+/*
+                        for (i = 0; i < hotel.getHotelSize(); i++) {
+                            if (!(hot.getAllRoom(i).isAvailable())) System.out.println(hotel.getAllRoom(i));
+                        }*/
                         break;
                     case "2":
-                        for (i = 0; i < hotel.getHotelSize(); i++) {
-                            if (hotel.getAllRoom(i).isAvailable()) System.out.println(hotel.getAllRoom(i));
+                        for (Room variable : hotel.getRoomList())
+                        {
+                            if (variable.isAvailable()){System.out.println(variable.toString());}
                         }
+
+                        /*for (i = 0; i < hotel.getHotelSize(); i++) {
+                            if (hotel.getAllRoom(i).isAvailable()) System.out.println(hotel.getAllRoom(i));
+                        }*/
                         break;
                     case "0":
-                        for (i = 0; i < hotel.getHotelSize(); i++) System.out.println(hotel.getAllRoom(i));
+                        for (Room variable : hotel.getRoomList()){System.out.println(variable.toString());}
+                        /*for (i = 0; i < hotel.getHotelSize(); i++) System.out.println(hotel.getAllRoom(i));*/
                         break;
                     default:
                         System.out.println("Ingreso incorrectamente.");
@@ -146,10 +162,14 @@ public class ControllerEmployee implements IControllerHelper {
                         showBookingFromRoom(hotel);
                         break;
                     case "2":
-                        for(int i=0; i<hotel.getHotelSize(); i++){
+                        for (Booking variable : hotel.getBookingList()){
+                            System.out.println(variable.toString());
+                        }
+
+                        /*for(int i=0; i<hotel.getHotelSize(); i++){
                           //  if(!(hotel.getAllBooking)) hotel.getBookings(i).forEach(sout)
                                 //ver bookingState
-                        }
+                        }*/
                         break;
                     case "0":
                         controllerMenuEmployee(hotel);

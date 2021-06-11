@@ -44,7 +44,7 @@ public class ControllerPassenger implements IControllerHelper{
     /*******************************************METHOD*******************************************/
     /*******************************************CONTROLLERS*******************************************/
      private static void optionNewBooking(Hotel hotel){
-         int roomType=0;
+         int roomType;
          Booking addNewBooking;
          RoomType type = null;
          String checkInDate, checkOutDate;
