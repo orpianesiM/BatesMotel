@@ -119,31 +119,29 @@ public class ControllerAdmin implements IControllerHelper{
             if (IControllerHelper.isInteger(num)) {
                 switch (num) {
                     case "1":
-                        for (i = 0; i < hotel.getHotelSize(); i++) {
-                            if (!(hotel.getAllRooms(i).isAvailable())) System.out.println(hotel.getAllRooms(i));
 
-                            //Se podría optimizar usando un for each y nos ahorramos la funcion getAllRooms
+                        for (Room variable : hotel.getRoomList()) {
 
-                            /* for (Room variable : hotel.getRoomList())
-
-
-                        {
-                            if (variable.isAvailable())
-                            {
+                            if (!variable.isAvailable()) {
                                 System.out.println(variable.toString());
                             }
-
-                        }*/
-
                         }
                         break;
+
                     case "2":
-                        for (i = 0; i < hotel.getHotelSize(); i++) {
-                            if (hotel.getAllRooms(i).isAvailable()) System.out.println(hotel.getAllRooms(i));
+                        for (Room variable : hotel.getRoomList()) {
+
+                            if (variable.isAvailable()) {
+                                System.out.println(variable.toString());
                             }
+                        }
                         break;
                     case "3":
-                        for (i = 0; i < hotel.getHotelSize(); i++) System.out.println(hotel.getAllRooms(i));
+                        for (Room variable : hotel.getRoomList()) {
+
+                                System.out.println(variable.toString());
+
+                        }
                         break;
                     default:
                         System.out.println("Ingreso incorrectamente.");
@@ -170,7 +168,7 @@ public class ControllerAdmin implements IControllerHelper{
                         case "1":
                             System.out.println("Ingrese nuevo numero de habitación");
                             room.setRoomNumber(sc.nextInt());
-                            System.out.println("Datos cambiados con exito! \n" +room);
+                            System.out.println("Datos cambiados con exito! \n" +room);  //faltaria comprobar si ese numero no existe en otra habitacion
                             break;
                         case "2":
                             boolean status = room.isAvailable();
@@ -233,8 +231,13 @@ public class ControllerAdmin implements IControllerHelper{
         int ocupated = 0;
         System.out.println("*-*-*-*-*-*-*-***Estado General****-*-*-*-*-*-*\n");
         System.out.println("Habitaciones: " + rooms);
-        for (int i = 0; i < rooms; i++) {
-            if (!(hotel.getAllRoom.isAvailable())){
+        /*for (int i = 0; i < rooms; i++) {
+            if (!(hotel.getAllRooms().isAvailable())){
+                ocupated++;
+            }
+        }*/
+        for ( Room room : hotel.getRoomList() ) {       // MODIFICADA
+            if (!room.isAvailable()){
                 ocupated++;
             }
         }
@@ -254,8 +257,8 @@ public class ControllerAdmin implements IControllerHelper{
 
     public static void viewMenuRoomsList(){
         System.out.println("*-*-*-*-*-*-*-***Menu Listar Habitaciones****-*-*-*-*-*-*\n");
-        System.out.println("2. Habitaciones ocupadas");
-        System.out.println("1. Habitaciones desocupadas");
+        System.out.println("1. Habitaciones ocupadas");
+        System.out.println("2. Habitaciones desocupadas");
         System.out.println("3. Todas las habitaciones");
     }
 
@@ -276,8 +279,12 @@ public class ControllerAdmin implements IControllerHelper{
             if (IControllerHelper.isInteger(option)) {
                 switch (option) {
                     case "1":
-                        hotel.getAllPassenger().forEach(System.out::println);
-                        controllerPassengers(hotel);
+                        /*hotel.getAllPassenger().forEach(System.out::println);
+                        controllerPassengers(hotel);*/
+                        for ( Passenger passenger : hotel.getAllPassengers()){  //MODIFICADO
+                            passenger.toString();
+                        }
+                        controllerPassengers(hotel); // consultar esta linea
                         break;
                     case "2":
                         controllerPassengersSearch(hotel);

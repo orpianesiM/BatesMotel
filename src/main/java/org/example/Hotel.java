@@ -166,7 +166,7 @@ public class Hotel
 
     //getBookingByDni - retorna List porque puede haber mas de un Booking realizado por una misma persona
 
-    public List getBookingByDni(String dni)
+    public List getBookingsByDni(String dni)
     {
 
         if (bookingList != null) {
@@ -187,6 +187,24 @@ public class Hotel
             }
             else
                 return null;
+        }
+        return null;
+    }
+
+
+    public Booking getBookingByDni(String dni)
+    {
+
+        if (bookingList != null) {
+
+            for (Booking booking : bookingList) {
+
+                if (booking.getBookingPassenger().getDni() == dni) {
+
+                    return booking;
+                }
+            }
+
         }
         return null;
     }

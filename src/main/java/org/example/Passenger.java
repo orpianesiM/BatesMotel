@@ -8,7 +8,8 @@ import java.util.List;
 
 public class Passenger extends User{
 
-    private String origin, originAddress;
+    private String origin;
+    private String originAddress;
     private List<String> history;
 
     public Passenger() {
@@ -115,14 +116,14 @@ public class Passenger extends User{
         return false;
     }
 
-    @Override
+  /*  @Override
     public String toString() {
         return "Passenger{" + super() +
                 "origin='" + origin + '\'' +
                 ", originAddress='" + originAddress + '\'' +
                 ", history=" + history +
                 '}';
-    }
+    }*/
 
     public String getOrigin()
     {
@@ -136,14 +137,14 @@ public class Passenger extends User{
 
     public String getOriginAdress()
     {
-        return originAdress;
+        return originAddress;
     }
 
     public void setOriginAdress(String originAdress)
     {
-        this.originAdress = originAdress;
+        this.originAddress = originAdress;
     }
-
+/*
     @Override
     public String getName()
     {
@@ -154,5 +155,5 @@ public class Passenger extends User{
     public String getLastName()
     {
         return super.getLastName();
-    }
+    }*/
 }

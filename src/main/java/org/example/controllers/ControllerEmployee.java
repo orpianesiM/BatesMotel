@@ -1,9 +1,6 @@
 package org.example.controllers;
 
-import org.example.Booking;
-import org.example.Hotel;
-import org.example.Passenger;
-import org.example.Room;
+import org.example.*;
 import org.example.helpers.IControllerHelper;
 
 import java.time.LocalDateTime;
@@ -61,7 +58,7 @@ public class ControllerEmployee implements IControllerHelper {
         Booking bookingToCheckIn = IControllerHelper.searchBooking(hotel);
         if(bookingToCheckIn != null && bookingToCheckIn.getCheckInDate().equals(LocalDateTime.now())){
             flag = hotel.checkIn(bookingToCheckIn);
-
+            bookingToCheckIn.setBookingState(BookingState.INITIATED);   // linea agregada para cambiar el estado del booking a INITIATED
         }else System.out.println("No se puede realizar check in");
         if(flag) System.out.println("Check in realizado con éxito!");
     }
