@@ -23,9 +23,9 @@ public class FileHelper {
 
     /********************************Final*Static**********************************/
 
-    private final static String usersFile = "C:\\Users\\maarm\\workspace\\BatesMotel\\src\\main\\java\\org\\example\\files\\UserFile.json";
-    private final static String bookingsFile = "C:\\Users\\maarm\\workspace\\BatesMotel\\src\\main\\java\\org\\example\\files\\BookingFile.json";
-    private final static String roomFile = "C:\\Users\\maarm\\workspace\\BatesMotel\\src\\main\\java\\org\\example\\files\\RoomFile.json";
+    private final static String usersFile = "C:\\Users\\Juako\\Desktop\\UTN\\Segundo año\\Primer cuatrimestre\\Laboratorio III\\Projects\\BatesMotel\\main\\java\\org\\example\\files\\UserFile.json";
+    private final static String bookingsFile = "C:\\Users\\Juako\\Desktop\\UTN\\Segundo año\\Primer cuatrimestre\\Laboratorio III\\Projects\\BatesMotel\\main\\java\\org\\example\\files\\RoomFile.json";
+    private final static String roomFile = "C:\\Users\\Juako\\Desktop\\UTN\\Segundo año\\Primer cuatrimestre\\Laboratorio III\\Projects\\BatesMotel\\main\\java\\org\\example\\files\\BookingFile.json";
 
     /********************************Users**********************************/
     /**

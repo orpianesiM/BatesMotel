@@ -99,6 +99,7 @@ public class Hotel
             newBooking.setCheckOutDate(Booking.stringToLocalDateTime(checkOut));
             newBooking.setBookedRoom(newRoom);
             newBooking.setBookingPassenger(bookingPassenger);
+            newBooking.setBookingState(BookingState.PENDING);
 
             insertBooking(newBooking);
 
@@ -168,32 +169,22 @@ public class Hotel
 
 
     //getBookingByDni - retorna List porque puede haber mas de un Booking realizado por una misma persona
-/*
-    public List getBookingByDni(String dni)
+
+    public Booking getBookingByDni(String wantedDni)
     {
-
-        if (bookingList != null) {
-            int flag = 0;
-            List<Booking> bookings = new ArrayList<>();
-
-            for (Booking booking : bookingList) {
-
-                if (booking.getBookingPassenger().getDni() == dni) {
-
-                    flag = 1;
-                    bookings.add(booking);
+        if (bookingList != null)
+        {
+            for (Booking variable : bookingList)
+            {
+                if (variable.getBookingPassenger().getDni().equals(wantedDni))
+                {
+                    return variable;
                 }
             }
-
-            if (flag != 0) {
-                return bookings;
-            }
-            else
-                return null;
         }
         return null;
     }
-*/
+
 
     //getpassengerbyDni por dni
 

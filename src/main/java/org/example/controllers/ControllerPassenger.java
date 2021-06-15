@@ -98,7 +98,7 @@ public class ControllerPassenger implements IControllerHelper{
                              hotel.getBookingByDni(passengerFound.getDni());
                              break;
                          case "2":
-                             optionTwoRoomService(hotel);
+                             optionTwoRoomService(hotel, hotel.getBookingByDni(passengerFound.getDni()));
                              break;
                          case "3":
                              //getTicket
@@ -114,17 +114,17 @@ public class ControllerPassenger implements IControllerHelper{
          }
      }
 
-     private static void optionTwoRoomService(Hotel hotel) {
+     private static void optionTwoRoomService(Hotel hotel, Booking booking) {
          String flag;
          do {
              Product.getProducts();
              System.out.println("0. Salir");
              System.out.println("Ingrese el numero de lo que desea pedir: ");
              int product = sc.nextInt();
-             if (product == 1) hotel.setProductToRoomService(product, /*instancia de booking*/); //Se precisa también la instancia de booking por parametro.
-             if (product == 2) hotel.setProductToRoomService(product);
-             if (product == 3) hotel.setProductToRoomService(product);
-             if (product == 4) hotel.setProductToRoomService(product);
+             if (product == 1) hotel.setProductToRoomService(product, booking); //Se precisa también la instancia de booking por parametro.
+             if (product == 2) hotel.setProductToRoomService(product,booking);
+             if (product == 3) hotel.setProductToRoomService(product,booking);
+             if (product == 4) hotel.setProductToRoomService(product,booking);
              else controllerMenuPrincipal(hotel);
 
              System.out.println("Desea pedir algo mas? S/N");
