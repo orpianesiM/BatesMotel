@@ -1,4 +1,11 @@
-{
-  "name": "probando",
-  "direccion": "123"
-}
+[
+  {
+    "name": "Joaquin",
+    "lastName": "Alfonso",
+    "dni": "41430471",
+    "email": "joaquinalfonsopv@gmail.com",
+    "user": "JoaaquinAlfonso",
+    "password": "123",
+    "phoneNumber": 223533547
+  }
+]

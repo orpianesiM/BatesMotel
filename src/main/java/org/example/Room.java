@@ -3,11 +3,17 @@ package org.example;
 public class Room {
 
     private boolean isAvailable; // setear en false cuando el estado del booking sea INITIATED, volver a true cuando sea FINALIZED
-    private Passenger roomGuest;
     private int roomNumber;
     private RoomType roomType;
 
     public Room() {
+    }
+
+    public Room(boolean isAvailable, int roomNumber, RoomType roomType)
+    {
+        this.isAvailable = isAvailable;
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
     }
 
     public boolean isAvailable() {
@@ -16,14 +22,6 @@ public class Room {
 
     public void setAvailable(boolean available) {
         isAvailable = available;
-    }
-
-    public Passenger getGuest() {
-        return roomGuest;
-    }
-
-    public void setGuest(Passenger guest) {
-        this.roomGuest = guest;
     }
 
     public int getRoomNumber() {
@@ -47,7 +45,6 @@ public class Room {
     public String toString() {
         return "Room{" +
                 "isAvailable=" + isAvailable +
-                ", roomGuest=" + roomGuest +
                 ", roomNumber=" + roomNumber +
                 ", roomType=" + roomType +
                 '}';

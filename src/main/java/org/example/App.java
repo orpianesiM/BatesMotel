@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.controllers.ControllerAdmin;
 import org.example.controllers.ControllerLogin;
 import org.example.helpers.FileHelper;
 import java.io.File;
@@ -14,8 +15,11 @@ public class App
     public static void main( String[] args )
     {
         Hotel hotel = new Hotel();
+        //hotel.getFiles();
+        //ControllerAdmin.controllerMenuHotel(hotel);
         ControllerLogin.login(hotel);
         hotel.save();
     }
 
 }
+

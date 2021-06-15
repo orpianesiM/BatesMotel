@@ -4,15 +4,15 @@ import org.example.helpers.FileHelper;
 
 import java.util.Set;
 
-public abstract class User
+public /*abstract*/ class User
 {
     private String name, lastName, dni, email, user, password;
-    private int phoneNumber;
+    private long  phoneNumber;
 
     public User() {
     }
 
-    public User(String name, String lastName, String dni, String email, int phoneNumber) {
+    public User(String name, String lastName, String dni, String email, long phoneNumber) {
         this.name = name;
         this.lastName = lastName;
         this.dni = dni;
@@ -20,7 +20,7 @@ public abstract class User
         this.phoneNumber = phoneNumber;
     }
 
-    public User(String name, String lastName, String dni, String email, String user, String password, int phoneNumber)
+    public User(String name, String lastName, String dni, String email, String user, String password, long phoneNumber)
     {
         this.name = name;
         this.lastName = lastName;
@@ -87,12 +87,12 @@ public abstract class User
         this.password = password;
     }
 
-    public int getPhoneNumber()
+    public long getPhoneNumber()
     {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber)
+    public void setPhoneNumber(long phoneNumber)
     {
         this.phoneNumber = phoneNumber;
     }
@@ -106,6 +106,7 @@ public abstract class User
     public boolean signIn(User userHandle, Hotel hotel){
         return false;
     }
+
 
     public boolean signOut(){
         return false;
@@ -125,5 +126,10 @@ public abstract class User
                 "} \n";
     }
 
+   /* //public int compareTo(User o)
+    {
+        return this.getDni().compareTo(o.getDni());
+    }
+*/
 
 }

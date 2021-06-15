@@ -11,50 +11,56 @@ import org.example.User;
 
 import java.io.*;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.*;
+
 import org.example.User;
 import java.io.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
 
 
 public class FileHelper {
 
     /********************************Final*Static**********************************/
 
-    private final static String usersFile = "C:\\Users\\Juako\\Desktop\\UTN\\Segundo año\\Primer cuatrimestre\\Laboratorio III\\Projects\\BatesMotel\\main\\java\\org\\example\\files\\UserFile.json";
-    private final static String bookingsFile = "C:\\Users\\Juako\\Desktop\\UTN\\Segundo año\\Primer cuatrimestre\\Laboratorio III\\Projects\\BatesMotel\\main\\java\\org\\example\\files\\RoomFile.json";
-    private final static String roomFile = "C:\\Users\\Juako\\Desktop\\UTN\\Segundo año\\Primer cuatrimestre\\Laboratorio III\\Projects\\BatesMotel\\main\\java\\org\\example\\files\\BookingFile.json";
+   /* private final static String usersFile = "C:\\Users\\Juako\\Desktop\\UTN\\Segundo año\\Primer cuatrimestre\\Laboratorio III\\Projects\\BatesMotel\\main\\java\\org\\example\\files\\UserFile.json";
+    private final static String roomFile = "C:\\Users\\Juako\\Desktop\\UTN\\Segundo año\\Primer cuatrimestre\\Laboratorio III\\Projects\\BatesMotel\\main\\java\\org\\example\\files\\RoomFile.json";
+    private final static String bookingsFile = "C:\\Users\\Juako\\Desktop\\UTN\\Segundo año\\Primer cuatrimestre\\Laboratorio III\\Projects\\BatesMotel\\main\\java\\org\\example\\files\\BookingFile.json";*/
+    private final static String usersFile = ".\\src\\main\\java\\org\\example\\files\\UserFile.json";
+    private final static String roomFile = ".\\src\\main\\java\\org\\example\\files\\RoomFile.json";
+    private final static String bookingsFile = ".\\src\\main\\java\\org\\example\\files\\BookingFile.json";
 
     /********************************Users**********************************/
     /**
      * Save Users in the UserFile
      * @param users
      */
-   public static void setUsersToJson(TreeSet<User> users){
+    public static void setUsersToJson(ArrayList<User> users){
         File file = new File(usersFile);
-       try (BufferedWriter buffer = new BufferedWriter(new FileWriter(file))){
-           Gson gson = new GsonBuilder().setPrettyPrinting().create();
-           gson.toJson(users, TreeSet.class, buffer);
-       } catch (IOException e) {
-           e.printStackTrace();
-       }
+        try (BufferedWriter buffer = new BufferedWriter(new FileWriter(file))){
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(users, ArrayList.class, buffer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Get Users from JsonFile
      * @return
      */
-   public static TreeSet<User> getUsersFromJson(){
-        TreeSet<User> users = new TreeSet<>();
+    public static List<User> getUsersFromJson()
+    {
+        List<User> users = new ArrayList<>();
         File file = new File(usersFile);
-        try (BufferedReader buffer = new BufferedReader(new FileReader(file))){
+        try (BufferedReader buffer = new BufferedReader(new FileReader(file))) {
             Gson gson = new Gson();
-            users = gson.fromJson(buffer, new TypeToken<Set<User>>(){}.getType());
+            users = gson.fromJson(buffer, new TypeToken<List<User>>()
+            {
+            }.getType());
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }/* finally
+        {
+        }*/
         return users;
     }
     /*******************************FIN*Users**********************************/
@@ -78,12 +84,12 @@ public class FileHelper {
      * Get Bookings from JsonFile
      * @return
      */
-    public static Set<Booking> getBookingsFromJson(){
-        Set<Booking> bookings = new HashSet<>();
+    public static HashSet<Booking> getBookingsFromJson(){
+        HashSet<Booking> bookings = new HashSet<>();
         File file = new File(bookingsFile);
         try (BufferedReader buffer = new BufferedReader(new FileReader(file))){
             Gson gson = new Gson();
-            bookings = gson.fromJson(buffer, new TypeToken<Set<Booking>>(){}.getType());
+            bookings = gson.fromJson(buffer, new TypeToken<HashSet<Booking>>(){}.getType());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -5,8 +5,9 @@ import org.example.controllers.ControllerPassenger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class Passenger extends User{
+public class Passenger extends User {
 
     private String origin, originAddress;
     //private List<String> history;
@@ -15,7 +16,7 @@ public class Passenger extends User{
     public Passenger() {
     }
 
-    public Passenger(String name, String lastName, String dni, String email, String user, String password, int phoneNumber, String origin, String originAddress) {
+    public Passenger(String name, String lastName, String dni, String email, String user, String password, long phoneNumber, String origin, String originAddress) {
         super(name, lastName, dni, email, user, password, phoneNumber);
         this.origin = origin;
         this.originAddress = originAddress;
@@ -27,6 +28,7 @@ public class Passenger extends User{
         this.origin = origin;
         this.originAddress = originAddress;
     }
+
 
     @Override
     public String getName() { return super.getName(); }
@@ -82,12 +84,12 @@ public class Passenger extends User{
     }
 
     @Override
-    public int getPhoneNumber() {
+    public long getPhoneNumber() {
         return super.getPhoneNumber();
     }
 
     @Override
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         super.setPhoneNumber(phoneNumber);
     }
 
@@ -145,4 +147,22 @@ public class Passenger extends User{
         this.originAddress = originAdress;
     }
 
+    /*Equals & HashCode*/
+
+   /* @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Passenger passenger = (Passenger) o;
+        return Objects.equals(origin, passenger.origin) && Objects.equals(originAddress, passenger.originAddress) && Objects.equals(history, passenger.history);
+    }
+*/
+/*    @Override
+    public int hashCode()
+    {
+        return Objects.hash(origin, originAddress, history);
+    }*/
+
 }
+

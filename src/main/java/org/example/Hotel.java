@@ -22,29 +22,22 @@ public class Hotel
     private boolean isOpen;
     private ArrayList<Room> roomList;
     private HashSet<Booking> bookingList;
-    private TreeSet<User> userList;
+    private List<User> userList;
 
     /* [Constructores] */
 
     public Hotel()
     {
-        this.bookingList.addAll(FileHelper.getBookingsFromJson());
-        this.roomList.addAll(FileHelper.getRoomsFromJson());
-        this.userList.addAll(FileHelper.getUsersFromJson());
+        this.bookingList = FileHelper.getBookingsFromJson();
+        this.roomList = FileHelper.getRoomsFromJson();
+        this.userList = FileHelper.getUsersFromJson();
     }
 
-    public Hotel(boolean isOpen, TreeSet userList, ArrayList roomList, HashSet bookingList)
-    {
-        this.isOpen = isOpen;
-        this.userList = userList;
-        this.roomList = roomList;
-        this.bookingList = bookingList;
-    }
-  
 /*
-    public Hotel()
+
+  public Hotel()
     {
-        this.userList = new TreeSet<>();
+        this.userList = new ArrayList<>();
         this.roomList = new ArrayList<>();
         this.bookingList = new HashSet<>();
 
@@ -53,8 +46,16 @@ public class Hotel
 
 
 
+
     /* [Métodos] */
 
+
+   /* public void getFiles()
+    {
+        this.bookingList.addAll(FileHelper.getBookingsFromJson());
+        this.roomList.addAll(FileHelper.getRoomsFromJson());
+        this.userList.addAll(FileHelper.getUsersFromJson());
+    }*/
 
     public boolean removeBooking(Booking bookingDeleted)
     {
@@ -354,10 +355,54 @@ public class Hotel
         return null;
     }
 
+    public void uploadRooms()
+    {
+        ArrayList<Room> uploadedRooms = new ArrayList<>();
+
+        Room newRoom = new Room(true,101,RoomType.TRIPLE);
+        Room newRoom2 = new Room(true,102,RoomType.MATRIMONIAL);
+        Room newRoom3 = new Room(true,103,RoomType.QUAD);
+        Room newRoom4 = new Room(true,104,RoomType.SINGLE);
+        Room newRoom5 = new Room(true,105,RoomType.TWIN);
+
+
+        Room newRoom6 = new Room(true,201,RoomType.TRIPLE);
+        Room newRoom7 = new Room(true,202,RoomType.MATRIMONIAL);
+        Room newRoom8 = new Room(true,203,RoomType.QUAD);
+        Room newRoom9 = new Room(true,204,RoomType.SINGLE);
+        Room newRoom10 = new Room(true,205,RoomType.TWIN);
+
+
+        Room newRoom11 = new Room(true,301,RoomType.TRIPLE);
+        Room newRoom12 = new Room(true,302,RoomType.MATRIMONIAL);
+        Room newRoom13 = new Room(true,303,RoomType.QUAD);
+        Room newRoom14 = new Room(true,304,RoomType.SINGLE);
+        Room newRoom15 = new Room(true,305,RoomType.TWIN);
+
+        uploadedRooms.add(newRoom);
+        uploadedRooms.add(newRoom2);
+        uploadedRooms.add(newRoom3);
+        uploadedRooms.add(newRoom4);
+        uploadedRooms.add(newRoom5);
+        uploadedRooms.add(newRoom6);
+        uploadedRooms.add(newRoom7);
+        uploadedRooms.add(newRoom8);
+        uploadedRooms.add(newRoom9);
+        uploadedRooms.add(newRoom10);
+        uploadedRooms.add(newRoom11);
+        uploadedRooms.add(newRoom12);
+        uploadedRooms.add(newRoom13);
+        uploadedRooms.add(newRoom14);
+        uploadedRooms.add(newRoom15);
+
+        FileHelper.setRoomsToJson(uploadedRooms);
+
+    }
+
 
     public void save()
     {
-        FileHelper.setUsersToJson(this.userList);
+        FileHelper.setUsersToJson((ArrayList<User>) this.userList);
         FileHelper.setRoomsToJson(this.roomList);
         FileHelper.setBookingsToJson(this.bookingList);
 
@@ -396,12 +441,12 @@ public class Hotel
         this.bookingList = bookingList;
     }
 
-    public TreeSet<User> getUserList()
+    public List<User> getUserList()
     {
         return userList;
     }
 
-    public void setUserList(TreeSet<User> userList)
+    public void setUserList(ArrayList<User> userList)
     {
         this.userList = userList;
     }
