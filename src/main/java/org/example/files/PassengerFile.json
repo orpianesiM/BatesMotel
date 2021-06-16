@@ -1,0 +1,67 @@
+[
+  {
+    "origin": "Chaco",
+    "originAddress": "Buenos aires",
+    "history": [],
+    "name": "Mercedez",
+    "lastName": "Sosa",
+    "dni": "1256324",
+    "email": "mercedita@gmail.com",
+    "user": "merced",
+    "password": "123",
+    "userType": "PASSENGER",
+    "phoneNumber": 52363648
+  },
+  {
+    "origin": "Mar del Plata",
+    "originAddress": "Cerrito",
+    "history": [],
+    "name": "Marina",
+    "lastName": "Orpianesi",
+    "dni": "39834705",
+    "email": "orpianesi.mar@gmail.com",
+    "user": "mmar",
+    "password": "123",
+    "userType": "PASSENGER",
+    "phoneNumber": 2236087161
+  },
+  {
+    "origin": "Mar del Plata",
+    "originAddress": "Cerrito",
+    "history": [],
+    "name": "Marina",
+    "lastName": "Orpianesi",
+    "dni": "39834705",
+    "email": "orpianesi.mar@gmail.com",
+    "user": "mmar",
+    "password": "123",
+    "userType": "PASSENGER",
+    "phoneNumber": 2236087161
+  },
+  {
+    "origin": "Mar del Plata",
+    "originAddress": "Buenos Aires",
+    "history": [],
+    "name": "Emmanuel",
+    "lastName": "Barile",
+    "dni": "408345943",
+    "email": "emma@gmail.com",
+    "user": "ema",
+    "password": "12345",
+    "userType": "PASSENGER",
+    "phoneNumber": 223509843
+  },
+  {
+    "origin": "Mar del Plata",
+    "originAddress": "Buenos Aires",
+    "history": [],
+    "name": "Emmanuel",
+    "lastName": "Barile",
+    "dni": "408345943",
+    "email": "emma@gmail.com",
+    "user": "ema",
+    "password": "12345",
+    "userType": "PASSENGER",
+    "phoneNumber": 223509843
+  }
+]

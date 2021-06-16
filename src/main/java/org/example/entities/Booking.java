@@ -1,4 +1,4 @@
-package org.example;
+package org.example.entities;
 
 import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
@@ -57,7 +57,7 @@ public class Booking {
 
     public static LocalDateTime stringToLocalDateTime (String date){
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         LocalDateTime formatDateTime = LocalDateTime.parse(date, formatter);
 
@@ -118,5 +118,18 @@ public class Booking {
 
     public void setSpentMoney(double spentMoney) {
         this.spentMoney = spentMoney;
+    }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "bookingId='" + bookingId + '\'' +
+                ", bookingPassenger=" + bookingPassenger +
+                ", bookedRoom=" + bookedRoom +
+                ", bookingState=" + bookingState +
+                ", checkInDate=" + checkInDate +
+                ", checkOutDate=" + checkOutDate +
+                ", spentMoney=" + spentMoney +
+                '}';
     }
 }

@@ -1,16 +1,12 @@
-package org.example;
+package org.example.entities;
 
-import org.example.controllers.ControllerAdmin;
-
-public class Admin extends User
+public class Employee extends User
 {
-
-    public Admin(String name, String lastName, String dni, String email, String user, String password, int phoneNumber, UserType userType)
-    {
+    public Employee(String name, String lastName, String dni, String email, String user, String password, long phoneNumber, UserType userType) {
         super(name, lastName, dni, email, user, password, phoneNumber, userType);
     }
 
-    public Admin()
+    public Employee()
     {
     }
 
@@ -27,6 +23,6 @@ public class Admin extends User
     @Override
     public String toString()
     {
-        return "Admin{} " + super.toString();
+        return "Employee{} " + super.toString();
     }
 }

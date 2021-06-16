@@ -1,13 +1,19 @@
 package org.example.controllers;
 
-import org.example.*;
+import org.example.entities.Booking;
+import org.example.entities.Hotel;
+import org.example.entities.Room;
+import org.example.entities.User;
 import org.example.helpers.IControllerHelper;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class ControllerEmployee implements IControllerHelper {
+
+    private static final Scanner sc = new Scanner(System.in);
 
     public static void viewMenuEmployee(){
         System.out.println("*-*-*-*-*-*-*-***Bates Motel****-*-*-*-*-*-*\n");
@@ -67,14 +73,10 @@ public class ControllerEmployee implements IControllerHelper {
     /*******************************************CHECK OUT*******************************************/
     private static void controllerCheckOut(Hotel hotel){
         boolean flag;
-        //Room roomToCheckOut = IControllerHelper.searchRoom(hotel); //Habría que cambiar para que busque un booking, así se pasa por parametro al checkOut
         Booking bookingToCheckOut = IControllerHelper.searchBooking(hotel);
-        //if(roomToCheckOut!=null) {
         if(bookingToCheckOut!=null) {
-            //boolean available = roomToCheckOut.isAvailable();
             boolean available = bookingToCheckOut.getBookedRoom().isAvailable();
             if (!available) {
-                //flag = hotel.checkOut(roomToCheckOut);
                 flag = hotel.checkOut(bookingToCheckOut);
                 if (flag) System.out.println("La habitación fue liberada");
                 else System.out.println("ERROR. La habitación no esta ocupada");
@@ -95,7 +97,7 @@ public class ControllerEmployee implements IControllerHelper {
                         if(passengerFound != null) System.out.println(passengerFound.toString());
                         break;
                     case "2":
-                        hotel.getAllPassengers().forEach(System.out::println);
+                        hotel.getPassengerList().forEach(System.out::println);
                         break;
                     case "0":
                         controllerMenuEmployee(hotel);
@@ -110,9 +112,8 @@ public class ControllerEmployee implements IControllerHelper {
     /*******************************************ROOM*******************************************/
     private static void controllerMenuRoom(Hotel hotel){
         boolean flag = false;
-        int i;
-        viewMenuRoom();
         do {
+            viewMenuRoom();
             String option = sc.nextLine();
             if (IControllerHelper.isInteger(option)) {
                 switch (option) {
@@ -122,25 +123,18 @@ public class ControllerEmployee implements IControllerHelper {
                             if (!(variable.isAvailable())){
                                 System.out.println(variable.toString());}
                         }
-/*
-                        for (i = 0; i < hotel.getHotelSize(); i++) {
-                            if (!(hot.getAllRoom(i).isAvailable())) System.out.println(hotel.getAllRoom(i));
-                        }*/
                         break;
                     case "2":
                         for (Room variable : hotel.getRoomList())
                         {
                             if (variable.isAvailable()){System.out.println(variable.toString());}
                         }
-
-                        /*for (i = 0; i < hotel.getHotelSize(); i++) {
-                            if (hotel.getAllRoom(i).isAvailable()) System.out.println(hotel.getAllRoom(i));
-                        }*/
+                        break;
+                    case "3":
+                        for (Room variable : hotel.getRoomList()){System.out.println(variable.toString());}
                         break;
                     case "0":
-                        for (Room variable : hotel.getRoomList()){System.out.println(variable.toString());}
-                        /*for (i = 0; i < hotel.getHotelSize(); i++) System.out.println(hotel.getAllRoom(i));*/
-                        break;
+                        controllerMenuEmployee(hotel);
                     default:
                         System.out.println("Ingreso incorrectamente.");
                 }
@@ -151,23 +145,19 @@ public class ControllerEmployee implements IControllerHelper {
     /*******************************************BOOKING*******************************************/
     private static void controllerMenuBooking(Hotel hotel){
         boolean flag = false;
-        viewMenuBooking();
         do {
+            viewMenuBooking();
             String option = sc.nextLine();
             if (IControllerHelper.isInteger(option)) {
                 switch (option) {
                     case "1":
                         showBookingFromRoom(hotel);
+                        controllerMenuBooking(hotel);
                         break;
                     case "2":
                         for (Booking variable : hotel.getBookingList()){
                             System.out.println(variable.toString());
                         }
-
-                        /*for(int i=0; i<hotel.getHotelSize(); i++){
-                          //  if(!(hotel.getAllBooking)) hotel.getBookings(i).forEach(sout)
-                                //ver bookingState
-                        }*/
                         break;
                     case "0":
                         controllerMenuEmployee(hotel);
@@ -176,13 +166,13 @@ public class ControllerEmployee implements IControllerHelper {
                         System.out.println("Ingreso incorrectamente.");
                 }
             } else flag = IControllerHelper.messageError();
-        }while(flag);
+        }while(!flag);
     }
 
     private static void showBookingFromRoom(Hotel hotel){
         List<Booking> bookingList = null;
         Room roomFound = IControllerHelper.searchRoom(hotel);
-        bookingList = hotel.getBookingByRoom(roomFound); //ToDo: metodo que busque reservas teniendo un Room por parametro
+        bookingList = hotel.getBookingByRoom(roomFound);
         if(bookingList!=null) bookingList.forEach(System.out::println);
         else System.out.println("La habitación no tiene reservas.");
     }
@@ -200,12 +190,14 @@ public class ControllerEmployee implements IControllerHelper {
         System.out.println("1. Listar habitaciones ocupadas");
         System.out.println("2. Listar habitaciones desocupadas");
         System.out.println("3. Listar todas las habitaciones");
+        System.out.println("0. Salir");
     }
 
     public static void viewMenuBooking(){
         System.out.println("*-*-*-*-*-*-*-***Reservas***-*-*-*-*-*-*\n");
         System.out.println("1. Buscar reserva por habitación");
         System.out.println("2. Listar todas las reservas");
+        System.out.println("0. Salir");
     }
     /*******************************************HELPERS*******************************************/
 

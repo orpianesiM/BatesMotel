@@ -1,13 +1,6 @@
-package org.example;
+package org.example.entities;
 
-import org.example.controllers.ControllerAdmin;
-import org.example.controllers.ControllerEmployee;
-import org.example.controllers.ControllerPassenger;
-import org.example.helpers.FileHelper;
-
-import java.util.Set;
-
-public /*abstract*/ class User
+public abstract class User
 {
     private String name, lastName, dni, email, user, password;
     private UserType userType;

@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "bookingPassenger": {
+      "origin": "Chaco",
+      "originAddress": "Buenos aires",
+      "history": [],
+      "name": "Mercedez",
+      "lastName": "Sosa",
+      "dni": "1256324",
+      "email": "mercedita@gmail.com",
+      "user": "merced",
+      "password": "123",
+      "userType": "PASSENGER",
+      "phoneNumber": 52363648
+    },
+    "bookedRoom": {
+      "isAvailable": true,
+      "roomNumber": 104,
+      "roomType": "SINGLE"
+    },
+    "bookingState": "PENDING",
+    "checkInDate": {
+      "date": {
+        "year": 2020,
+        "month": 2,
+        "day": 2
+      },
+      "time": {
+        "hour": 20,
+        "minute": 20,
+        "second": 0,
+        "nano": 0
+      }
+    },
+    "checkOutDate": {
+      "date": {
+        "year": 2020,
+        "month": 2,
+        "day": 2
+      },
+      "time": {
+        "hour": 21,
+        "minute": 21,
+        "second": 0,
+        "nano": 0
+      }
+    },
+    "spentMoney": 0.0
+  }
+]

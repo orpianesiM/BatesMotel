@@ -1,16 +1,10 @@
-package org.example;
-
-import org.example.controllers.ControllerLogin;
-import org.example.controllers.ControllerPassenger;
+package org.example.entities;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class Passenger extends User {
 
     private String origin, originAddress;
-    //private List<String> history;
     private ArrayList<Ticket> history;
 
     public Passenger() {
@@ -23,7 +17,7 @@ public class Passenger extends User {
         this.history = new ArrayList<>();
     }
 
-    public Passenger(String name, String lastName, String dni, String email, int phoneNumber, String origin, String originAddress) {
+    public Passenger(String name, String lastName, String dni, String email, long phoneNumber, String origin, String originAddress) {
         super(name, lastName, dni, email, phoneNumber);
         this.origin = origin;
         this.originAddress = originAddress;

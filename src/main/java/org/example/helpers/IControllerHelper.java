@@ -1,6 +1,6 @@
 package org.example.helpers;
 
-import org.example.*;
+import org.example.entities.*;
 
 import java.util.Scanner;
 
@@ -25,13 +25,14 @@ public interface IControllerHelper {
         return false;
     }
 
-    static User searchPassenger (Hotel hotel){ //ToDo ver esto con relacion al passenger
+    static Passenger searchPassenger (Hotel hotel){
         String flag = null;
-        User passengerFound;
+        String dni;
+        Passenger passengerFound;
         do {
             System.out.println("Ingrese el DNI: ");
-            String dni = sc.nextLine();
-            passengerFound = hotel.getpassengerbyDni(dni);
+            dni = sc.nextLine();
+            passengerFound = hotel.getPassengerbyDni(dni);
             if (passengerFound != null) {
                 System.out.println("Busqueda éxitosa");
                 return passengerFound;
@@ -40,16 +41,18 @@ public interface IControllerHelper {
                 System.out.println("Quiere volver a intentarlo ? S/N");
                 flag = sc.nextLine();
             }
-        } while (flag.equals("N"));
+        } while (flag.equals("S"));
         return null;
     }
 
     static Booking searchBooking (Hotel hotel){
         String flag = null;
+        String dni;
         Booking bookingFound;
         do {
             System.out.println("Ingrese el dni del pasajero: ");
-            String dni = sc.nextLine();
+            dni = sc.nextLine();
+            dni = sc.nextLine();
             bookingFound = hotel.getBookingByDni(dni);
             if (bookingFound != null) {
                 System.out.println("Reserva encontrada");
@@ -59,16 +62,19 @@ public interface IControllerHelper {
                 System.out.println("Quiere volver a intentarlo ? S/N");
                 flag = sc.nextLine();
             }
-        } while (flag.equals("N"));
+        } while (flag.equals("S"));
         return null;
     }
 
 
     static Room searchRoom (Hotel hotel){
         String flag = null;
+        int roomNum;
         Room roomFound;
         do {
-            roomFound = validateRoom(hotel);
+            System.out.println("Ingrese la habitación: ");
+            roomNum = sc.nextInt();
+            roomFound = hotel.getRoom(roomNum);
             if (roomFound != null) {
                 System.out.println("Habitación encontrada");
                 return roomFound;
@@ -76,22 +82,10 @@ public interface IControllerHelper {
                 System.out.println("La habitación es INEXISTENTE");
                 System.out.println("Quiere volver a intentarlo ? S/N");
                 flag = sc.nextLine();
+                flag = sc.nextLine();
             }
-        } while (flag.equals("N"));
+        } while (flag.equals("S"));
         return null;
     }
 
-    static Room validateRoom(Hotel hotel){
-        Room roomFound;
-        int roomNum;
-        do {
-            System.out.println("Ingrese la habitación: ");
-            roomNum = sc.nextInt();
-            if (roomNum==0 || roomNum>hotel.getHotelSize())
-                System.out.println("La habitación no existe, vuelva a intentarlo");
-        }while(roomNum==0 || roomNum>hotel.getHotelSize());
-
-        roomFound = hotel.getRoom(roomNum);
-        return roomFound;
-    }
 }

@@ -3,38 +3,29 @@ package org.example.helpers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import org.example.Booking;
-import org.example.Hotel;
-import org.example.Room;
-import org.example.User;
 
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
-import org.example.User;
-import java.io.*;
+import org.example.entities.*;
 
 
 public class FileHelper {
 
     /********************************Final*Static**********************************/
-
-   /* private final static String usersFile = "C:\\Users\\Juako\\Desktop\\UTN\\Segundo año\\Primer cuatrimestre\\Laboratorio III\\Projects\\BatesMotel\\main\\java\\org\\example\\files\\UserFile.json";
-    private final static String roomFile = "C:\\Users\\Juako\\Desktop\\UTN\\Segundo año\\Primer cuatrimestre\\Laboratorio III\\Projects\\BatesMotel\\main\\java\\org\\example\\files\\RoomFile.json";
-    private final static String bookingsFile = "C:\\Users\\Juako\\Desktop\\UTN\\Segundo año\\Primer cuatrimestre\\Laboratorio III\\Projects\\BatesMotel\\main\\java\\org\\example\\files\\BookingFile.json";*/
-    private final static String usersFile = ".\\src\\main\\java\\org\\example\\files\\UserFile.json";
+    private final static String passengerFile = ".\\src\\main\\java\\org\\example\\files\\PassengerFile.json";
+    private final static String adminFile = ".\\src\\main\\java\\org\\example\\files\\AdminFile.json";
+    private final static String employeeFile = ".\\src\\main\\java\\org\\example\\files\\EmployeeFile.json";
     private final static String roomFile = ".\\src\\main\\java\\org\\example\\files\\RoomFile.json";
     private final static String bookingsFile = ".\\src\\main\\java\\org\\example\\files\\BookingFile.json";
-
     /********************************Users**********************************/
     /**
-     * Save Users in the UserFile
+     * Save Passenger in the PassengerFile
      * @param users
      */
-    public static void setUsersToJson(ArrayList<User> users){
-        File file = new File(usersFile);
+    public static void setPassengersToJson(ArrayList<Passenger> users){
+        File file = new File(passengerFile);
         try (BufferedWriter buffer = new BufferedWriter(new FileWriter(file))){
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(users, ArrayList.class, buffer);
@@ -44,23 +35,84 @@ public class FileHelper {
     }
 
     /**
-     * Get Users from JsonFile
+     * Get Passenger from JsonFile
      * @return
      */
-    public static List<User> getUsersFromJson()
+    public static ArrayList<Passenger> getPassengersFromJson()
     {
-        List<User> users = new ArrayList<>();
-        File file = new File(usersFile);
+        ArrayList<Passenger> users = new ArrayList<>();
+        File file = new File(passengerFile);
         try (BufferedReader buffer = new BufferedReader(new FileReader(file))) {
             Gson gson = new Gson();
-            users = gson.fromJson(buffer, new TypeToken<List<User>>()
+            users = gson.fromJson(buffer, new TypeToken<ArrayList<Passenger>>()
             {
             }.getType());
         } catch (IOException e) {
             e.printStackTrace();
-        }/* finally
-        {
-        }*/
+        }
+        return users;
+    }
+    /**
+     * Save Admin in the AdminFile
+     * @param users
+     */
+    public static void setAdminToJson(ArrayList<Admin> users){
+        File file = new File(adminFile);
+        try (BufferedWriter buffer = new BufferedWriter(new FileWriter(file))){
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(users, ArrayList.class, buffer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Get Admin from JsonFile
+     * @return
+     */
+    public static ArrayList<Admin> getAdminFromJson()
+    {
+        ArrayList<Admin> users = new ArrayList<>();
+        File file = new File(adminFile);
+        try (BufferedReader buffer = new BufferedReader(new FileReader(file))) {
+            Gson gson = new Gson();
+            users = gson.fromJson(buffer, new TypeToken<ArrayList<Admin>>()
+            {
+            }.getType());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+    /** Save Employee in the EmployeeFile
+     * @param users
+     */
+    public static void setEmployeeToJson(ArrayList<Employee> users){
+        File file = new File(employeeFile);
+        try (BufferedWriter buffer = new BufferedWriter(new FileWriter(file))){
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(users, ArrayList.class, buffer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Get Employee from JsonFile
+     * @return
+     */
+    public static ArrayList<Employee> getEmployeeFromJson()
+    {
+        ArrayList<Employee> users = new ArrayList<>();
+        File file = new File(employeeFile);
+        try (BufferedReader buffer = new BufferedReader(new FileReader(file))) {
+            Gson gson = new Gson();
+            users = gson.fromJson(buffer, new TypeToken<ArrayList<Employee>>()
+            {
+            }.getType());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return users;
     }
     /*******************************FIN*Users**********************************/

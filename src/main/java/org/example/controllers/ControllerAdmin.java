@@ -1,12 +1,13 @@
 package org.example.controllers;
 
-import org.example.*;
+import org.example.entities.*;
 import org.example.helpers.IControllerHelper;
 
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ControllerAdmin implements IControllerHelper
 {
+    private static final Scanner sc = new Scanner(System.in);
 
     public static void viewMenuHotel()
     {
@@ -22,8 +23,8 @@ public class ControllerAdmin implements IControllerHelper
     public static void controllerMenuHotel(Hotel hotel)
     {
         boolean flag = false;
-        viewMenuHotel();
         do {
+            viewMenuHotel();
             String option = sc.nextLine();
             if (IControllerHelper.isInteger(option)) {
                 switch (option) {
@@ -53,8 +54,8 @@ public class ControllerAdmin implements IControllerHelper
     private static void controllerRooms(Hotel hotel)
     {
         boolean flag = false;
-        viewMenuRooms();
         do {
+            viewMenuRooms();
             String option = sc.nextLine();
             if (IControllerHelper.isInteger(option)) {
                 switch (option) {
@@ -83,20 +84,22 @@ public class ControllerAdmin implements IControllerHelper
 
     private static void controllerRoomSearch(Hotel hotel)
     {
+        String num;
+        Room roomFound = IControllerHelper.searchRoom(hotel);
         boolean flag = false;
         do {
-            if (IControllerHelper.searchRoom(hotel) != null) {
+            if (roomFound != null) {
                 viewMenuRoomsSearch();
-                String num = sc.nextLine();
+                //num = sc.nextLine();
+                num = sc.nextLine();
                 if (IControllerHelper.isInteger(num)) {
                     switch (num) {
                         case "1":
-                            System.out.println("*-*-*-*-*-*-*-***Modificar Habitación****-*-*-*-*-*-*\n");
-                            controllerRoomAdjust(hotel);
+                            controllerRoomAdjust(hotel, roomFound);
                             break;
                         case "2":
                             System.out.println("*-*-*-*-*-*-*-***Estado Habitación****-*-*-*-*-*-*\n");
-                            controllerRoomAdjustStatus(hotel);
+                            controllerRoomAdjustStatus(hotel, roomFound);
                             break;
                         case "3":
                             System.out.println("*-*-*-*-*-*-*-***Agregar consumo****-*-*-*-*-*-*\n");
@@ -135,29 +138,19 @@ public class ControllerAdmin implements IControllerHelper
                             if (!(variable.isAvailable())) {
                                 System.out.println(variable.toString());
                             }
-
                         }
-                        /*
-                        for (i = 0; i < hotel.getHotelSize(); i++) {
-                            if (!(hotel.getAllRooms(i).isAvailable())) System.out.println(hotel.getAllRooms(i));*/
                         break;
                     case "2":
                         for (Room variable : hotel.getRoomList()) {
                             if (variable.isAvailable()) {
                                 System.out.println(variable.toString());
                             }
-
                         }
-                        /*
-                        for (i = 0; i < hotel.getHotelSize(); i++) {
-                            if (hotel.getAllRooms(i).isAvailable()) System.out.println(hotel.getAllRooms(i));
-                            }*/
                         break;
                     case "3":
                         for (Room variable : hotel.getRoomList()){
                             System.out.println(variable.toString());
                         }
-                       /* for (i = 0; i < hotel.getHotelSize(); i++) System.out.println(hotel.getAllRooms(i));*/
                         break;
                     default:
                         System.out.println("Ingreso incorrectamente.");
@@ -167,12 +160,11 @@ public class ControllerAdmin implements IControllerHelper
         } while (flag);
     }
 
-    private static void controllerRoomAdjust(Hotel hotel)
+    private static void controllerRoomAdjust(Hotel hotel, Room room)
     {
         String option, answer;
         boolean flag = false;
         do {
-            Room room = IControllerHelper.searchRoom(hotel);
             if (room != null) {
                 System.out.println("*-*-*-*-*-*-*-***Modificar Habitación****-*-*-*-*-*-*\n");
                 System.out.println("1. Numero de habitación");
@@ -238,33 +230,26 @@ public class ControllerAdmin implements IControllerHelper
     }
 
 
-    private static void controllerRoomAdjustStatus(Hotel hotel)
+    private static void controllerRoomAdjustStatus(Hotel hotel, Room room)
     {
-        Room roomFound = IControllerHelper.searchRoom(hotel);
-        if (roomFound != null) {
-            System.out.println(roomFound.toString());
+        if (room != null) {
+            System.out.println(room.toString());
         }
     }
 
     private static void controllerRoomStatus(Hotel hotel)
     {
         int rooms = hotel.getHotelSize();
-        int ocupated = 0;
+        int available = 0;
         System.out.println("*-*-*-*-*-*-*-***Estado General****-*-*-*-*-*-*\n");
         System.out.println("Habitaciones: " + rooms);
         for (Room variable : hotel.getRoomList()) {
             if (variable.isAvailable()) {
-                ocupated++;
+                available++;
             }
         }
-        /*
-        for (int i = 0; i < rooms; i++) {
-            if (!(hotel.getAllRoom.isAvailable())){
-                ocupated++;
-            }
-        }*/
-        System.out.println("Habitaciones ocupadas: " + ocupated);
-        System.out.println("Habitaciones desocupadas: " + (rooms - ocupated));
+        System.out.println("Habitaciones ocupadas: " +(rooms - available));
+        System.out.println("Habitaciones desocupadas: " + available);
     }
 
     /**-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*ROOM*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**/
@@ -299,13 +284,13 @@ public class ControllerAdmin implements IControllerHelper
     private static void controllerPassengers(Hotel hotel)
     {
         boolean flag = false;
-        viewMenuPassengers();
         do {
+            viewMenuPassengers();
             String option = sc.nextLine();
             if (IControllerHelper.isInteger(option)) {
                 switch (option) {
                     case "1":
-                        hotel.getAllPassengers().forEach(System.out::println);
+                        hotel.getPassengerList().forEach(System.out::println);
                         controllerPassengers(hotel);
                         break;
                     case "2":
@@ -330,8 +315,9 @@ public class ControllerAdmin implements IControllerHelper
     private static void controllerPassengersAdd(Hotel hotel)
     {
         Passenger passengerNew;
-        String controller = null, controllerAdd, name, lastName, email, dni, origin, originAddress;
-        int phone;
+        String controller = null;
+        String controllerAdd, name, lastName, email, dni, origin, originAddress;
+        long phone;
         System.out.println("*-*-*-*-*-*-*-***Crear Pasajero****-*-*-*-*-*-*\n");
         do {
             System.out.println("INGRESE LOS DATOS");
@@ -344,8 +330,9 @@ public class ControllerAdmin implements IControllerHelper
             System.out.println("Email: ");
             email = sc.nextLine();
             System.out.println("Telefono: ");
-            phone = sc.nextInt();
+            phone = sc.nextLong();
             System.out.println("Origen: ");
+            origin = sc.nextLine();
             origin = sc.nextLine();
             System.out.println("Dirección de origen: ");
             originAddress = sc.nextLine();
@@ -490,23 +477,24 @@ public class ControllerAdmin implements IControllerHelper
     private static void controllerBooking(Hotel hotel)
     {
         boolean flag = false;
-        viewMenuBooking();
         do {
+            viewMenuBooking();
             String option = sc.nextLine();
             if (IControllerHelper.isInteger(option)) {
                 switch (option) {
                     case "1":
                         controllerBookingDelete(hotel);
-                        controllerBooking(hotel);
+                        //controllerBooking(hotel);
                         break;
                     case "2":
                         hotel.getBookingList().forEach(System.out::println);
-                        controllerBooking(hotel);
+                       // controllerBooking(hotel);
+                        flag = true;
                         break;
                     case "3":
                         Booking booking = IControllerHelper.searchBooking(hotel);
                         if (booking != null) System.out.println("DATOS: " + booking.toString());
-                        controllerMenuHotel(hotel);
+                        //controllerMenuHotel(hotel);
                         break;
                     case "0":
                         controllerMenuHotel(hotel);
@@ -514,15 +502,14 @@ public class ControllerAdmin implements IControllerHelper
                     default:
                         System.out.println("Ingreso incorrectamente.");
                 }
-            }
-            else flag = IControllerHelper.messageError();
+            }else flag = IControllerHelper.messageError();
         } while (flag);
     }
 
 
     private static void controllerBookingDelete(Hotel hotel)
     {
-        String answer = null, answerController = null;
+        String answer = null, answerController = "N";
         do {
             Booking booking = IControllerHelper.searchBooking(hotel);
             if (booking != null) {

@@ -1,10 +1,14 @@
 package org.example.controllers;
 
-import org.example.*;
+import org.example.entities.*;
 import org.example.helpers.IControllerHelper;
+
+import java.util.Scanner;
 
 
 public class ControllerPassenger implements IControllerHelper{
+
+    private static final Scanner sc = new Scanner(System.in);
 
     public static void viewMenuPrincipal() {
         System.out.println("*-*-*-*-*-*-*-***Bates Motel****-*-*-*-*-*-*\n");
@@ -17,8 +21,8 @@ public class ControllerPassenger implements IControllerHelper{
 
     public static void controllerMenuPrincipal(Hotel hotel) {
         boolean flag = false;
-        viewMenuPrincipal();
         do {
+            viewMenuPrincipal();
             String option = sc.nextLine();
             if (IControllerHelper.isInteger(option)) {
                 switch (option) {
@@ -75,6 +79,7 @@ public class ControllerPassenger implements IControllerHelper{
             }
             System.out.println("Ingrese el dia de checkIn: ");
             checkInDate = sc.nextLine();
+            checkInDate = sc.nextLine();
             System.out.println("Ingrese el dia de checkOut: "); //podria ingresar cuantos dias se queda y hacer un plusDays en makeBookig
             checkOutDate = sc.nextLine();
 
@@ -102,7 +107,7 @@ public class ControllerPassenger implements IControllerHelper{
                              optionTwoRoomService(hotel, hotel.getBookingByDni(passengerFound.getDni()));
                              break;
                          case "3":
-                             //getTicket
+                             hotel.getTicket(passengerFound.getDni());
                              break;
                          case "0":
                              controllerMenuPrincipal(hotel);
@@ -122,10 +127,10 @@ public class ControllerPassenger implements IControllerHelper{
              System.out.println("0. Salir");
              System.out.println("Ingrese el numero de lo que desea pedir: ");
              int product = sc.nextInt();
-             if (product == 1) hotel.setProductToRoomService(product, booking); //Se precisa también la instancia de booking por parametro.
+             if (product == 0) hotel.setProductToRoomService(product,booking); //Se precisa también la instancia de booking por parametro.
+             if (product == 1) hotel.setProductToRoomService(product,booking);
              if (product == 2) hotel.setProductToRoomService(product,booking);
              if (product == 3) hotel.setProductToRoomService(product,booking);
-             if (product == 4) hotel.setProductToRoomService(product,booking);
              else controllerMenuPrincipal(hotel);
 
              System.out.println("Desea pedir algo mas? S/N");

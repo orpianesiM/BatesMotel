@@ -1,17 +1,17 @@
 package org.example.controllers;
 
-//import jdk.swing.interop.SwingInterOpUtils;
-import org.example.*;
+import org.example.entities.*;
 import org.example.helpers.FileHelper;
 import org.example.helpers.IControllerHelper;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.Scanner;
 
 
 public class ControllerLogin implements IControllerHelper
 {
+    private static final Scanner sc = new Scanner(System.in);
 
     public static void login(Hotel hotel)
     {
@@ -23,6 +23,7 @@ public class ControllerLogin implements IControllerHelper
         System.out.println("*-*-*-*-*-*-*-***LOGIN****-*-*-*-*-*-*\n");
         System.out.println("1. Registrarse");
         System.out.println("2. Logearse ");
+        System.out.println("0. Salir");
         option = sc.nextInt();
 
         switch (option) {
@@ -38,11 +39,11 @@ public class ControllerLogin implements IControllerHelper
                     System.out.println("Password: ");
                     password = sc.nextLine();
 
-                    userFound = isValidUser(username, password);
+                    userFound = isValidUser(username, password, hotel);
                     if (userFound != null) {
-                        if(userFound.getUserType().equals(UserType.PASSENGER)) ControllerPassenger.controllerMenuPrincipal(hotel);
-                        if(userFound.getUserType().equals(UserType.ADMIN)) ControllerAdmin.controllerMenuHotel(hotel);
-                        if(userFound.getUserType().equals(UserType.EMPLOYEE)) ControllerEmployee.controllerMenuEmployee(hotel);
+                        if(userFound instanceof Passenger) ControllerPassenger.controllerMenuPrincipal(hotel);
+                        if(userFound instanceof Admin) ControllerAdmin.controllerMenuHotel(hotel);
+                        if(userFound instanceof Employee) ControllerEmployee.controllerMenuEmployee(hotel);
                     }else {
                         flag = IControllerHelper.messageError();
                         if (!flag) {
@@ -56,22 +57,76 @@ public class ControllerLogin implements IControllerHelper
                     }
                 } while (flag);
                 break;
+            case 0:
+                break;
         }
     }
 
-    public static User isValidUser(String username, String pass) {
-        List<User> userSet = FileHelper.getUsersFromJson();
-        if (userSet != null) {
-            for (User users : userSet) {
-                if (users.getUser().equals(username)) {
-                    if (users.getPassword().equals(pass)) {
-                        return users;
+    public static ArrayList<User> listOfAllUsers(Hotel hotel){
+        ArrayList<User> users = new ArrayList<>();
+        ArrayList<Passenger> p = hotel.getPassengerList();
+        ArrayList<Admin> a = hotel.getAdminList();
+        ArrayList<Employee> e = hotel.getEmployeeList();
+        users.addAll(p);
+        users.addAll(a);
+        users.addAll(e);
+        return users;
+    }
+    public static User isValidUser(String username, String pass, Hotel hotel) {
+        List<User> users = listOfAllUsers(hotel);
+        if (users != null) {
+            for (User u : users) {
+                if (u.getUser().equals(username)) {
+                    if (u.getPassword().equals(pass)) {
+                        return u;
                     }
                 }
             }
         }
         return null;
     }
+
+   /* public static Passenger isValidPassenger(String username, String pass) {
+        List<Passenger> passenger = FileHelper.getPassengersFromJson();
+        if (passenger != null) {
+            for (Passenger passengers : passenger) {
+                if (passengers.getUser().equals(username)) {
+                    if (passengers.getPassword().equals(pass)) {
+                        return passengers;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Admin isValidAdmin(String username, String pass) {
+        List<Admin> admin = FileHelper.getAdminFromJson();
+        if (admin != null) {
+            for (Admin admins : admin) {
+                if (admins.getUser().equals(username)) {
+                    if (admins.getPassword().equals(pass)) {
+                        return admins;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Employee isValidEmployee(String username, String pass) {
+        List<Employee> employee = FileHelper.getEmployeeFromJson();
+        if (employee != null) {
+            for (Employee employees : employee) {
+                if (employees.getUser().equals(username)) {
+                    if (employees.getPassword().equals(pass)) {
+                        return employees;
+                    }
+                }
+            }
+        }
+        return null;
+    }*/
 
     public static boolean newUser(Hotel hotel) {
         String name, lastName, dni, email, user, password, origin, originAddress, answ;
@@ -85,7 +140,7 @@ public class ControllerLogin implements IControllerHelper
             name = sc.nextLine();
             System.out.println("APELLIDO: ");
             lastName = sc.nextLine();
-            dni = validateDni();           //valido no repetir dni
+            dni = validateDni(hotel);           //valido no repetir dni
             System.out.println("EMAIL: ");
             email = sc.nextLine();
             System.out.println("TELÉFONO: ");
@@ -95,7 +150,7 @@ public class ControllerLogin implements IControllerHelper
             origin = sc.nextLine();
             System.out.println("DIRECCIÓN DE ORIGEN: ");
             originAddress = sc.nextLine();
-            user = validateUserName();    //valido no repetir username
+            user = validateUserName(hotel);    //valido no repetir username
             System.out.println("CONTRASEÑA: ");
             password = sc.nextLine();
 
@@ -117,8 +172,8 @@ public class ControllerLogin implements IControllerHelper
         return false;
     }
 
-    public static boolean userNameExist(String username) {
-        List<User> userSet = FileHelper.getUsersFromJson();
+    public static boolean userNameExist(String username, Hotel hotel) {
+        List<User> userSet = listOfAllUsers(hotel);
         if (userSet != null) {
             for (User users : userSet) {
                 if (users.getUser().equals(username)) {
@@ -129,8 +184,8 @@ public class ControllerLogin implements IControllerHelper
         return false;
     }
 
-    public static boolean dniExist(String dni) {
-        List<User> userSet = FileHelper.getUsersFromJson();
+    public static boolean dniExist(String dni, Hotel hotel) {
+        List<User> userSet = listOfAllUsers(hotel);
         if (userSet != null) {
             for (User users : userSet) {
                 if (users.getDni().equals(dni)) {
@@ -141,25 +196,25 @@ public class ControllerLogin implements IControllerHelper
         return false;
     }
 
-    public static String validateUserName() {
+    public static String validateUserName(Hotel hotel) {
         boolean flag;
         String user;
         do {
             System.out.println("USUARIO: ");
             user = sc.nextLine();
-            flag = userNameExist(user);
+            flag = userNameExist(user,hotel);
             if (flag) System.out.println("El usuario ya existe vuelva a intentarlo");
         } while (flag);
         return user;
     }
 
-    public static String validateDni() {
+    public static String validateDni(Hotel hotel) {
         boolean flag;
         String dni;
         do {
             System.out.println("DNI: ");
             dni = sc.nextLine();
-            flag = dniExist(dni);
+            flag = dniExist(dni, hotel);
             if (flag) System.out.println("El dni ya existe vuelva a intentarlo");
         } while (flag);
         return dni;

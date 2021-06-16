@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Maria Marta",
+    "lastName": "Serra Lima",
+    "dni": "23535421",
+    "email": "lamari@gmail.com",
+    "user": "serra",
+    "password": "lima",
+    "userType": "EMPLOYEE",
+    "phoneNumber": 223458475
+  },
+  {
+    "name": "Fernando",
+    "lastName": "Fernandez",
+    "dni": "50232520",
+    "email": "fernandito@gmail.com",
+    "user": "fer",
+    "password": "nando",
+    "userType": "EMPLOYEE",
+    "phoneNumber": 22354214
+  }
+]
