@@ -7,5 +7,15 @@
     "user": "JoaaquinAlfonso",
     "password": "123",
     "phoneNumber": 223533547
+  },
+  {
+    "name": "Marina",
+    "lastName": "Orpianesi",
+    "dni": "39834705",
+    "email": "orpianesi.mar@gmail.com",
+    "user": "mmar",
+    "password": "12345",
+    "userType": "PASSENGER",
+    "phoneNumber": 2236087161
   }
 ]

@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.controllers.ControllerAdmin;
+import org.example.controllers.ControllerEmployee;
+import org.example.controllers.ControllerPassenger;
 import org.example.helpers.FileHelper;
 
 import java.util.Set;
@@ -7,7 +10,8 @@ import java.util.Set;
 public /*abstract*/ class User
 {
     private String name, lastName, dni, email, user, password;
-    private long  phoneNumber;
+    private UserType userType;
+    private long phoneNumber;
 
     public User() {
     }
@@ -20,7 +24,7 @@ public /*abstract*/ class User
         this.phoneNumber = phoneNumber;
     }
 
-    public User(String name, String lastName, String dni, String email, String user, String password, long phoneNumber)
+    public User(String name, String lastName, String dni, String email, String user, String password, long phoneNumber, UserType userType)
     {
         this.name = name;
         this.lastName = lastName;
@@ -29,8 +33,17 @@ public /*abstract*/ class User
         this.user = user;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.userType = userType;
     }
 
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
 
     public String getName()
     {
@@ -102,15 +115,6 @@ public /*abstract*/ class User
         return dni;
     }
 
-
-    public boolean signIn(User userHandle, Hotel hotel){
-        return false;
-    }
-
-
-    public boolean signOut(){
-        return false;
-    }
 
     @Override
     public String toString()

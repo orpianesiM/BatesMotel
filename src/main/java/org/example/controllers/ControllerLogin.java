@@ -19,58 +19,17 @@ public class ControllerLogin implements IControllerHelper
         int option;
         User userFound;
         boolean flag = false;
-
-
         System.out.println("*-*-*-*-*-*-*-***Bates Motel****-*-*-*-*-*-*\n");
         System.out.println("*-*-*-*-*-*-*-***LOGIN****-*-*-*-*-*-*\n");
-        System.out.println("1)Registrarse\n 2) Logearse ");
+        System.out.println("1. Registrarse");
+        System.out.println("2. Logearse ");
         option = sc.nextInt();
 
         switch (option) {
             case 1:
-                Passenger passengerNew;
-                boolean add = false;
-                String controller = null, controllerAdd, name, lastName, email, dni, origin, originAddress, user, pass;
-                long phone;
-                System.out.println("-------**Crear Usuario**------\n");
-
-                    System.out.println("INGRESE LOS DATOS");
-                    System.out.println("Nombre: ");
-                    name = sc.nextLine();
-                    name = sc.nextLine();
-                    System.out.println("Apellido: ");
-                    lastName = sc.nextLine();
-                    System.out.println("DNI: ");
-                    dni = sc.nextLine();
-                    System.out.println("Email: ");
-                    email = sc.nextLine();
-                    System.out.println("Telefono: ");
-                    phone = sc.nextLong();
-                    System.out.println("Origen: ");
-                    origin = sc.nextLine();
-                    origin = sc.nextLine();
-                    System.out.println("Dirección de origen: ");
-                    //originAddress = sc.nextLine();
-                    originAddress = sc.nextLine();
-                    System.out.println("Usuario: ");
-                    //user = sc.nextLine();
-                    user = sc.nextLine();
-                    System.out.println("Password: ");
-                    //pass = sc.nextLine();
-                    pass = sc.nextLine();
-                    passengerNew = new Passenger(name,lastName,dni,email,user,pass,phone,origin,originAddress);
-                    System.out.println(passengerNew);
-
-                    System.out.println("Los datos son correctos ? S/N");
-                    controllerAdd = sc.nextLine().toUpperCase();
-                    if (controllerAdd.equals("S")) {
-                        add = hotel.addPassenger(passengerNew);
-                        if (add) System.out.println("Usuario creado con exito");
-                        if (!add) System.out.println("Error al cargar nuevo usuario");
-
-                    }
+               newUser(hotel);
+               login(hotel);
                 break;
-
             case 2:
                 do {
                     System.out.println("Usuario: ");
@@ -81,9 +40,10 @@ public class ControllerLogin implements IControllerHelper
 
                     userFound = isValidUser(username, password);
                     if (userFound != null) {
-                        userFound.signIn(userFound, hotel); //se diferencian los sign in ?
-                    }
-                    else {
+                        if(userFound.getUserType().equals(UserType.PASSENGER)) ControllerPassenger.controllerMenuPrincipal(hotel);
+                        if(userFound.getUserType().equals(UserType.ADMIN)) ControllerAdmin.controllerMenuHotel(hotel);
+                        if(userFound.getUserType().equals(UserType.EMPLOYEE)) ControllerEmployee.controllerMenuEmployee(hotel);
+                    }else {
                         flag = IControllerHelper.messageError();
                         if (!flag) {
                             System.out.println("Desea registrarse ? S/N");
@@ -95,11 +55,8 @@ public class ControllerLogin implements IControllerHelper
                         }
                     }
                 } while (flag);
-
                 break;
-
         }
-
     }
 
     public static User isValidUser(String username, String pass) {
@@ -118,12 +75,13 @@ public class ControllerLogin implements IControllerHelper
 
     public static boolean newUser(Hotel hotel) {
         String name, lastName, dni, email, user, password, origin, originAddress, answ;
-        int phoneNumber;
+        long phoneNumber;
+        boolean add = false;
 
         do {
-            System.out.println("*-*-*-*-*-*-*-***Bates Motel****-*-*-*-*-*-*\n");
             System.out.println("*-*-*-*-*-*-*-***Registrarse****-*-*-*-*-*-*\n");
             System.out.println("NOMBRE: ");
+            name = sc.nextLine();
             name = sc.nextLine();
             System.out.println("APELLIDO: ");
             lastName = sc.nextLine();
@@ -131,8 +89,9 @@ public class ControllerLogin implements IControllerHelper
             System.out.println("EMAIL: ");
             email = sc.nextLine();
             System.out.println("TELÉFONO: ");
-            phoneNumber = sc.nextInt();
+            phoneNumber = sc.nextLong();
             System.out.println("ORIGEN: ");
+            origin = sc.nextLine();
             origin = sc.nextLine();
             System.out.println("DIRECCIÓN DE ORIGEN: ");
             originAddress = sc.nextLine();
@@ -141,12 +100,15 @@ public class ControllerLogin implements IControllerHelper
             password = sc.nextLine();
 
             /**tiene que ser tipo passenger porque es el unico que va a acceder al metodo para registrarse**/
-            Passenger passenger = new Passenger(name, lastName, dni, email, user, password, phoneNumber, origin, originAddress);
+            Passenger passenger = new Passenger(name, lastName, dni, email, user, password, phoneNumber, origin, originAddress, UserType.PASSENGER);
             System.out.println("Datos ingresados: " + passenger);
 
             System.out.println("Los datos son correctos? S/N");
             answ = sc.nextLine().toUpperCase();
             if (answ.equals("S")) {
+                    add = hotel.addPassenger(passenger);
+                    if (add) System.out.println("Usuario creado con exito");
+                    if (!add) System.out.println("Error al cargar nuevo usuario");
                 if (hotel.addPassenger(passenger)) ;
                 System.out.println("Usuario creado con éxito!");
                 return true;
@@ -187,7 +149,7 @@ public class ControllerLogin implements IControllerHelper
             user = sc.nextLine();
             flag = userNameExist(user);
             if (flag) System.out.println("El usuario ya existe vuelva a intentarlo");
-        } while (!flag);
+        } while (flag);
         return user;
     }
 
@@ -199,7 +161,7 @@ public class ControllerLogin implements IControllerHelper
             dni = sc.nextLine();
             flag = dniExist(dni);
             if (flag) System.out.println("El dni ya existe vuelva a intentarlo");
-        } while (!flag);
+        } while (flag);
         return dni;
     }
 }

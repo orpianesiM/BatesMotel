@@ -189,15 +189,12 @@ public class Hotel
 
     //getpassengerbyDni por dni
 
-    public Passenger getpassengerbyDni(String dni)
+    public User getpassengerbyDni(String dni)
     {
-
         if (userList != null) {
-
             for (User user : userList) {
-                if (user instanceof Passenger && user.getDni().equals(dni)) {
-
-                    return (Passenger) user;
+                if (user.getDni().equals(dni)) {
+                    return user; //ToDo ver esto y todo lo que tenga passenger
                 }
             }
         }
@@ -272,7 +269,7 @@ public class Hotel
         {
             for (Room variable : roomList)
             {
-                variable.toString();
+                System.out.println(variable.toString());
             }
         }
     }
@@ -357,7 +354,7 @@ public class Hotel
 
     public void uploadRooms()
     {
-        ArrayList<Room> uploadedRooms = new ArrayList<>();
+        //ArrayList<Room> uploadedRooms = new ArrayList<>();
 
         Room newRoom = new Room(true,101,RoomType.TRIPLE);
         Room newRoom2 = new Room(true,102,RoomType.MATRIMONIAL);
@@ -379,23 +376,23 @@ public class Hotel
         Room newRoom14 = new Room(true,304,RoomType.SINGLE);
         Room newRoom15 = new Room(true,305,RoomType.TWIN);
 
-        uploadedRooms.add(newRoom);
-        uploadedRooms.add(newRoom2);
-        uploadedRooms.add(newRoom3);
-        uploadedRooms.add(newRoom4);
-        uploadedRooms.add(newRoom5);
-        uploadedRooms.add(newRoom6);
-        uploadedRooms.add(newRoom7);
-        uploadedRooms.add(newRoom8);
-        uploadedRooms.add(newRoom9);
-        uploadedRooms.add(newRoom10);
-        uploadedRooms.add(newRoom11);
-        uploadedRooms.add(newRoom12);
-        uploadedRooms.add(newRoom13);
-        uploadedRooms.add(newRoom14);
-        uploadedRooms.add(newRoom15);
+        roomList.add(newRoom);
+        roomList.add(newRoom2);
+        roomList.add(newRoom3);
+        roomList.add(newRoom4);
+        roomList.add(newRoom5);
+        roomList.add(newRoom6);
+        roomList.add(newRoom7);
+        roomList.add(newRoom8);
+        roomList.add(newRoom9);
+        roomList.add(newRoom10);
+        roomList.add(newRoom11);
+        roomList.add(newRoom12);
+        roomList.add(newRoom13);
+        roomList.add(newRoom14);
+        roomList.add(newRoom15);
 
-        FileHelper.setRoomsToJson(uploadedRooms);
+        FileHelper.setRoomsToJson(roomList);
 
     }
 

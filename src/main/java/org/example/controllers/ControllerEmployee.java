@@ -1,9 +1,6 @@
 package org.example.controllers;
 
-import org.example.Booking;
-import org.example.Hotel;
-import org.example.Passenger;
-import org.example.Room;
+import org.example.*;
 import org.example.helpers.IControllerHelper;
 
 import java.time.LocalDateTime;
@@ -46,7 +43,8 @@ public class ControllerEmployee implements IControllerHelper {
                         controllerMenuPassenger(hotel);
                         break;
                     case "0":
-                        //deslogeo ?
+                        hotel.save();
+                        ControllerLogin.login(hotel);
                         break;
                     default:
                         System.out.println("Ingreso incorrectamente.");
@@ -93,7 +91,7 @@ public class ControllerEmployee implements IControllerHelper {
             if (IControllerHelper.isInteger(option)) {
                 switch (option) {
                     case "1":
-                        Passenger passengerFound = IControllerHelper.searchPassenger(hotel);
+                        User passengerFound = IControllerHelper.searchPassenger(hotel);
                         if(passengerFound != null) System.out.println(passengerFound.toString());
                         break;
                     case "2":

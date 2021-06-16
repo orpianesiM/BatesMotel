@@ -37,7 +37,8 @@ public class ControllerAdmin implements IControllerHelper
                         controllerBooking(hotel);
                         break;
                     case "0":
-                        //deslogeo ?
+                        hotel.save();
+                        ControllerLogin.login(hotel);
                         break;
                     default:
                         System.out.println("Ingreso incorrectamente.");

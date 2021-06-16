@@ -16,8 +16,8 @@ public class Passenger extends User {
     public Passenger() {
     }
 
-    public Passenger(String name, String lastName, String dni, String email, String user, String password, long phoneNumber, String origin, String originAddress) {
-        super(name, lastName, dni, email, user, password, phoneNumber);
+    public Passenger(String name, String lastName, String dni, String email, String user, String password, long phoneNumber, String origin, String originAddress, UserType userType) {
+        super(name, lastName, dni, email, user, password, phoneNumber, userType);
         this.origin = origin;
         this.originAddress = originAddress;
         this.history = new ArrayList<>();
@@ -29,6 +29,16 @@ public class Passenger extends User {
         this.originAddress = originAddress;
     }
 
+
+    @Override
+    public UserType getUserType() {
+        return super.getUserType();
+    }
+
+    @Override
+    public void setUserType(UserType userType) {
+        super.setUserType(userType);
+    }
 
     @Override
     public String getName() { return super.getName(); }
@@ -106,17 +116,6 @@ public class Passenger extends User {
         this.history.add(ticket);
     }
 
-
-    @Override
-    public boolean signIn(User userHandle, Hotel hotel) {
-        if(userHandle instanceof Passenger) ControllerPassenger.controllerMenuPrincipal(hotel);
-        return false;
-    }
-
-    @Override
-    public boolean signOut() {
-        return false;
-    }
 
     @Override
     public String toString() {

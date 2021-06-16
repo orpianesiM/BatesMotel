@@ -5,9 +5,9 @@ import org.example.controllers.ControllerEmployee;
 public class Employee extends User
 {
 
-    public Employee(String name, String lastName, String dni, String email, String user, String password, int phoneNumber)
+    public Employee(String name, String lastName, String dni, String email, String user, String password, int phoneNumber, UserType userType)
     {
-        super(name, lastName, dni, email, user, password, phoneNumber);
+        super(name, lastName, dni, email, user, password, phoneNumber, userType);
     }
 
     public Employee()
@@ -15,14 +15,13 @@ public class Employee extends User
     }
 
     @Override
-    public boolean signIn(User userHandle, Hotel hotel) {
-        if(userHandle instanceof Employee) ControllerEmployee.controllerMenuEmployee(hotel);
-        return false;
+    public UserType getUserType() {
+        return super.getUserType();
     }
 
     @Override
-    public boolean signOut() {
-        return false;
+    public void setUserType(UserType userType) {
+        super.setUserType(userType);
     }
 
     @Override

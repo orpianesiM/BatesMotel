@@ -1,9 +1,6 @@
 package org.example.helpers;
 
-import org.example.Booking;
-import org.example.Hotel;
-import org.example.Passenger;
-import org.example.Room;
+import org.example.*;
 
 import java.util.Scanner;
 
@@ -28,9 +25,9 @@ public interface IControllerHelper {
         return false;
     }
 
-    static Passenger searchPassenger (Hotel hotel){
+    static User searchPassenger (Hotel hotel){ //ToDo ver esto con relacion al passenger
         String flag = null;
-        Passenger passengerFound;
+        User passengerFound;
         do {
             System.out.println("Ingrese el DNI: ");
             String dni = sc.nextLine();
