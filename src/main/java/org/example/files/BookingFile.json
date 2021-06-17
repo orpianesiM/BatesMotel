@@ -20,30 +20,14 @@
     },
     "bookingState": "PENDING",
     "checkInDate": {
-      "date": {
-        "year": 2020,
-        "month": 2,
-        "day": 2
-      },
-      "time": {
-        "hour": 20,
-        "minute": 20,
-        "second": 0,
-        "nano": 0
-      }
+      "year": 0,
+      "month": 0,
+      "day": 0
     },
     "checkOutDate": {
-      "date": {
-        "year": 2020,
-        "month": 2,
-        "day": 2
-      },
-      "time": {
-        "hour": 21,
-        "minute": 21,
-        "second": 0,
-        "nano": 0
-      }
+      "year": 0,
+      "month": 0,
+      "day": 0
     },
     "spentMoney": 0.0
   }

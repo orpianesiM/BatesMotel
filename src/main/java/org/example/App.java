@@ -10,15 +10,10 @@ import java.util.List;
 public class App
 
 {
-
-
     public static void main(String[] args )
     {
         Hotel hotel = new Hotel();
-       ControllerLogin.login(hotel);
-       // hotel.uploadAdmin();
-        //hotel.uploadEmployee();
-        //hotel.uploadPassenger();
+        ControllerLogin.login(hotel);
         hotel.save();
     }
 

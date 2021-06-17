@@ -63,5 +63,14 @@
     "password": "12345",
     "userType": "PASSENGER",
     "phoneNumber": 223509843
+  },
+  {
+    "origin": "Buenos Aires",
+    "originAddress": "Av. Libertador 220",
+    "name": "Pepe",
+    "lastName": "Grillo",
+    "dni": "30235646",
+    "email": "pepito@gmail.com",
+    "phoneNumber": 1154673534
   }
 ]

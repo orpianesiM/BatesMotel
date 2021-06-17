@@ -43,8 +43,10 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Habitación N° " + roomNumber +
-                ", disponibilidad: " + isAvailable +
-                ", tipo de habitación: " + roomType ;
+        return "\t [Habitación N°" + roomNumber +"] \n\n"+
+                "Datos de la habitacion: \n\n" +
+                "Disponibilidad: [" + isAvailable +"]\n"+
+                "Tipo: [" + roomType + "] \n" +
+                "***";
     }
 }

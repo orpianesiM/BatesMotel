@@ -18,14 +18,13 @@ public class ControllerLogin implements IControllerHelper
         String username, password, answ;
         int option;
         User userFound;
-        boolean flag = false;
-        System.out.println("*-*-*-*-*-*-*-***Bates Motel****-*-*-*-*-*-*\n");
-        System.out.println("*-*-*-*-*-*-*-***LOGIN****-*-*-*-*-*-*\n");
+        boolean flag = true;
+        System.out.println("*-*-*-*-*-*-*-***Bates Motel***-*-*-*-*-*-*");
+        System.out.println("*-*-*-*-*-*-*-***LOGIN***-*-*-*-*-*-*");
         System.out.println("1. Registrarse");
         System.out.println("2. Logearse ");
         System.out.println("0. Salir");
         option = sc.nextInt();
-
         switch (option) {
             case 1:
                newUser(hotel);
@@ -33,8 +32,8 @@ public class ControllerLogin implements IControllerHelper
                 break;
             case 2:
                 do {
+                    sc.nextLine();             //cleaned buffer
                     System.out.println("Usuario: ");
-                    username = sc.nextLine();
                     username = sc.nextLine();
                     System.out.println("Password: ");
                     password = sc.nextLine();
@@ -48,6 +47,7 @@ public class ControllerLogin implements IControllerHelper
                         flag = IControllerHelper.messageError();
                         if (!flag) {
                             System.out.println("Desea registrarse ? S/N");
+                            sc.nextLine();             //cleaned buffer
                             answ = sc.nextLine().toUpperCase();
                             if (answ.equals("S")) {
                                 newUser(hotel);
@@ -58,6 +58,8 @@ public class ControllerLogin implements IControllerHelper
                 } while (flag);
                 break;
             case 0:
+                System.out.println("*-*-***Gracias por utilizar Bates Motel***-*-*");
+                System.exit(0);
                 break;
         }
     }
@@ -72,9 +74,10 @@ public class ControllerLogin implements IControllerHelper
         users.addAll(e);
         return users;
     }
+
     public static User isValidUser(String username, String pass, Hotel hotel) {
         List<User> users = listOfAllUsers(hotel);
-        if (users != null) {
+        if (!(users.isEmpty())) {
             for (User u : users) {
                 if (u.getUser().equals(username)) {
                     if (u.getPassword().equals(pass)) {
@@ -86,57 +89,15 @@ public class ControllerLogin implements IControllerHelper
         return null;
     }
 
-   /* public static Passenger isValidPassenger(String username, String pass) {
-        List<Passenger> passenger = FileHelper.getPassengersFromJson();
-        if (passenger != null) {
-            for (Passenger passengers : passenger) {
-                if (passengers.getUser().equals(username)) {
-                    if (passengers.getPassword().equals(pass)) {
-                        return passengers;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    public static Admin isValidAdmin(String username, String pass) {
-        List<Admin> admin = FileHelper.getAdminFromJson();
-        if (admin != null) {
-            for (Admin admins : admin) {
-                if (admins.getUser().equals(username)) {
-                    if (admins.getPassword().equals(pass)) {
-                        return admins;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    public static Employee isValidEmployee(String username, String pass) {
-        List<Employee> employee = FileHelper.getEmployeeFromJson();
-        if (employee != null) {
-            for (Employee employees : employee) {
-                if (employees.getUser().equals(username)) {
-                    if (employees.getPassword().equals(pass)) {
-                        return employees;
-                    }
-                }
-            }
-        }
-        return null;
-    }*/
-
-    public static boolean newUser(Hotel hotel) {
+    public static void newUser(Hotel hotel) {
         String name, lastName, dni, email, user, password, origin, originAddress, answ;
         long phoneNumber;
         boolean add = false;
 
         do {
-            System.out.println("*-*-*-*-*-*-*-***Registrarse****-*-*-*-*-*-*\n");
+            System.out.println("*-*-*-*-*-*-*-***Registrarse****-*-*-*-*-*-*");
+            sc.nextLine();             //cleaned buffer
             System.out.println("NOMBRE: ");
-            name = sc.nextLine();
             name = sc.nextLine();
             System.out.println("APELLIDO: ");
             lastName = sc.nextLine();
@@ -145,8 +106,8 @@ public class ControllerLogin implements IControllerHelper
             email = sc.nextLine();
             System.out.println("TELÉFONO: ");
             phoneNumber = sc.nextLong();
+            sc.nextLine();             //cleaned buffer
             System.out.println("ORIGEN: ");
-            origin = sc.nextLine();
             origin = sc.nextLine();
             System.out.println("DIRECCIÓN DE ORIGEN: ");
             originAddress = sc.nextLine();
@@ -155,7 +116,7 @@ public class ControllerLogin implements IControllerHelper
             password = sc.nextLine();
 
             /**tiene que ser tipo passenger porque es el unico que va a acceder al metodo para registrarse**/
-            Passenger passenger = new Passenger(name, lastName, dni, email, user, password, phoneNumber, origin, originAddress, UserType.PASSENGER);
+            Passenger passenger = new Passenger(name, lastName, dni, email, user, password, phoneNumber, origin, originAddress);
             System.out.println("Datos ingresados: " + passenger);
 
             System.out.println("Los datos son correctos? S/N");
@@ -166,15 +127,13 @@ public class ControllerLogin implements IControllerHelper
                     if (!add) System.out.println("Error al cargar nuevo usuario");
                 if (hotel.addPassenger(passenger)) ;
                 System.out.println("Usuario creado con éxito!");
-                return true;
             }
         } while (answ.equals("N"));
-        return false;
     }
 
     public static boolean userNameExist(String username, Hotel hotel) {
         List<User> userSet = listOfAllUsers(hotel);
-        if (userSet != null) {
+        if (!(userSet.isEmpty())) {
             for (User users : userSet) {
                 if (users.getUser().equals(username)) {
                     return true;
@@ -186,7 +145,7 @@ public class ControllerLogin implements IControllerHelper
 
     public static boolean dniExist(String dni, Hotel hotel) {
         List<User> userSet = listOfAllUsers(hotel);
-        if (userSet != null) {
+        if (!(userSet.isEmpty())) {
             for (User users : userSet) {
                 if (users.getDni().equals(dni)) {
                     return true;
@@ -200,6 +159,7 @@ public class ControllerLogin implements IControllerHelper
         boolean flag;
         String user;
         do {
+            sc.nextLine();             //cleaned buffer
             System.out.println("USUARIO: ");
             user = sc.nextLine();
             flag = userNameExist(user,hotel);
@@ -212,6 +172,7 @@ public class ControllerLogin implements IControllerHelper
         boolean flag;
         String dni;
         do {
+            sc.nextLine();             //cleaned buffer
             System.out.println("DNI: ");
             dni = sc.nextLine();
             flag = dniExist(dni, hotel);

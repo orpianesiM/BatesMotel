@@ -1,28 +1,28 @@
 package org.example.entities;
+    public enum RoomType {
 
-public enum RoomType {
+        SINGLE ("Single", 20),
+        TWIN("Twin" , 35),
+        MATRIMONIAL("Matrimonial", 45),
+        TRIPLE("Triple", 55),
+        QUAD("Quad", 65);
 
-    SINGLE ("Single", 20),
-    TWIN("Twin" , 35),
-    MATRIMONIAL("Matrimonial", 45),
-    TRIPLE("Triple", 55),
-    QUAD("Quad", 65);
+        private final String key;
+        private final Integer value;
 
-    private final String key;
-    private final Integer value;
+        RoomType (String key, Integer value){
+            this.key=key;
+            this.value=value;
 
-    RoomType (String key, Integer value){
-        this.key=key;
-        this.value=value;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
 
     }
-
-    public String getKey() {
-        return key;
-    }
-
-    public Integer getValue() {
-        return value;
-    }
-
 }

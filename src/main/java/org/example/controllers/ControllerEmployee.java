@@ -1,9 +1,6 @@
 package org.example.controllers;
 
-import org.example.entities.Booking;
-import org.example.entities.Hotel;
-import org.example.entities.Room;
-import org.example.entities.User;
+import org.example.entities.*;
 import org.example.helpers.IControllerHelper;
 
 import java.time.LocalDateTime;
@@ -16,8 +13,8 @@ public class ControllerEmployee implements IControllerHelper {
     private static final Scanner sc = new Scanner(System.in);
 
     public static void viewMenuEmployee(){
-        System.out.println("*-*-*-*-*-*-*-***Bates Motel****-*-*-*-*-*-*\n");
-        System.out.println("*-*-*-*-*-*-*-***Menu Principal****-*-*-*-*-*-*\n");
+        System.out.println("*-*-*-*-*-*-*-***Bates Motel****-*-*-*-*-*-*");
+        System.out.println("*-*-*-*-*-*-*-***Menu Principal****-*-*-*-*-*");
         System.out.println("1. Realizar check in");
         System.out.println("2. Realizar check out");
         System.out.println("3. Info. habitaciones");
@@ -27,9 +24,9 @@ public class ControllerEmployee implements IControllerHelper {
     }
 
     public static void controllerMenuEmployee(Hotel hotel){
-        boolean flag = false;
-        viewMenuEmployee();
+        boolean flag = true;
         do {
+            viewMenuEmployee();
             String option = sc.nextLine();
             if (IControllerHelper.isInteger(option)) {
                 switch (option) {
@@ -87,13 +84,13 @@ public class ControllerEmployee implements IControllerHelper {
     /*******************************************PASSENGER*******************************************/
     private static void controllerMenuPassenger(Hotel hotel) {
         boolean flag = false;
-        viewMenuPassenger();
         do {
+            viewMenuPassenger();
             String option = sc.nextLine();
             if (IControllerHelper.isInteger(option)) {
                 switch (option) {
                     case "1":
-                        User passengerFound = IControllerHelper.searchPassenger(hotel);
+                        Passenger passengerFound = IControllerHelper.searchPassenger(hotel);
                         if(passengerFound != null) System.out.println(passengerFound.toString());
                         break;
                     case "2":
@@ -118,20 +115,17 @@ public class ControllerEmployee implements IControllerHelper {
             if (IControllerHelper.isInteger(option)) {
                 switch (option) {
                     case "1":
-                        for (Room variable : hotel.getRoomList())
-                        {
-                            if (!(variable.isAvailable())){
-                                System.out.println(variable.toString());}
+                        for (Room variable : hotel.getRoomList()){
+                            if (!(variable.isAvailable())) System.out.println(variable.toString());
                         }
                         break;
                     case "2":
-                        for (Room variable : hotel.getRoomList())
-                        {
-                            if (variable.isAvailable()){System.out.println(variable.toString());}
+                        for (Room variable : hotel.getRoomList()){
+                            if (variable.isAvailable()) System.out.println(variable.toString());
                         }
                         break;
                     case "3":
-                        for (Room variable : hotel.getRoomList()){System.out.println(variable.toString());}
+                        for (Room variable : hotel.getRoomList()) System.out.println(variable.toString());
                         break;
                     case "0":
                         controllerMenuEmployee(hotel);
@@ -152,12 +146,9 @@ public class ControllerEmployee implements IControllerHelper {
                 switch (option) {
                     case "1":
                         showBookingFromRoom(hotel);
-                        controllerMenuBooking(hotel);
                         break;
                     case "2":
-                        for (Booking variable : hotel.getBookingList()){
-                            System.out.println(variable.toString());
-                        }
+                        hotel.getBookingList().forEach(System.out::println);
                         break;
                     case "0":
                         controllerMenuEmployee(hotel);
@@ -179,14 +170,14 @@ public class ControllerEmployee implements IControllerHelper {
 
     /*******************************************VIEW*******************************************/
     public static void viewMenuPassenger(){
-        System.out.println("*-*-*-*-*-*-*-***Pasajeros***-*-*-*-*-*-*\n");
+        System.out.println("*-*-*-*-*-*-*-***Pasajeros***-*-*-*-*-*-*");
         System.out.println("1. Buscar un pasajero");
-        System.out.println("2. Ver todos los pasajeros");
+        System.out.println("2. Listar todos los pasajeros");
         System.out.println("0. Salir");
     }
 
     public static void viewMenuRoom(){
-        System.out.println("*-*-*-*-*-*-*-***Habitaciones***-*-*-*-*-*-*\n");
+        System.out.println("*-*-*-*-*-*-*-***Habitaciones***-*-*-*-*-*-*");
         System.out.println("1. Listar habitaciones ocupadas");
         System.out.println("2. Listar habitaciones desocupadas");
         System.out.println("3. Listar todas las habitaciones");
@@ -194,7 +185,7 @@ public class ControllerEmployee implements IControllerHelper {
     }
 
     public static void viewMenuBooking(){
-        System.out.println("*-*-*-*-*-*-*-***Reservas***-*-*-*-*-*-*\n");
+        System.out.println("*-*-*-*-*-*-*-***Reservas***-*-*-*-*-*-*");
         System.out.println("1. Buscar reserva por habitación");
         System.out.println("2. Listar todas las reservas");
         System.out.println("0. Salir");

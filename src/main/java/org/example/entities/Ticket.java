@@ -1,6 +1,7 @@
 package org.example.entities;
 
 import java.nio.ByteBuffer;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -9,7 +10,8 @@ public final class Ticket
     /* [Atributos] */
 
     private final String ID;
-    private final LocalDateTime checkInDate,checkOutDate;
+    private final LocalDate checkInDate;
+    private final LocalDate checkOutDate;
     private final Room roomUsed;
     private final double moneyPaid;
 
@@ -17,7 +19,7 @@ public final class Ticket
     /* [Constructor] */
 
 
-    public Ticket(LocalDateTime checkInDate, LocalDateTime checkOutDate,Room roomUsed, double moneyPaid)
+    public Ticket(LocalDate checkInDate, LocalDate checkOutDate, Room roomUsed, double moneyPaid)
     {
         this.ID = shortUUID();
         this.checkInDate = checkInDate;
@@ -36,13 +38,12 @@ public final class Ticket
     }
 
     @Override
-    public String toString()
-    {
-        return  "Ticket ID ='" + ID + '\'' +
-                ", CheckIn date= " + checkInDate +
-                ", CheckOut date= " + checkOutDate +
-                ", Room used = " + roomUsed +
-                ", Money spent =" + moneyPaid +
-                "} \n";
+    public String toString(){
+        return  "\t [Ticket N°" + ID +"] \n\n"+
+                "Día de CheckIn: [" + checkInDate +"]\n"+
+                "Día de CheckOut: [" + checkOutDate +"]\n"+
+                "Habitación utilizada: [" + roomUsed +"]\n"+
+                "Total: [" + moneyPaid +"]\n"+
+                "***";
     }
 }

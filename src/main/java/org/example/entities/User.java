@@ -3,7 +3,6 @@ package org.example.entities;
 public abstract class User
 {
     private String name, lastName, dni, email, user, password;
-    private UserType userType;
     private long phoneNumber;
 
     public User() {
@@ -17,7 +16,7 @@ public abstract class User
         this.phoneNumber = phoneNumber;
     }
 
-    public User(String name, String lastName, String dni, String email, String user, String password, long phoneNumber, UserType userType)
+    public User(String name, String lastName, String dni, String email, String user, String password, long phoneNumber)
     {
         this.name = name;
         this.lastName = lastName;
@@ -26,17 +25,8 @@ public abstract class User
         this.user = user;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.userType = userType;
     }
 
-
-    public UserType getUserType() {
-        return userType;
-    }
-
-    public void setUserType(UserType userType) {
-        this.userType = userType;
-    }
 
     public String getName()
     {
@@ -112,15 +102,13 @@ public abstract class User
     @Override
     public String toString()
     {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", dni='" + dni + '\'' +
-                ", email='" + email + '\'' +
-                ", user='" + user + '\'' +
-                ", password='" + password + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                "} \n";
+        return  "Nombre: ["+ name + "] \n" +
+                "Apellido: ["+ lastName + "] \n" +
+                "DNI: [" +dni + "] \n" +
+                "Email: ["+ email + "] \n" +
+                "Usuario use: [" + user + "] \n" +
+                "Contraseña: [" + password + "] \n" +
+                "Teléfono: ["+ phoneNumber + "] \n";
     }
 
    /* //public int compareTo(User o)

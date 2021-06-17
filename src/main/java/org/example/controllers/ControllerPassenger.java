@@ -11,8 +11,8 @@ public class ControllerPassenger implements IControllerHelper{
     private static final Scanner sc = new Scanner(System.in);
 
     public static void viewMenuPrincipal() {
-        System.out.println("*-*-*-*-*-*-*-***Bates Motel****-*-*-*-*-*-*\n");
-        System.out.println("*-*-*-*-*-*-*-***BIENVENIDO****-*-*-*-*-*-*\n");
+        System.out.println("*-*-*-*-*-*-*-***Bates Motel****-*-*-*-*-*-*");
+        System.out.println("*-*-*-*-*-*-*-***BIENVENIDO****-*-*-*-*-*-*");
         System.out.println("1. Quiero hospedarme");    //newBooking
         System.out.println("2. Ya soy huésped");       //bookingDetails, roomService, myTicket
         System.out.println("3. Conocé Bates Motel");   //rooms
@@ -20,7 +20,7 @@ public class ControllerPassenger implements IControllerHelper{
     }
 
     public static void controllerMenuPrincipal(Hotel hotel) {
-        boolean flag = false;
+        boolean flag = true;
         do {
             viewMenuPrincipal();
             String option = sc.nextLine();
@@ -53,9 +53,12 @@ public class ControllerPassenger implements IControllerHelper{
          Booking addNewBooking;
          RoomType type = null;
          String checkInDate, checkOutDate;
+         System.out.println("Enter para continuar..");
         Passenger passengerFound = IControllerHelper.searchPassenger(hotel);
         if(passengerFound!=null){
             System.out.println("Ingrese el tipo de habitación que quiere reservar: ");
+            System.out.println("Enter para continuar..");
+            sc.nextLine();             //cleaned buffer
             viewRoomType();
             roomType = sc.nextInt();
             switch (roomType){
@@ -77,10 +80,10 @@ public class ControllerPassenger implements IControllerHelper{
                 default:
                     System.out.println("Ingreso incorrectamente.");
             }
-            System.out.println("Ingrese el dia de checkIn: ");
+            sc.nextLine();             //cleaned buffer
+            System.out.println("Ingrese el dia de checkIn <format:yyyy-MM-dd>: ");
             checkInDate = sc.nextLine();
-            checkInDate = sc.nextLine();
-            System.out.println("Ingrese el dia de checkOut: "); //podria ingresar cuantos dias se queda y hacer un plusDays en makeBookig
+            System.out.println("Ingrese el dia de checkOut <format:yyyy-MM-dd>: ");
             checkOutDate = sc.nextLine();
 
             addNewBooking = hotel.makeBooking(checkInDate, checkOutDate, type, passengerFound);
@@ -91,7 +94,7 @@ public class ControllerPassenger implements IControllerHelper{
      }
 
      private static void controllerOptionTwo(Hotel hotel) {
-         boolean flag = false;
+         boolean flag = true;
          Passenger passengerFound = IControllerHelper.searchPassenger(hotel);
          if (passengerFound != null) {
              viewOptionTwo();
@@ -126,6 +129,8 @@ public class ControllerPassenger implements IControllerHelper{
              Product.getProducts();
              System.out.println("0. Salir");
              System.out.println("Ingrese el numero de lo que desea pedir: ");
+             System.out.println("Enter para continuar..");
+             sc.nextLine();             //cleaned buffer
              int product = sc.nextInt();
              if (product == 0) hotel.setProductToRoomService(product,booking); //Se precisa también la instancia de booking por parametro.
              if (product == 1) hotel.setProductToRoomService(product,booking);
@@ -133,6 +138,7 @@ public class ControllerPassenger implements IControllerHelper{
              if (product == 3) hotel.setProductToRoomService(product,booking);
              else controllerMenuPrincipal(hotel);
 
+             sc.nextLine();             //cleaned buffer
              System.out.println("Desea pedir algo mas? S/N");
              flag = sc.nextLine().toUpperCase();
          }while(flag.equals("S"));
@@ -140,8 +146,10 @@ public class ControllerPassenger implements IControllerHelper{
 
      private static void optionRooms(Hotel hotel){
          String controller;
-         System.out.println("*-*-*-*-*-*-*-***Habitaciones****-*-*-*-*-*-*\n");
-         hotel.seeRooms();
+         System.out.println("*-*-*-*-*-*-*-***Habitaciones****-*-*-*-*-*-*");
+         hotel.getRoomList().forEach(System.out::println);
+         System.out.println("Enter para continuar..");
+         sc.nextLine();             //cleaned buffer
          System.out.println("Desea reservar alguna habitación? S/N");
          controller = sc.nextLine().toUpperCase();
          if(controller.equals("S")) optionNewBooking(hotel);

@@ -19,7 +19,17 @@ public interface IControllerHelper {
 
     static boolean messageError () {
         String answ;
+        sc.nextLine();             //cleaned buffer
         System.out.println("Ingreso incorrectamente. Desea volver a intentarlo? S/N");
+        answ = sc.nextLine().toUpperCase();
+        if(answ.equals("S")) return true;
+        return false;
+    }
+
+    static boolean flowProgram() {
+        String answ;
+        sc.nextLine();             //cleaned buffer
+        System.out.println("Desea continuar en este menú? S/N");
         answ = sc.nextLine().toUpperCase();
         if(answ.equals("S")) return true;
         return false;
@@ -30,6 +40,7 @@ public interface IControllerHelper {
         String dni;
         Passenger passengerFound;
         do {
+            sc.nextLine();             //cleaned buffer
             System.out.println("Ingrese el DNI: ");
             dni = sc.nextLine();
             passengerFound = hotel.getPassengerbyDni(dni);
@@ -39,6 +50,7 @@ public interface IControllerHelper {
             } else {
                 System.out.println("El dni que ingresó es INEXISTENTE");
                 System.out.println("Quiere volver a intentarlo ? S/N");
+                sc.nextLine();             //cleaned buffer
                 flag = sc.nextLine();
             }
         } while (flag.equals("S"));
@@ -50,8 +62,8 @@ public interface IControllerHelper {
         String dni;
         Booking bookingFound;
         do {
+            sc.nextLine();             //cleaned buffer
             System.out.println("Ingrese el dni del pasajero: ");
-            dni = sc.nextLine();
             dni = sc.nextLine();
             bookingFound = hotel.getBookingByDni(dni);
             if (bookingFound != null) {
@@ -60,6 +72,7 @@ public interface IControllerHelper {
             } else {
                 System.out.println("El dni que fue buscado es INEXISTENTE");
                 System.out.println("Quiere volver a intentarlo ? S/N");
+                sc.nextLine();             //cleaned buffer
                 flag = sc.nextLine();
             }
         } while (flag.equals("S"));
@@ -72,6 +85,7 @@ public interface IControllerHelper {
         int roomNum;
         Room roomFound;
         do {
+            sc.nextLine();             //cleaned buffer
             System.out.println("Ingrese la habitación: ");
             roomNum = sc.nextInt();
             roomFound = hotel.getRoom(roomNum);
@@ -81,7 +95,7 @@ public interface IControllerHelper {
             } else {
                 System.out.println("La habitación es INEXISTENTE");
                 System.out.println("Quiere volver a intentarlo ? S/N");
-                flag = sc.nextLine();
+                sc.nextLine();             //cleaned buffer
                 flag = sc.nextLine();
             }
         } while (flag.equals("S"));

@@ -1,5 +1,6 @@
 package org.example.entities;
 
+
 import java.util.ArrayList;
 
 public class Passenger extends User {
@@ -10,8 +11,8 @@ public class Passenger extends User {
     public Passenger() {
     }
 
-    public Passenger(String name, String lastName, String dni, String email, String user, String password, long phoneNumber, String origin, String originAddress, UserType userType) {
-        super(name, lastName, dni, email, user, password, phoneNumber, userType);
+    public Passenger(String name, String lastName, String dni, String email, String user, String password, long phoneNumber, String origin, String originAddress) {
+        super(name, lastName, dni, email, user, password, phoneNumber);
         this.origin = origin;
         this.originAddress = originAddress;
         this.history = new ArrayList<>();
@@ -23,16 +24,6 @@ public class Passenger extends User {
         this.originAddress = originAddress;
     }
 
-
-    @Override
-    public UserType getUserType() {
-        return super.getUserType();
-    }
-
-    @Override
-    public void setUserType(UserType userType) {
-        super.setUserType(userType);
-    }
 
     @Override
     public String getName() { return super.getName(); }
@@ -113,49 +104,35 @@ public class Passenger extends User {
 
     @Override
     public String toString() {
-        return "" + super.toString() +
-                "origin='" + origin + '\'' +
-                ", originAddress='" + originAddress + '\'' +
-                ", history=" + history +
-                "} \n";
+        return "\t [Pasajero] \n\n" +
+                super.toString() +
+                "Origen: [" + origin +"] \n"+
+                "Dirección de origen: [" + originAddress +"] \n"+
+                "Historial: [" + history +"] \n"+;
     }
 
-    public String getOrigin()
-    {
-        return origin;
+   /**ToString modificado para checkear el historial, llamar clase.detallePasajero **/
+    public String detallePasajero() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\t [Pasajero] \n\n")
+                .append(super.toString())
+                .append("Origen: [")
+                .append(origin)
+                .append("] \n")
+                .append("Dirección de origen: [")
+                .append(originAddress)
+                .append("] \n");
+        if (!(this.getHistory().isEmpty())) {
+            sb.append("Historial: [")
+                    .append(history)
+                    .append("] \n");
+        }
+        return sb.toString();
     }
 
-    public void setOrigin(String origin)
-    {
-        this.origin = origin;
-    }
-
-    public String getOriginAdress()
-    {
-        return originAddress;
-    }
-
-    public void setOriginAdress(String originAdress)
-    {
-        this.originAddress = originAdress;
-    }
 
     /*Equals & HashCode*/
 
-   /* @Override
-    public boolean equals(Object o)
-    {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Passenger passenger = (Passenger) o;
-        return Objects.equals(origin, passenger.origin) && Objects.equals(originAddress, passenger.originAddress) && Objects.equals(history, passenger.history);
-    }
-*/
-/*    @Override
-    public int hashCode()
-    {
-        return Objects.hash(origin, originAddress, history);
-    }*/
 
 }
 

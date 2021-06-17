@@ -30,11 +30,4 @@ public enum Product {
         }
     }
 
-  /*  @Override
-    public String toString() {
-        return "Product " +
-                "name= " + key  +
-                " , price= " + value +
-                " $";
-    }*/
 }

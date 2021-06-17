@@ -3,6 +3,7 @@ package org.example.entities;
 import org.example.helpers.FileHelper;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -56,7 +57,7 @@ public class Hotel
         return false;
     }
 
-    public Room verifyBooking(LocalDateTime checkIn, LocalDateTime checkOut, RoomType roomType) {
+    public Room verifyBooking(LocalDate checkIn, LocalDate checkOut, RoomType roomType) {
 
         if (roomList != null) {
             if (bookingList.isEmpty()) {
@@ -77,7 +78,7 @@ public class Hotel
 
     public Booking makeBooking(String checkIn, String checkOut, RoomType roomType, Passenger bookingPassenger)
     {
-        Room newRoom = verifyBooking(Booking.stringToLocalDateTime(checkIn), Booking.stringToLocalDateTime(checkOut), roomType);
+        Room newRoom = verifyBooking(Booking.stringToLocalDate(checkIn), Booking.stringToLocalDate(checkOut), roomType);
 
         if (newRoom != null) {
             Booking newBooking = new Booking(bookingPassenger, newRoom, checkIn, checkOut, BookingState.PENDING);
@@ -88,7 +89,7 @@ public class Hotel
         return null;
     }
 
-    public List getBookingByRoom(Room room)
+    public List<Booking> getBookingByRoom(Room room)
     {
 
         if (bookingList != null) {
@@ -137,7 +138,7 @@ public class Hotel
         return null;
     }
 
-    public boolean checkDateAvailability(LocalDateTime lookedDate)
+    public boolean checkDateAvailability(LocalDate lookedDate)
     {
         if (bookingList == null) {
             return true;
@@ -340,8 +341,8 @@ public class Hotel
     public void uploadEmployee()
     {
         ArrayList<Employee> e = new ArrayList<>();
-        Employee employee1 = new Employee("Maria Marta", "Serra Lima", "23535421", "lamari@gmail.com", "serra","lima",223458475, UserType.EMPLOYEE);
-        Employee employee2 = new Employee("Fernando", "Fernandez", "50232520", "fernandito@gmail.com", "fer","nando",22354214, UserType.EMPLOYEE);
+        Employee employee1 = new Employee("Maria Marta", "Serra Lima", "23535421", "lamari@gmail.com", "serra","lima",223458475);
+        Employee employee2 = new Employee("Fernando", "Fernandez", "50232520", "fernandito@gmail.com", "fer","nando",22354214);
         e.add(employee1);
         e.add(employee2);
         employeeList = e;
@@ -351,7 +352,7 @@ public class Hotel
     public void uploadAdmin(){
 
         ArrayList<Admin> a = new ArrayList<>();
-        Admin admin = new Admin("Alex", "Turner", "84524135", "turner@gmail.com", "elalex","123",223458475, UserType.ADMIN);
+        Admin admin = new Admin("Alex", "Turner", "84524135", "turner@gmail.com", "elalex","123",223458475);
         a.add(admin);
         adminList = a;
         FileHelper.setAdminToJson(adminList);
@@ -359,7 +360,7 @@ public class Hotel
 
     public void uploadPassenger(){
         ArrayList<Passenger> p = new ArrayList<>();
-        Passenger passenger = new Passenger("Mercedez", "Sosa", "1256324","mercedita@gmail.com", "merced", "123", 52363648, "Chaco", "Buenos aires", UserType.PASSENGER);
+        Passenger passenger = new Passenger("Mercedez", "Sosa", "1256324","mercedita@gmail.com", "merced", "123", 52363648, "Chaco", "Buenos aires");
         p.add(passenger);
         passengerList = p;
         FileHelper.setPassengersToJson(passengerList);
@@ -408,6 +409,16 @@ public class Hotel
 
     public void setEmployeeList(ArrayList<Employee> employeeList) {
         this.employeeList = employeeList;
+    }
+
+    public boolean addEmployee(Employee newEmployee)
+    {
+        return employeeList.add(newEmployee);
+    }
+
+    public boolean addAdmin(Admin newAdmin)
+    {
+        return adminList.add(newAdmin);
     }
 
 }

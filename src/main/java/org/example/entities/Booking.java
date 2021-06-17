@@ -1,6 +1,7 @@
 package org.example.entities;
 
 import java.nio.ByteBuffer;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -16,8 +17,8 @@ public class Booking {
     private Passenger bookingPassenger;
     private Room bookedRoom;
     private BookingState bookingState;  // ir seteando de acuerdo a la fecha
-    private LocalDateTime checkInDate;
-    private LocalDateTime checkOutDate;
+    private LocalDate checkInDate;
+    private LocalDate checkOutDate;
     private double spentMoney;
 
 
@@ -29,10 +30,10 @@ public class Booking {
         this.bookingPassenger= bookingPassenger;
         this.bookedRoom = bookedRoom;
         this.bookingState = bookingState;
-        this.checkInDate = stringToLocalDateTime(checkInDate);  // conversion de String a LocalDateTime
-        this.checkOutDate = stringToLocalDateTime(checkOutDate);
+        this.checkInDate = stringToLocalDate(checkInDate);  // conversion de String a LocalDateTime
+        this.checkOutDate = stringToLocalDate(checkOutDate);
         this.bookingId= shortUUID();
-        this.spentMoney= reservedDays(stringToLocalDateTime(checkInDate),stringToLocalDateTime(checkOutDate))* bookedRoom.getRoomType().getValue(); //inicia con el valor por noche de la habitacion multiplicado por la cantidad de dias que se hospeda
+        this.spentMoney= reservedDays(stringToLocalDate(checkInDate),stringToLocalDate(checkOutDate))* bookedRoom.getRoomType().getValue(); //inicia con el valor por noche de la habitacion multiplicado por la cantidad de dias que se hospeda
 
     }
 
@@ -42,7 +43,7 @@ public class Booking {
     /*[Métodos]*/
 
     // calcular los dias entre checkin y check out
-    public static long reservedDays (LocalDateTime checkInDate, LocalDateTime checkOutDate){
+    public static long reservedDays (LocalDate checkInDate, LocalDate checkOutDate){
 
         long daysBetween= DAYS.between(checkOutDate,checkInDate);
         return daysBetween;
@@ -55,11 +56,11 @@ public class Booking {
         return Long.toString(l, Character.MAX_RADIX);
     }
 
-    public static LocalDateTime stringToLocalDateTime (String date){
+    public static LocalDate stringToLocalDate (String date){
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        LocalDateTime formatDateTime = LocalDateTime.parse(date, formatter);
+        LocalDate formatDateTime = LocalDate.parse(date, formatter);
 
         return formatDateTime;  // agregar .format(formatter) en el toString
 
@@ -96,19 +97,19 @@ public class Booking {
         this.bookedRoom = bookedRoom;
     }
 
-    public LocalDateTime getCheckInDate() {
+    public LocalDate getCheckInDate() {
         return checkInDate;
     }
 
-    public void setCheckInDate(LocalDateTime checkInDate) {
+    public void setCheckInDate(LocalDate checkInDate) {
         this.checkInDate = checkInDate;
     }
 
-    public LocalDateTime getCheckOutDate() {
+    public LocalDate getCheckOutDate() {
         return checkOutDate;
     }
 
-    public void setCheckOutDate(LocalDateTime checkOutDate) {
+    public void setCheckOutDate(LocalDate checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
 
@@ -122,14 +123,14 @@ public class Booking {
 
     @Override
     public String toString() {
-        return "Booking{" +
-                "bookingId='" + bookingId + '\'' +
-                ", bookingPassenger=" + bookingPassenger +
-                ", bookedRoom=" + bookedRoom +
-                ", bookingState=" + bookingState +
-                ", checkInDate=" + checkInDate +
-                ", checkOutDate=" + checkOutDate +
-                ", spentMoney=" + spentMoney +
-                '}';
-    }
+            return "\t [Reserva]\n" +
+                    "Numero de reserva: [" + bookingId + "] \n" +
+                    "Pasajero autor de la reserva: [" + bookingPassenger +"] \n"+
+                    "Habitacion reservada:" + bookedRoom.toString() +"\n"+
+                    "Estado de la reserva: [" + bookingState +"] \n"+
+                    "Día de check in: [" + checkInDate +"]\n"+
+                    "Día de check out: [" + checkOutDate +"]\n"+
+                    "Dinero gastado: [" + spentMoney +"] \n" +
+                    "***";
+        }
 }
