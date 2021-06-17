@@ -111,10 +111,5 @@ public abstract class User
                 "Teléfono: ["+ phoneNumber + "] \n";
     }
 
-   /* //public int compareTo(User o)
-    {
-        return this.getDni().compareTo(o.getDni());
-    }
-*/
 
 }

@@ -15,7 +15,7 @@
     "roomType": "QUAD"
   },
   {
-    "isAvailable": false,
+    "isAvailable": true,
     "roomNumber": 104,
     "roomType": "SINGLE"
   },
@@ -71,7 +71,7 @@
   },
   {
     "isAvailable": true,
-    "roomNumber": 306,
+    "roomNumber": 305,
     "roomType": "TWIN"
   }
 ]

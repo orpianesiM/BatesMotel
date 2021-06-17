@@ -1,5 +1,6 @@
 [
   {
+    "bookingId": "1iv3rp3y1u8v8",
     "bookingPassenger": {
       "origin": "Chaco",
       "originAddress": "Buenos aires",
@@ -10,25 +11,24 @@
       "email": "mercedita@gmail.com",
       "user": "merced",
       "password": "123",
-      "userType": "PASSENGER",
       "phoneNumber": 52363648
     },
     "bookedRoom": {
       "isAvailable": true,
-      "roomNumber": 104,
-      "roomType": "SINGLE"
+      "roomNumber": 303,
+      "roomType": "QUAD"
     },
     "bookingState": "PENDING",
     "checkInDate": {
-      "year": 0,
-      "month": 0,
-      "day": 0
+      "year": 2020,
+      "month": 8,
+      "day": 4
     },
     "checkOutDate": {
-      "year": 0,
-      "month": 0,
-      "day": 0
+      "year": 2020,
+      "month": 8,
+      "day": 9
     },
-    "spentMoney": 0.0
+    "spentMoney": 325.0
   }
 ]

@@ -6,7 +6,6 @@
     "email": "lamari@gmail.com",
     "user": "serra",
     "password": "lima",
-    "userType": "EMPLOYEE",
     "phoneNumber": 223458475
   },
   {
@@ -16,7 +15,6 @@
     "email": "fernandito@gmail.com",
     "user": "fer",
     "password": "nando",
-    "userType": "EMPLOYEE",
     "phoneNumber": 22354214
   }
 ]

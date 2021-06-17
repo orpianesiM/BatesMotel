@@ -57,35 +57,48 @@ public class Hotel
         return false;
     }
 
-    public Room verifyBooking(LocalDate checkIn, LocalDate checkOut, RoomType roomType) {
+    public boolean verifyRoom(LocalDate checkInRequested, LocalDate checkOutRequested, int roomNumber) {
+        boolean flagRoom = false;
 
         if (roomList != null) {
             if (bookingList.isEmpty()) {
-                for (Room rooms : roomList) {
-                    if (rooms.getRoomType().equals(roomType)) return rooms;
-                }
+                return true;
             } else {
-                for (Booking bookedRoom : bookingList) {
-                    if (bookedRoom.getBookedRoom().getRoomType() == roomType && checkIn.isAfter(bookedRoom.getCheckInDate()) && checkOut.isBefore(bookedRoom.getCheckOutDate())) {
-                        return bookedRoom.getBookedRoom();
+                for (Booking bookingPreviouslyMade : bookingList) {
+                    if (bookingPreviouslyMade.getBookedRoom().getRoomNumber() == roomNumber) {
+                        flagRoom = true;
+                        if ((checkOutRequested.isBefore(bookingPreviouslyMade.getCheckInDate()))) {
+                            if (checkInRequested.isAfter(bookingPreviouslyMade.getCheckOutDate())) return false;
+
+                        } else if (!(checkInRequested.isAfter(bookingPreviouslyMade.getCheckOutDate()))) {
+                            if (checkOutRequested.isBefore(bookingPreviouslyMade.getCheckInDate())) return false;
+
+                        }
                     }
+                    return true;
                 }
             }
         }
-        return null;
+        return false;
     }
 
 
-    public Booking makeBooking(String checkIn, String checkOut, RoomType roomType, Passenger bookingPassenger)
+    public Booking makeBooking(LocalDate checkIn, LocalDate checkOut, Passenger bookingPassenger, int roomNumber)
     {
-        Room newRoom = verifyBooking(Booking.stringToLocalDate(checkIn), Booking.stringToLocalDate(checkOut), roomType);
+        Room roomBoked;
 
-        if (newRoom != null) {
-            Booking newBooking = new Booking(bookingPassenger, newRoom, checkIn, checkOut, BookingState.PENDING);
+        if (verifyRoom(checkIn, checkOut, roomNumber)) {
+
+            roomBoked = getRoom(roomNumber);
+
+            Booking newBooking = new Booking(bookingPassenger, roomBoked, checkIn, checkOut, BookingState.PENDING);
             insertBooking(newBooking);
 
             return newBooking;
         }
+        else
+            System.out.println("Esa habitación no esta disponible \n");
+
         return null;
     }
 

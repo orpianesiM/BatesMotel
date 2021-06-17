@@ -2,6 +2,8 @@ package org.example.helpers;
 
 import org.example.entities.*;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public interface IControllerHelper {
@@ -20,7 +22,7 @@ public interface IControllerHelper {
     static boolean messageError () {
         String answ;
         sc.nextLine();             //cleaned buffer
-        System.out.println("Ingreso incorrectamente. Desea volver a intentarlo? S/N");
+        System.out.print("Ingreso incorrectamente. Desea volver a intentarlo? S/N");
         answ = sc.nextLine().toUpperCase();
         if(answ.equals("S")) return true;
         return false;
@@ -29,7 +31,7 @@ public interface IControllerHelper {
     static boolean flowProgram() {
         String answ;
         sc.nextLine();             //cleaned buffer
-        System.out.println("Desea continuar en este menú? S/N");
+        System.out.print("Desea continuar en este menú? S/N");
         answ = sc.nextLine().toUpperCase();
         if(answ.equals("S")) return true;
         return false;
@@ -41,7 +43,7 @@ public interface IControllerHelper {
         Passenger passengerFound;
         do {
             sc.nextLine();             //cleaned buffer
-            System.out.println("Ingrese el DNI: ");
+            System.out.print("Ingrese el DNI: ");
             dni = sc.nextLine();
             passengerFound = hotel.getPassengerbyDni(dni);
             if (passengerFound != null) {
@@ -49,7 +51,7 @@ public interface IControllerHelper {
                 return passengerFound;
             } else {
                 System.out.println("El dni que ingresó es INEXISTENTE");
-                System.out.println("Quiere volver a intentarlo ? S/N");
+                System.out.print("Quiere volver a intentarlo ? S/N");
                 sc.nextLine();             //cleaned buffer
                 flag = sc.nextLine();
             }
@@ -63,7 +65,7 @@ public interface IControllerHelper {
         Booking bookingFound;
         do {
             sc.nextLine();             //cleaned buffer
-            System.out.println("Ingrese el dni del pasajero: ");
+            System.out.print("Ingrese el dni del pasajero: ");
             dni = sc.nextLine();
             bookingFound = hotel.getBookingByDni(dni);
             if (bookingFound != null) {
@@ -71,7 +73,7 @@ public interface IControllerHelper {
                 return bookingFound;
             } else {
                 System.out.println("El dni que fue buscado es INEXISTENTE");
-                System.out.println("Quiere volver a intentarlo ? S/N");
+                System.out.print("Quiere volver a intentarlo ? S/N");
                 sc.nextLine();             //cleaned buffer
                 flag = sc.nextLine();
             }
@@ -86,7 +88,7 @@ public interface IControllerHelper {
         Room roomFound;
         do {
             sc.nextLine();             //cleaned buffer
-            System.out.println("Ingrese la habitación: ");
+            System.out.print("Ingrese la habitación: ");
             roomNum = sc.nextInt();
             roomFound = hotel.getRoom(roomNum);
             if (roomFound != null) {
@@ -94,12 +96,48 @@ public interface IControllerHelper {
                 return roomFound;
             } else {
                 System.out.println("La habitación es INEXISTENTE");
-                System.out.println("Quiere volver a intentarlo ? S/N");
+                System.out.print("Quiere volver a intentarlo ? S/N");
                 sc.nextLine();             //cleaned buffer
                 flag = sc.nextLine();
             }
         } while (flag.equals("S"));
         return null;
     }
+
+ static LocalDate createLocalDate(){
+        int year, month, dayOfMonth;
+        LocalDate localDate=null;
+        do {
+            System.out.print("Año <format:yyyy>: ");
+            year = sc.nextInt();
+            if (year < LocalDate.now().getYear() || year > 2025) {
+                System.out.println("Año incorrecto, vuelva a intentarlo");
+            }
+        }while(year<2020 || year>2025);
+
+        do{
+            System.out.print("Mes <format:m>: ");
+            month = sc.nextInt();
+            if(month>12 || month<1 || month<LocalDate.now().getMonthValue()){
+                System.out.println("Mes incorrecto, vuelva a intentarlo");
+            }
+        }while(month>12 || month<1 || month<LocalDate.now().getMonthValue());
+
+        do{
+            System.out.print("Dia: <format:d>: ");
+            dayOfMonth = sc.nextInt();
+            if(dayOfMonth<1 || dayOfMonth>31){
+                System.out.println("Dia incorrecto, vuelva a intentarlo");
+            }
+        }while(dayOfMonth<1 || dayOfMonth>31);
+
+        try{
+            localDate = LocalDate.of(year,month,dayOfMonth);
+        }catch (DateTimeException e){
+            System.out.println("No fue posible cargar la fecha, vuelva a intentarlo");
+            createLocalDate();
+        }
+        return localDate;
+}
 
 }

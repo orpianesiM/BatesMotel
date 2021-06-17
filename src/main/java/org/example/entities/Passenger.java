@@ -104,17 +104,17 @@ public class Passenger extends User {
 
     @Override
     public String toString() {
-        return "\t [Pasajero] \n\n" +
+        return "\t [Pasajero] \n" +
                 super.toString() +
                 "Origen: [" + origin +"] \n"+
                 "Dirección de origen: [" + originAddress +"] \n"+
-                "Historial: [" + history +"] \n"+;
+                "Historial: [" + history +"] \n";
     }
 
    /**ToString modificado para checkear el historial, llamar clase.detallePasajero **/
     public String detallePasajero() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\t [Pasajero] \n\n")
+        sb.append("\t [Pasajero] \n")
                 .append(super.toString())
                 .append("Origen: [")
                 .append(origin)
@@ -129,10 +129,6 @@ public class Passenger extends User {
         }
         return sb.toString();
     }
-
-
-    /*Equals & HashCode*/
-
 
 }
 

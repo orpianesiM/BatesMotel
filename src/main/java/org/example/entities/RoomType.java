@@ -25,4 +25,4 @@ package org.example.entities;
         }
 
     }
-}
+

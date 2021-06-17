@@ -3,6 +3,7 @@ package org.example.controllers;
 import org.example.entities.*;
 import org.example.helpers.IControllerHelper;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 
@@ -49,10 +50,11 @@ public class ControllerPassenger implements IControllerHelper{
     /*******************************************METHOD*******************************************/
     /*******************************************CONTROLLERS*******************************************/
      private static void optionNewBooking(Hotel hotel){
-         int roomType;
+         int roomType, duration, roomNumber;
          Booking addNewBooking;
          RoomType type = null;
-         String checkInDate, checkOutDate;
+         LocalDate checkInDate;
+
          System.out.println("Enter para continuar..");
         Passenger passengerFound = IControllerHelper.searchPassenger(hotel);
         if(passengerFound!=null){
@@ -81,17 +83,33 @@ public class ControllerPassenger implements IControllerHelper{
                     System.out.println("Ingreso incorrectamente.");
             }
             sc.nextLine();             //cleaned buffer
-            System.out.println("Ingrese el dia de checkIn <format:yyyy-MM-dd>: ");
-            checkInDate = sc.nextLine();
-            System.out.println("Ingrese el dia de checkOut <format:yyyy-MM-dd>: ");
-            checkOutDate = sc.nextLine();
+            System.out.println("Enter para continuar..");
+            roomNumber = roomPicked(hotel, type);
+            System.out.println("Ingrese el dia de checkIn: ");
+            checkInDate = IControllerHelper.createLocalDate();
+            System.out.print("Ingrese cantidad de días a alojarse: ");
+            duration = sc.nextInt();
 
-            addNewBooking = hotel.makeBooking(checkInDate, checkOutDate, type, passengerFound);
+            addNewBooking = hotel.makeBooking(checkInDate, checkInDate.plusDays(duration), passengerFound, roomNumber);
             if(addNewBooking != null){
                 System.out.println("Reserva creada con éxito \n" + addNewBooking.toString());
             }else System.out.println("Error 404");
         }
      }
+
+    private static int roomPicked(Hotel hotel, RoomType type)
+    {
+        int option;
+
+        for (Room variable : hotel.getRoomList()) {
+            if (variable.getRoomType() == type) {
+                System.out.println(variable.toString());
+            }
+        }
+        System.out.println("Escriba el numero de la habitacion que desea reservar: \n");
+        option = sc.nextInt();
+        return option;
+    }
 
      private static void controllerOptionTwo(Hotel hotel) {
          boolean flag = true;

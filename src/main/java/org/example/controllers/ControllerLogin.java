@@ -33,9 +33,9 @@ public class ControllerLogin implements IControllerHelper
             case 2:
                 do {
                     sc.nextLine();             //cleaned buffer
-                    System.out.println("Usuario: ");
+                    System.out.print("Usuario: ");
                     username = sc.nextLine();
-                    System.out.println("Password: ");
+                    System.out.print("Password: ");
                     password = sc.nextLine();
 
                     userFound = isValidUser(username, password, hotel);
@@ -48,11 +48,12 @@ public class ControllerLogin implements IControllerHelper
                         if (!flag) {
                             System.out.println("Desea registrarse ? S/N");
                             sc.nextLine();             //cleaned buffer
+                            System.out.println("Enter para continuar..");
                             answ = sc.nextLine().toUpperCase();
                             if (answ.equals("S")) {
                                 newUser(hotel);
                                 login(hotel);
-                            }
+                            }else System.exit(0);
                         }
                     }
                 } while (flag);
@@ -66,27 +67,26 @@ public class ControllerLogin implements IControllerHelper
 
     public static ArrayList<User> listOfAllUsers(Hotel hotel){
         ArrayList<User> users = new ArrayList<>();
-        ArrayList<Passenger> p = hotel.getPassengerList();
-        ArrayList<Admin> a = hotel.getAdminList();
-        ArrayList<Employee> e = hotel.getEmployeeList();
-        users.addAll(p);
-        users.addAll(a);
-        users.addAll(e);
+
+        users.addAll(hotel.getPassengerList());
+        users.addAll(hotel.getAdminList());
+        users.addAll(hotel.getEmployeeList());
         return users;
     }
 
     public static User isValidUser(String username, String pass, Hotel hotel) {
+        User userFound = null;
         List<User> users = listOfAllUsers(hotel);
-        if (!(users.isEmpty())) {
-            for (User u : users) {
-                if (u.getUser().equals(username)) {
-                    if (u.getPassword().equals(pass)) {
-                        return u;
-                    }
-                }
-            }
-        }
-        return null;
+         if (!users.isEmpty()) {
+             for (User u : users) {
+                     if (u.getUser().equals(username)) {
+                         if (u.getPassword().equals(pass)) {
+                             userFound = u;
+                         }
+                     }
+                 }
+             }
+        return userFound;
     }
 
     public static void newUser(Hotel hotel) {
@@ -97,27 +97,27 @@ public class ControllerLogin implements IControllerHelper
         do {
             System.out.println("*-*-*-*-*-*-*-***Registrarse****-*-*-*-*-*-*");
             sc.nextLine();             //cleaned buffer
-            System.out.println("NOMBRE: ");
+            System.out.print("NOMBRE: ");
             name = sc.nextLine();
-            System.out.println("APELLIDO: ");
+            System.out.print("APELLIDO: ");
             lastName = sc.nextLine();
             dni = validateDni(hotel);           //valido no repetir dni
-            System.out.println("EMAIL: ");
+            System.out.print("EMAIL: ");
             email = sc.nextLine();
-            System.out.println("TELÉFONO: ");
+            System.out.print("TELÉFONO: ");
             phoneNumber = sc.nextLong();
             sc.nextLine();             //cleaned buffer
-            System.out.println("ORIGEN: ");
+            System.out.print("ORIGEN: ");
             origin = sc.nextLine();
-            System.out.println("DIRECCIÓN DE ORIGEN: ");
+            System.out.print("DIRECCIÓN DE ORIGEN: ");
             originAddress = sc.nextLine();
             user = validateUserName(hotel);    //valido no repetir username
-            System.out.println("CONTRASEÑA: ");
+            System.out.print("CONTRASEÑA: ");
             password = sc.nextLine();
 
             /**tiene que ser tipo passenger porque es el unico que va a acceder al metodo para registrarse**/
             Passenger passenger = new Passenger(name, lastName, dni, email, user, password, phoneNumber, origin, originAddress);
-            System.out.println("Datos ingresados: " + passenger);
+            System.out.println("Datos ingresados: " + passenger.detallePasajero());
 
             System.out.println("Los datos son correctos? S/N");
             answ = sc.nextLine().toUpperCase();
@@ -126,14 +126,14 @@ public class ControllerLogin implements IControllerHelper
                     if (add) System.out.println("Usuario creado con exito");
                     if (!add) System.out.println("Error al cargar nuevo usuario");
                 if (hotel.addPassenger(passenger)) ;
-                System.out.println("Usuario creado con éxito!");
+                System.out.println("Usuario agregado con éxito!");
             }
         } while (answ.equals("N"));
     }
 
     public static boolean userNameExist(String username, Hotel hotel) {
         List<User> userSet = listOfAllUsers(hotel);
-        if (!(userSet.isEmpty())) {
+        if (!userSet.isEmpty()) {
             for (User users : userSet) {
                 if (users.getUser().equals(username)) {
                     return true;
@@ -160,7 +160,7 @@ public class ControllerLogin implements IControllerHelper
         String user;
         do {
             sc.nextLine();             //cleaned buffer
-            System.out.println("USUARIO: ");
+            System.out.print("USUARIO: ");
             user = sc.nextLine();
             flag = userNameExist(user,hotel);
             if (flag) System.out.println("El usuario ya existe vuelva a intentarlo");
@@ -173,7 +173,7 @@ public class ControllerLogin implements IControllerHelper
         String dni;
         do {
             sc.nextLine();             //cleaned buffer
-            System.out.println("DNI: ");
+            System.out.print("DNI: ");
             dni = sc.nextLine();
             flag = dniExist(dni, hotel);
             if (flag) System.out.println("El dni ya existe vuelva a intentarlo");

@@ -24,17 +24,14 @@ public class Booking {
 
     /*[Constructores]*/
 
-    public Booking(Passenger bookingPassenger , Room bookedRoom, String checkInDate, String checkOutDate, BookingState bookingState) {
-
-
+    public Booking(Passenger bookingPassenger , Room bookedRoom, LocalDate checkInDate, LocalDate checkOutDate, BookingState bookingState) {
         this.bookingPassenger= bookingPassenger;
         this.bookedRoom = bookedRoom;
         this.bookingState = bookingState;
-        this.checkInDate = stringToLocalDate(checkInDate);  // conversion de String a LocalDateTime
-        this.checkOutDate = stringToLocalDate(checkOutDate);
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
         this.bookingId= shortUUID();
-        this.spentMoney= reservedDays(stringToLocalDate(checkInDate),stringToLocalDate(checkOutDate))* bookedRoom.getRoomType().getValue(); //inicia con el valor por noche de la habitacion multiplicado por la cantidad de dias que se hospeda
-
+        this.spentMoney= reservedDays(checkInDate, checkOutDate)* bookedRoom.getRoomType().getValue(); //inicia con el valor por noche de la habitacion multiplicado por la cantidad de dias que se hospeda
     }
 
     public Booking() {
@@ -44,8 +41,7 @@ public class Booking {
 
     // calcular los dias entre checkin y check out
     public static long reservedDays (LocalDate checkInDate, LocalDate checkOutDate){
-
-        long daysBetween= DAYS.between(checkOutDate,checkInDate);
+        long daysBetween= DAYS.between(checkInDate,checkOutDate);
         return daysBetween;
     }
 
@@ -54,16 +50,6 @@ public class Booking {
         UUID uuid = UUID.randomUUID();
         long l = ByteBuffer.wrap(uuid.toString().getBytes()).getLong();
         return Long.toString(l, Character.MAX_RADIX);
-    }
-
-    public static LocalDate stringToLocalDate (String date){
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        LocalDate formatDateTime = LocalDate.parse(date, formatter);
-
-        return formatDateTime;  // agregar .format(formatter) en el toString
-
     }
 
 
@@ -125,7 +111,7 @@ public class Booking {
     public String toString() {
             return "\t [Reserva]\n" +
                     "Numero de reserva: [" + bookingId + "] \n" +
-                    "Pasajero autor de la reserva: [" + bookingPassenger +"] \n"+
+                    "Pasajero autor de la reserva: " + bookingPassenger +" \n"+
                     "Habitacion reservada:" + bookedRoom.toString() +"\n"+
                     "Estado de la reserva: [" + bookingState +"] \n"+
                     "Día de check in: [" + checkInDate +"]\n"+
