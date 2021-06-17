@@ -40,7 +40,7 @@ public class ControllerLogin implements IControllerHelper
 
                     userFound = isValidUser(username, password, hotel);
                     if (userFound != null) {
-                        if(userFound instanceof Passenger) ControllerPassenger.controllerMenuPrincipal(hotel);
+                        if(userFound instanceof Passenger) ControllerPassenger.controllerMenuPrincipal(hotel, (Passenger) userFound);
                         if(userFound instanceof Admin) ControllerAdmin.controllerMenuHotel(hotel);
                         if(userFound instanceof Employee) ControllerEmployee.controllerMenuEmployee(hotel);
                     }else {

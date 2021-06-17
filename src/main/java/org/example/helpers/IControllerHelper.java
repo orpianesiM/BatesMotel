@@ -21,6 +21,7 @@ public interface IControllerHelper {
 
     static boolean messageError () {
         String answ;
+        System.out.println("Enter para continuar..");
         sc.nextLine();             //cleaned buffer
         System.out.print("Ingreso incorrectamente. Desea volver a intentarlo? S/N");
         answ = sc.nextLine().toUpperCase();
@@ -30,6 +31,7 @@ public interface IControllerHelper {
 
     static boolean flowProgram() {
         String answ;
+        System.out.println("Enter para continuar..");
         sc.nextLine();             //cleaned buffer
         System.out.print("Desea continuar en este menú? S/N");
         answ = sc.nextLine().toUpperCase();
@@ -42,6 +44,7 @@ public interface IControllerHelper {
         String dni;
         Passenger passengerFound;
         do {
+            System.out.println("Enter para continuar..");
             sc.nextLine();             //cleaned buffer
             System.out.print("Ingrese el DNI: ");
             dni = sc.nextLine();
@@ -64,6 +67,7 @@ public interface IControllerHelper {
         String dni;
         Booking bookingFound;
         do {
+            System.out.println("Enter para continuar..");
             sc.nextLine();             //cleaned buffer
             System.out.print("Ingrese el dni del pasajero: ");
             dni = sc.nextLine();
@@ -87,6 +91,7 @@ public interface IControllerHelper {
         int roomNum;
         Room roomFound;
         do {
+            System.out.println("Enter para continuar..");
             sc.nextLine();             //cleaned buffer
             System.out.print("Ingrese la habitación: ");
             roomNum = sc.nextInt();
@@ -110,7 +115,7 @@ public interface IControllerHelper {
         do {
             System.out.print("Año <format:yyyy>: ");
             year = sc.nextInt();
-            if (year < LocalDate.now().getYear() || year > 2025) {
+            if (year > 2025 || year<2020) {
                 System.out.println("Año incorrecto, vuelva a intentarlo");
             }
         }while(year<2020 || year>2025);

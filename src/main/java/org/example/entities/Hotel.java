@@ -1,12 +1,10 @@
 package org.example.entities;
 
 import org.example.helpers.FileHelper;
-
-import java.io.File;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -149,23 +147,6 @@ public class Hotel
             }
         }
         return null;
-    }
-
-    public boolean checkDateAvailability(LocalDate lookedDate)
-    {
-        if (bookingList == null) {
-            return true;
-        }
-        else {
-            for (Booking variable : bookingList) {
-                if (variable.getCheckInDate() == lookedDate) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
     }
 
     public boolean checkIn(Booking booking)
