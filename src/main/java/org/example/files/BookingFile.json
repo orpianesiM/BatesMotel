@@ -1,5 +1,37 @@
 [
   {
+    "bookingId": "qdvhlghhlkjc",
+    "bookingPassenger": {
+      "origin": "Mar del Plata",
+      "originAddress": "J.B.Justo 220",
+      "history": [],
+      "name": "mmar",
+      "lastName": "123",
+      "dni": "39834705",
+      "email": "orpianesi.mar@gmail.com",
+      "user": "mmar",
+      "password": "123",
+      "phoneNumber": 2236087161
+    },
+    "bookedRoom": {
+      "isAvailable": true,
+      "roomNumber": 105,
+      "roomType": "TWIN"
+    },
+    "bookingState": "PENDING",
+    "checkInDate": {
+      "year": 2021,
+      "month": 6,
+      "day": 18
+    },
+    "checkOutDate": {
+      "year": 2021,
+      "month": 6,
+      "day": 20
+    },
+    "spentMoney": 70.0
+  },
+  {
     "bookingId": "1iv3rp3y1u8v8",
     "bookingPassenger": {
       "origin": "Chaco",
@@ -30,5 +62,121 @@
       "day": 9
     },
     "spentMoney": 374.0
+  },
+  {
+    "bookingId": "rhtzs07kmo1g",
+    "bookingPassenger": {
+      "origin": "Mar del Plata",
+      "originAddress": "J.B.Justo 220",
+      "history": [],
+      "name": "mmar",
+      "lastName": "123",
+      "dni": "39834705",
+      "email": "orpianesi.mar@gmail.com",
+      "user": "mmar",
+      "password": "123",
+      "phoneNumber": 2236087161
+    },
+    "bookedRoom": {
+      "isAvailable": true,
+      "roomNumber": 105,
+      "roomType": "TWIN"
+    },
+    "bookingState": "PENDING",
+    "checkInDate": {
+      "year": 2021,
+      "month": 6,
+      "day": 20
+    },
+    "checkOutDate": {
+      "year": 2021,
+      "month": 6,
+      "day": 22
+    },
+    "spentMoney": 70.0
+  },
+  {
+    "bookingId": "urv62jt72fkx",
+    "bookingPassenger": {
+      "origin": "Mar del Plata",
+      "originAddress": "J.B.Justo 220",
+      "history": [
+        {
+          "ID": "vbhf1u2kv86o",
+          "checkInDate": {
+            "year": 2021,
+            "month": 6,
+            "day": 17
+          },
+          "checkOutDate": {
+            "year": 2021,
+            "month": 6,
+            "day": 19
+          },
+          "roomUsed": {
+            "isAvailable": true,
+            "roomNumber": 202,
+            "roomType": "MATRIMONIAL"
+          },
+          "moneyPaid": 90.0
+        }
+      ],
+      "name": "mmar",
+      "lastName": "123",
+      "dni": "39834705",
+      "email": "orpianesi.mar@gmail.com",
+      "user": "mmar",
+      "password": "123",
+      "phoneNumber": 2236087161
+    },
+    "bookedRoom": {
+      "isAvailable": true,
+      "roomNumber": 202,
+      "roomType": "MATRIMONIAL"
+    },
+    "bookingState": "FINALIZED",
+    "checkInDate": {
+      "year": 2021,
+      "month": 6,
+      "day": 17
+    },
+    "checkOutDate": {
+      "year": 2021,
+      "month": 6,
+      "day": 19
+    },
+    "spentMoney": 90.0
+  },
+  {
+    "bookingId": "uv6djnef3x9v",
+    "bookingPassenger": {
+      "origin": "Mar del Plata",
+      "originAddress": "J.B.Justo 220",
+      "history": [],
+      "name": "mmar",
+      "lastName": "123",
+      "dni": "39834705",
+      "email": "orpianesi.mar@gmail.com",
+      "user": "mmar",
+      "password": "123",
+      "phoneNumber": 2236087161
+    },
+    "bookedRoom": {
+      "isAvailable": true,
+      "roomNumber": 105,
+      "roomType": "TWIN"
+    },
+    "bookingState": "PENDING",
+    "checkInDate": {
+      "year": 2021,
+      "month": 6,
+      "day": 19
+    },
+    "checkOutDate": {
+      "year": 2021,
+      "month": 6,
+      "day": 20
+    },
+    "spentMoney": 35.0
   }
 ]

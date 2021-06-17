@@ -3,6 +3,7 @@ package org.example.controllers;
 import org.example.entities.*;
 import org.example.helpers.IControllerHelper;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
@@ -60,10 +61,11 @@ public class ControllerEmployee implements IControllerHelper {
     private static void controllerCheckIn(Hotel hotel){
         boolean flag = false;
         Booking bookingToCheckIn = IControllerHelper.searchBooking(hotel);
-        if(bookingToCheckIn != null && bookingToCheckIn.getCheckInDate().equals(LocalDateTime.now())){
+        if(bookingToCheckIn != null && bookingToCheckIn.getCheckInDate().equals(LocalDate.now())){
             flag = hotel.checkIn(bookingToCheckIn);
 
         }else System.out.println("No se puede realizar check in");
+
         if(flag) System.out.println("Check in realizado con éxito!");
     }
 
@@ -77,7 +79,7 @@ public class ControllerEmployee implements IControllerHelper {
                 flag = hotel.checkOut(bookingToCheckOut);
                 if (flag) System.out.println("La habitación fue liberada");
                 else System.out.println("ERROR. La habitación no esta ocupada");
-            }
+            }else System.out.println("No ha sido posible realizar checkout. Compruebe la fecha.");
         }
     }
 

@@ -55,16 +55,40 @@ public class Hotel
         return false;
     }
 
-    public boolean verifyRoom(LocalDate checkInRequested, LocalDate checkOutRequested, int roomNumber) {
-        boolean flagRoom = false;
+    public boolean verifyRoom(LocalDate checkInRequested, LocalDate checkOutRequested, int roomNumber)
+    {
+        if (roomList != null) {
+            if (bookingList.isEmpty()) {
+                return true;
+            }
+            else {
+                for (Booking bookingPreviouslyMade : bookingList) {
+                    if (bookingPreviouslyMade.getBookedRoom().getRoomNumber() == roomNumber) {
 
+                        if (checkInRequested.isAfter(bookingPreviouslyMade.getCheckInDate()) && checkInRequested.isBefore(bookingPreviouslyMade.getCheckOutDate())) {
+                            return false;
+                        }
+                        else if (checkOutRequested.isAfter(bookingPreviouslyMade.getCheckInDate()) && checkOutRequested.isBefore(bookingPreviouslyMade.getCheckOutDate())) {
+                            return false;
+                        }
+                        else if (checkInRequested.isEqual(bookingPreviouslyMade.getCheckInDate()) && checkOutRequested.isEqual(bookingPreviouslyMade.getCheckOutDate()))
+                            return false;
+
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    /*
+    public boolean verifyRoom(LocalDate checkInRequested, LocalDate checkOutRequested, int roomNumber) {
         if (roomList != null) {
             if (bookingList.isEmpty()) {
                 return true;
             } else {
                 for (Booking bookingPreviouslyMade : bookingList) {
                     if (bookingPreviouslyMade.getBookedRoom().getRoomNumber() == roomNumber) {
-                        flagRoom = true;
                         if ((checkOutRequested.isBefore(bookingPreviouslyMade.getCheckInDate()))) {
                             if (checkInRequested.isAfter(bookingPreviouslyMade.getCheckOutDate())) return false;
 
@@ -78,7 +102,7 @@ public class Hotel
             }
         }
         return false;
-    }
+    }*/
 
 
     public Booking makeBooking(LocalDate checkIn, LocalDate checkOut, Passenger bookingPassenger, int roomNumber)
@@ -153,15 +177,15 @@ public class Hotel
     {
         if (roomList != null) {
             for (Room variable : roomList) {
-                if (booking.getBookedRoom().equals(variable)) {
-                    changeRoomAvailability(variable);
+                if (booking.getBookedRoom().getRoomNumber() == variable.getRoomNumber()) {
+                    if (booking.getBookedRoom().isAvailable()) {
+                        booking.getBookedRoom().setAvailable(false);
+                    } else booking.getBookedRoom().setAvailable(true);
                     booking.setBookingState(BookingState.INITIATED);
                     return true;
                 }
             }
-
         }
-
         return false;
     }
 
@@ -169,11 +193,12 @@ public class Hotel
     {
         if (roomList != null) {
             for (Room variable : roomList) {
-                if (booking.getBookedRoom().equals(variable)) {
-
-                    changeRoomAvailability(variable);
+                if (booking.getBookedRoom().getRoomNumber() == variable.getRoomNumber()) {
+                    if (booking.getBookedRoom().isAvailable()) {
+                        booking.getBookedRoom().setAvailable(false);
+                    } else booking.getBookedRoom().setAvailable(true);
                     booking.setBookingState(BookingState.FINALIZED);
-                    booking.getBookingPassenger().setHistory(getTicket(booking.getBookingId()));
+                    booking.getBookingPassenger().setHistory(getTicket(booking.getBookingPassenger().getDni()));
 
                     return true;
 
@@ -276,16 +301,6 @@ public class Hotel
         }
     }
 
-
-
-    public void changeRoomAvailability(Room roomChanged)
-    {
-        if (roomChanged.isAvailable()) {
-            roomChanged.setAvailable(false);
-        }
-        else
-            roomChanged.setAvailable(true);
-    }
 
 
     public void uploadRooms()

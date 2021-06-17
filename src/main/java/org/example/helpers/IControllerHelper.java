@@ -118,7 +118,7 @@ public interface IControllerHelper {
             if (year > 2025 || year<2020) {
                 System.out.println("Año incorrecto, vuelva a intentarlo");
             }
-        }while(year<2020 || year>2025);
+        }while(year<2021 || year>2025);
 
         do{
             System.out.print("Mes <format:m>: ");

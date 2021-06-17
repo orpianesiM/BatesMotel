@@ -97,12 +97,12 @@ public class ControllerPassenger implements IControllerHelper{
          System.out.println("Desea enviar la reserva? S/N");
          option = sc.nextLine().toUpperCase();
 
-         while (option.equals("S")) {
+         if(option.equals("S")) {
              addNewBooking = hotel.makeBooking(checkInDate, checkInDate.plusDays(duration), passenger, roomNumber);
              if (addNewBooking != null) {
                  System.out.println("Reserva creada con éxito \n" + addNewBooking.toString());
              } else System.out.println("Error 404");
-         }
+         }else System.out.println("Reserva cancelada");
      }
 
     private static int roomPicked(Hotel hotel, RoomType type)
@@ -113,16 +113,17 @@ public class ControllerPassenger implements IControllerHelper{
         for (Room variable : hotel.getRoomList()) {
             if (variable.getRoomType() == type) System.out.println(variable.toString());
         }
-       // do {
+       do {
             System.out.print("Escriba el numero de la habitación que desea reservar: ");
             option = sc.nextInt();
-         /*   for (Room r : hotel.getRoomList()) {
-                if (option != r.getRoomNumber()) {
-                    flag=false;
-                }else flag=true;
+           for (Room r : hotel.getRoomList()) {
+               if (option == r.getRoomNumber()){
+                   return option;
+               }
+               else flag = false;
             }
             if(!flag) System.out.println("Debe ingresar un numero de habitación correcto");
-        }while(!flag);*/
+        }while(!flag);
 
         return option;
     }
